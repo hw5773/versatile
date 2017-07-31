@@ -16,7 +16,6 @@ void proto_register_flex(void);
 void proto_reg_handoff_flex(void);
 
 static int proto_flex = -1;
-static int hf_flex_test = -1;
 
 static gint ett_flex = -1;
 

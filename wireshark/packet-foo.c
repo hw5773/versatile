@@ -5,6 +5,8 @@
 #define FOO_PORT 1234
 
 static int proto_foo = -1;
+static int hf_foo_pdu_type = -1;
+static gint ett_foo = -1;
 
 static int
 dissect_foo(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree _U_, void *data _U_)
@@ -12,17 +14,35 @@ dissect_foo(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree _U_, void *data 
 	col_set_str(pinfo->cinfo, COL_PROTOCOL, "FOO");
 	col_clear(pinfo->cinfo, COL_INFO);
 
+	proto_item *ti = proto_tree_add_item(tree, proto_foo, tvb, 0, -1, ENC_NA);
+
 	return tvb_captured_length(tvb);
 }
 
 void 
 proto_register_foo(void)
 {
+	static hf_register_info hf[] = {
+		{ &hf_foo_pdu_type,
+			{ "FOO PDU Type", "foo.type", 
+			FT_UINT16, BASE_HEX, 
+			NULL, 0x0,
+			"Test code", HFILL }
+		}
+	};
+
+	static gint *ett[] = {
+		&ett_foo
+	};
+
 	proto_foo = proto_register_protocol (
 		"FOO Protocol",
 		"FOO",
 		"foo"
 		);
+
+	proto_register_field_array(proto_foo, hf, array_length(hf));
+	proto_register_subtree_array(ett, array_length(ett));
 }
 
 void 

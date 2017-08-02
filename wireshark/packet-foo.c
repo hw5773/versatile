@@ -15,6 +15,8 @@ dissect_foo(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree _U_, void *data 
 	col_clear(pinfo->cinfo, COL_INFO);
 
 	proto_item *ti = proto_tree_add_item(tree, proto_foo, tvb, 0, -1, ENC_NA);
+	proto_tree *foo_tree = proto_item_add_subtree(ti, ett_foo);
+	proto_tree_add_item(foo_tree, hf_foo_pdu_type, tvb, 0, 1, ENC_BIG_ENDIAN);
 
 	return tvb_captured_length(tvb);
 }
@@ -24,10 +26,10 @@ proto_register_foo(void)
 {
 	static hf_register_info hf[] = {
 		{ &hf_foo_pdu_type,
-			{ "FOO PDU Type", "foo.type", 
-			FT_UINT16, BASE_HEX, 
+			{ "FOO Test field", "foo.type",
+			FT_UINT32, BASE_HEX,
 			NULL, 0x0,
-			"Test code", HFILL }
+			NULL, HFILL }
 		}
 	};
 
@@ -36,9 +38,9 @@ proto_register_foo(void)
 	};
 
 	proto_foo = proto_register_protocol (
-		"FOO Protocol",
+		"Foo Protocol",
 		"FOO",
-		"foo"
+		"flex"
 		);
 
 	proto_register_field_array(proto_foo, hf, array_length(hf));

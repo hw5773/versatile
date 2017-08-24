@@ -35,6 +35,10 @@
 #define FLEX_1_0_MINOR 	0x00
 
 /* Flags */
+#define FLEX_PTC		0x8000
+#define FLEX_DF			0x4000
+#define FLEX_MF			0x2000
+#define FLEX_OFFSET		0x1FFF
 
 /* Packet Type 
  * begin with 00 is for control plane messages, 01 is for control plane ack

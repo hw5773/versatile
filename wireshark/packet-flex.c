@@ -81,58 +81,69 @@ proto_register_foo(void)
 {
 	static hf_register_info hf[] = {
 		{ &hf_flex_version,
-			{ "Version", "flex.version",
-			FT_UINT8, BASE_HEX,
-			VALS(version), 0x0,
-			NULL, HFILL }
+			{ "Version", "flex.version", FT_UINT8, BASE_HEX,
+			VALS(version), 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_packet_type
-			{ "Packet Type", "flex.packet_type",
-			FT_UINT8, BASE_HEX,
-			VALS(packet_type), 0x0,
-			NULL, HFILL}
+			{ "Packet Type", "flex.packet_type", FT_UINT8, BASE_HEX,
+			VALS(packet_type), 0x0, NULL, HFILL}
 		},
 		{ &hf_flex_hash_type,
-			{ "Hash Type", "flex.hash_type",
-			FT_UINT8, BASE_HEX,
-			NULL, 0x0,
-			NULL, HFILL }
+			{ "Hash Type", "flex.hash_type", FT_UINT8, BASE_HEX,
+			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_hop_limit,
-			{ "Hop limit", "flex.hop_limit",
-			FT_UINT8, BASE_DEC,
-			NULL, 0x0,
-			NULL, HFILL }
+			{ "Hop limit", "flex.hop_limit", FT_UINT8, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_header_length,
-			{ "Header Length", "flex.header_length",
-			FT_UINT8, BASE_DEC,
-			NULL, 0x0,
-			NULL, HFILL }
+			{ "Header Length", "flex.header_length", FT_UINT8, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_checksum,
-			{ "Checksum", "flex.checksum",
-			FT_UINT8, BASE_HEX,
-			NULL, 0x0,
-			NULL, HFILL }
+			{ "Checksum", "flex.checksum", FT_UINT8, BASE_HEX,
+			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_packet_id,
-			{ "Packet ID", "flex.packet_id",
-			FT_UINT16, BASE_HEX,
-			NULL, 0x0,
-			NULL, HFILL }
+			{ "Packet ID", "flex.packet_id", FT_UINT16, BASE_HEX,
+			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_ptc,
-			{ "PTC", "flex.ptc",
-			FT_BOOLEAN, 8,
-			NULL, FLEX_PTC,
-			NULL, HFILL }
+			{ "PTC", "flex.flags.ptc", FT_BOOLEAN, BASE_NONE,
+			TFS(&tfs_set_notset), 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_df,
+			{ "Don't fragment", "flex.flags.df", FT_BOOLEAN, BASE_NONE,
+			TFS(&tfs_set_notset), 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_mf,
+			{ "More fragments", "flex.flags.mf", FT_BOOLEAN, BASE_NONE,
+			TFS(&tfs_set_notset), 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_frag_offset,
+			{ "Fragment offset", "flex.frag_offset", FT_UINT16, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_src_id,
+			{ "Flex ID Source", "flex.src_id", FT_STRING, BASE_NONE,
+			NULL, 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_dst_id,
+			{ "Flex ID Destination", "flex.dst_id", FT_STRING, BASE_NONE,
+			NULL, 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_packet_length,
+			{ "Packet Length", "flex.packet_length", FT_UINT16, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_sequence,
+			{ "Sequence", "flex.sequence", FT_UINT32, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
+		},
+		{ &hf_flex_acknowledge,
+			{ "Acknowledge", "flex.acknowledge", FT_UINT32, BASE_DEC,
+			NULL, 0x0, NULL, HFILL }
 		}
-		/* Need to add fields for
-		 * hf_flex_ptc, hf_flex_df, hf_flex_mf, hf_flex_frag_offset, 
-		 * hf_flex_src_id, hf_flex_dst_id, hf_flex_packet_length,
-		 * hf_flex_sequence, hf_flex_acknowledge
-		*/
 	};
 
 	static gint *ett[] = {

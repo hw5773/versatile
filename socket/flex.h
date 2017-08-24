@@ -74,26 +74,26 @@ extern int flex_rcv(struct sk_buff *, struct net_device *,
 			struct packet_type *, struct net_device *);
 
 /* flex_common.c */
-static int flex_release(struct socket *);
-static int flex_bind(struct socket *, struct sockaddr *, int);
-static int flex_getname(struct socket *, struct sockaddr *, int *, int);
-static int flex_ioctl(struct socket *, unsigned int, unsigned long);
-static int flex_shutdown(struct socket *, int);
-static int flex_setsockopt(struct socket *, int level, int optname, 
+extern int flex_release(struct socket *);
+extern int flex_bind(struct socket *, struct sockaddr *, int);
+extern int flex_getname(struct socket *, struct sockaddr *, int *, int);
+extern int flex_ioctl(struct socket *, unsigned int, unsigned long);
+extern int flex_shutdown(struct socket *, int);
+extern int flex_setsockopt(struct socket *, int level, int optname, 
 		char __user *optval, unsigned int optlen);
-static int flex_getsockopt(struct socket *, int level, int optname, 
+extern int flex_getsockopt(struct socket *, int level, int optname, 
 		char __user *optval, int __user *optlen);
 
 /* flex_reliable.c */
-static int flex_reliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
-static int flex_accept(struct socket *, struct socket *, int);
-static unsigned int flex_reliable_poll(struct file *, struct socket *, poll_table *);
-static int flex_listen(struct socket *, int backlog);
-static int flex_reliable_sendmsg(struct kiocb *, struct socket *, struct msghdr *, size_t);
-static int flex_reliable_recvmsg(struct kiocb *, struct socket *, struct msghdr *, size_t, int);
+extern int flex_reliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
+extern int flex_accept(struct socket *, struct socket *, int);
+extern unsigned int flex_reliable_poll(struct file *, struct socket *, poll_table *);
+extern int flex_listen(struct socket *, int backlog);
+extern int flex_reliable_sendmsg(struct socket *, struct msghdr *, size_t);
+extern int flex_reliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
 
 /* flex_unreliable.c */
-static int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
-static unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *);
-static int flex_unreliable_sendmsg(struct kiocb *, struct socket *, struct msghdr *, size_t);
-static int flex_unreliable_recvmsg(struct kiocb *, struct socket *, struct msghdr *, size_t, int);
+extern int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
+extern unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *);
+extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t);
+extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);

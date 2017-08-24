@@ -22,22 +22,26 @@
 
 #include "flex.h"
 
-static int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags)
+int flex_unreliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
 {
 	FLEX_LOG("Unreliable Connect");
+	return 0;
 }
 
-static unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *)
+unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)
 {
 	FLEX_LOG("Unreliable Polling");
+	return 0;
 }
 
-static int flex_unreliable_sendmsg(struct kiocb *, struct socket *, struct msghdr *, size_t)
+int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	FLEX_LOG("Send the unreliable message");
+	return 0;
 }
 
-static int flex_unreliable_recvmsg(struct kiocb *, struct socket *, struct msghdr *, size_t, int)
+int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
 	FLEX_LOG("Receive the unreliable message");
+	return 0;
 }

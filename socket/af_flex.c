@@ -78,8 +78,8 @@ static const struct proto_ops flex_unreliable_ops = {
 
 static int flex_create(struct net *net, struct socket *sock, int protocol, int kern)
 {
-	struct sock *sk;
-	struct flex_sock *flex;
+	//struct sock *sk;
+	//struct flex_sock *flex;
 
 	FLEX_LOG("Enter the flex protocol creator");
 

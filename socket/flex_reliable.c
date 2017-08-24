@@ -22,32 +22,38 @@
 
 #include "flex.h"
 
-static int flex_reliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags)
+int flex_reliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
 {
 	FLEX_LOG("Reliable Connect");
+	return 0;
 }
 
-static int flex_accept(struct socket *, struct socket *, int)
+int flex_accept(struct socket *sock, struct socket *newsock, int flags)
 {
 	FLEX_LOG("Accept");
+	return 0;
 }
 
-static unsigned int flex_reliable_poll(struct file *, struct socket *, poll_table *)
+unsigned int flex_reliable_poll(struct file *file, struct socket *sock, poll_table *wait)
 {
 	FLEX_LOG("Reliable Polling");
+	return 0;
 }
 
-static int flex_listen(struct socket *, int backlog)
+int flex_listen(struct socket *sock, int backlog)
 {
 	FLEX_LOG("Listen");
+	return 0;
 }
 
-static int flex_reliable_sendmsg(struct kiocb *, struct socket *, struct msghdr *, size_t)
+int flex_reliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	FLEX_LOG("Send the reliable message");
+	return 0;
 }
 
-static int flex_reliable_recvmsg(struct kiocb *, struct socket *, struct msghdr *, size_t, int)
+int flex_reliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
 	FLEX_LOG("Receive the reliable message");
+	return 0;
 }

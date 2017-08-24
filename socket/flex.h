@@ -9,6 +9,9 @@
 #define PROTOCOL_AUTHOR	"Hyunwoo Lee <hwlee2014@mmlab.snu.ac.kr>, Hyeonmin Lee <hmlee@mmlab.snu.ac.kr>, Dongjun Lee <djlee@mmlab.snu.ac.kr>, Hyunchul Oh <hcoh@mmlab.snu.ac.kr>"
 #define PROTOCOL_DESC	"Flex Protocol"
 
+#define FLEX_LOG(msg) \
+	printk(KERN_INFO "[Flex] %s: %s\n", __func__, msg)
+
 /* Address Family & Protocol Family 
  * 38 is collide with PF_ALG (if it is set, a Flex socket won't be set.)
  */

@@ -63,24 +63,24 @@ static const struct net_proto_family flex_family_ops = {
 
 static void __exit af_flex_exit(void)
 {
-	printk(KERN_INFO "[Flex] %s: Enter the flex protocol destructor\n", __func__);
+	FLEX_LOG("Enter the flex protocol destructor");
 	dev_remove_pack(&flex_packet_type);
-	printk(KERN_INFO "[Flex] %s: Remove the flex packet success!\n", __func__);
-	proto_unregister(&flex_proto);
-	printk(KERN_INFO "[Flex] %s: Unregister the flex protocol\n", __func__);
+	FLEX_LOG("Remove the flex packet success!");
+//	proto_unregister(&flex_proto);
+//	printk(KERN_INFO "[Flex] %s: Unregister the flex protocol\n", __func__);
 	sock_unregister(AF_FLEX);
-	printk(KERN_INFO "[Flex] %s: Unregister the flex socket\n", __func__);
+	FLEX_LOG("Unregister the flex socket");
 }
 
 static int __init af_flex_init(void)
 {
 	int rc;
-	printk(KERN_INFO "[Flex] %s: Enter the flex protocol initializer\n", __func__);
+	FLEX_LOG("Enter the flex protocol initializer");
 	rc = proto_register(&flex_proto, 1);
 
 	if (rc != 0)
 	{
-		printk(KERN_CRIT "[Flex] %s: Cannot create flex_sock SLAB cache!\n", __func__);
+		FLEX_LOG("Cannot create flex_sock SLAB cache!");
 		goto out;
 	}
 
@@ -88,13 +88,13 @@ static int __init af_flex_init(void)
 
 	if (rc != 0)
 	{
-		printk(KERN_CRIT "[Flex] %s: Cannot register flex socket!\n", __func__);
+		FLEX_LOG("Cannot register flex socket!");
 		goto out_proto;
 	}
 
 	dev_add_pack(&flex_packet_type);
 
-	printk(KERN_INFO "[Flex] The Protocal and Socket for Flex ID are registered\n");
+	FLEX_LOG("The Protocal and Socket for Flex ID are registered");
 
 out_proto:
 	proto_unregister(&flex_proto);

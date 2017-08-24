@@ -34,12 +34,71 @@
 
 #include "flex.h"
 
-//#define PF_FLEX PF_PACKET
-//#define AF_FLEX AF_PACKET
+static const struct proto_ops flex_reliable_ops = {
+	.family		=	PF_FLEX,
+	.owner		=	THIS_MODULE,
+	.release	=	flex_release,
+	.bind		=	flex_bind,
+	.connect	=	flex_reliable_connect,
+	.socketpair	=	sock_no_socketpair,
+	.accept		=	flex_accept,
+	.getname	=	flex_getname,
+	.poll		=	flex_reliable_poll,
+	.ioctl		=	flex_ioctl,
+	.listen		=	flex_listen,
+	.shutdown	=	flex_shutdown,
+	.setsockopt	=	flex_setsockopt,
+	.getsockopt	=	flex_getsockopt,
+	.sendmsg	=	flex_reliable_sendmsg,
+	.recvmsg	=	flex_reliable_recvmsg,
+	.mmap		=	sock_no_mmap,
+	.sendpage	=	sock_no_sendpage,
+};
+
+static const struct proto_ops flex_unreliable_ops = {
+	.family		=	PF_FLEX,
+	.owner		=	THIS_MODULE,
+	.release	=	flex_release,
+	.bind		=	flex_bind,
+	.connect	=	flex_unreliable_connect,
+	.socketpair	=	sock_no_socketpair,
+	.accept		=	sock_no_accept,
+	.getname	=	flex_getname,
+	.poll		=	flex_unreliable_poll,
+	.ioctl		=	flex_ioctl,
+	.listen		=	sock_no_listen,
+	.shutdown	=	flex_shutdown,
+	.setsockopt	=	flex_setsockopt,
+	.getsockopt	=	flex_getsockopt,
+	.sendmsg	=	flex_unreliable_sendmsg,
+	.recvmsg	=	flex_unreliable_recvmsg,
+	.mmap		=	sock_no_mmap,
+	.sendpage	=	sock_no_sendpage,
+};
 
 static int flex_create(struct net *net, struct socket *sock, int protocol, int kern)
 {
-	printk(KERN_INFO "[Flex] %s: Enter the flex protocol creator\n", __func__);
+	struct sock *sk;
+	struct flex_sock *flex;
+
+	FLEX_LOG("Enter the flex protocol creator");
+
+	if (protocol && protocol != PF_FLEX)
+		return -EPROTONOSUPPORT;
+
+	sock->state = SS_UNCONNECTED;
+
+	switch (sock->type) {
+	case SOCK_STREAM:
+		sock->ops = &flex_reliable_ops;
+		break;
+	case SOCK_DGRAM:
+		sock->ops = &flex_unreliable_ops;
+		break;
+	default:
+		return -ESOCKTNOSUPPORT;
+	}
+
 	return 0;
 }
 
@@ -66,8 +125,6 @@ static void __exit af_flex_exit(void)
 	FLEX_LOG("Enter the flex protocol destructor");
 	dev_remove_pack(&flex_packet_type);
 	FLEX_LOG("Remove the flex packet success!");
-//	proto_unregister(&flex_proto);
-//	printk(KERN_INFO "[Flex] %s: Unregister the flex protocol\n", __func__);
 	sock_unregister(AF_FLEX);
 	FLEX_LOG("Unregister the flex socket");
 }

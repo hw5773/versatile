@@ -76,30 +76,71 @@ static const struct proto_ops flex_unreliable_ops = {
 	.sendpage	=	sock_no_sendpage,
 };
 
+static struct sock *flex_alloc_socket(struct net *net)
+{
+	struct flex_sock *flex;
+	struct sock *sk = sk_alloc(net, AF_FLEX, GFP_ATOMIC, &flex_proto);
+
+	FLEX_LOG("Enter the flex socket allocator");
+
+	if (!sk)
+		goto out;
+
+	sock_init_data(NULL, sk);
+
+	flex = flex_sk(sk);
+
+	/* TODO: Add something. Need to understand the socket creation process. */
+
+out:
+	return sk;
+}
+
 static int flex_create(struct net *net, struct socket *sock, int protocol, int kern)
 {
-	//struct sock *sk;
-	//struct flex_sock *flex;
+	struct sock *sk;
+	struct flex_sock *flex;
+	int rc;
 
 	FLEX_LOG("Enter the flex protocol creator");
 
 	if (protocol && protocol != PF_FLEX)
 		return -EPROTONOSUPPORT;
 
+	FLEX_LOG("Confirm the protocol of the socket is PF_FLEX");
+
 	sock->state = SS_UNCONNECTED;
+
+	FLEX_LOG("Set the state of the socket as SS_UNCONNECTED");
+
+	rc = -ENOBUFS;
+	if ((sk = flex_alloc_socket(net)) == NULL)
+		goto out;
+
+	FLEX_LOG("Allocate the flex socket");
+
+	sock_init_data(sock, sk);
+
+	FLEX_LOG("Initialize the socket data");
 
 	switch (sock->type) {
 	case SOCK_STREAM:
 		sock->ops = &flex_reliable_ops;
+		FLEX_LOG("Set the socket operations as reliable");
 		break;
 	case SOCK_DGRAM:
 		sock->ops = &flex_unreliable_ops;
+		FLEX_LOG("Set the socket operations as unreliable");
 		break;
 	default:
 		return -ESOCKTNOSUPPORT;
 	}
 
-	return 0;
+	FLEX_LOG("Socket create success!");
+
+	rc = 0;
+out:
+	return rc;
 }
 
 static struct packet_type flex_packet_type __read_mostly = 

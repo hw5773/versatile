@@ -31,36 +31,36 @@ int flex_release(struct socket *sock)
 int flex_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 {
 	FLEX_LOG("Bind for Flex");
-	return 0;
+	return -1;
 }
 
 int flex_getname(struct socket *sock, struct sockaddr *addr, int *addr_len, int peer)
 {
 	FLEX_LOG("Get the name");
-	return 0;
+	return -1;
 }
 
 int flex_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
 {
 	FLEX_LOG("I/O Control for Flex");
-	return 0;
+	return -1;
 }
 
 int flex_shutdown(struct socket *sock, int how)
 {
 	FLEX_LOG("Shutdown");
-	return 0;
+	return -1;
 }
 
 int flex_setsockopt(struct socket *sock, int level, int optname,
         char __user *optval, unsigned int optlen)
 {
 	FLEX_LOG("Set the socket options");
-	return 0;
+	return -1;
 }
 int flex_getsockopt(struct socket *sock, int level, int optname,
         char __user *optval, int __user *optlen)
 {
 	FLEX_LOG("Get the socket options");
-	return 0;
+	return -1;
 }

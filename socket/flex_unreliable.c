@@ -25,23 +25,23 @@
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
 {
 	FLEX_LOG("Unreliable Connect");
-	return 0;
+	return -1;
 }
 
 unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)
 {
 	FLEX_LOG("Unreliable Polling");
-	return 0;
+	return -1;
 }
 
 int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	FLEX_LOG("Send the unreliable message");
-	return 0;
+	return -1;
 }
 
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
 	FLEX_LOG("Receive the unreliable message");
-	return 0;
+	return -1;
 }

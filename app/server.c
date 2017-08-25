@@ -26,9 +26,13 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	APP_LOG("Start Test Server Application");
+
 	serv_sock = socket(PF_FLEX, SOCK_STREAM, 0);
 	if (serv_sock == -1)
 		error_handling("socket() error");
+
+	APP_LOG("Socket Generation Succeed");
 
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family = AF_FLEX;

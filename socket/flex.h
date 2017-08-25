@@ -69,6 +69,11 @@ struct flex_sock {
 	struct sock		sk;
 };
 
+static inline struct flex_sock *flex_sk(const struct sock *sk)
+{
+	return (struct flex_sock *)sk;
+}
+
 /* flex_input.c */
 extern int flex_rcv(struct sk_buff *, struct net_device *,
 			struct packet_type *, struct net_device *);

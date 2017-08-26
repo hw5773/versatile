@@ -49,17 +49,19 @@ int main()
 	printf("struct size: %lu\n", sizeof(struct flexhdr));
 	printf("header size: %d\n", flex->header_len);
 
-	buf = (char *)malloc(flex->packet_len);
-	memcpy(buf, flex, flex->header_len);
-	memcpy(buf + flex->header_len, test_message, message_len);
-	printf("Message: %s\n", buf + flex->header_len);
+	buf = (char *)malloc(ntohs(flex->packet_len));
+	memcpy(buf, flex, ntohs(flex->header_len));
+	memcpy(buf + ntohs(flex->header_len), test_message, message_len);
 
-	rc = parse_flex_header(buf, flex->packet_len, &test);
+	rc = parse_flex_header(buf, ntohs(flex->packet_len), &test);
 
 	print_flex_header(test);
 
 	APP_LOG("Print Test Message");
-	printf("Test Message: %s\n", buf + test->header_len);
+	printf("Test Message: %s\n", buf + ntohs(test->header_len));
+
+	free_flex_header(flex);
+	free_flex_header(test);
 
 	return 0;
 }

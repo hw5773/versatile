@@ -120,5 +120,6 @@ struct flexhdr {
 };
 
 int init_flex_header(struct flexhdr **flex);
+int free_flex_header(struct flexhdr *flex);
 int parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex);
 void print_flex_header(struct flexhdr *flex);

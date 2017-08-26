@@ -57,6 +57,13 @@ int init_flex_header(struct flexhdr **flex)
 	return rc;
 }
 
+/* Free the Flex Header */
+int free_flex_header(struct flexhdr *flex)
+{
+	free(flex);
+	return SUCCESS;
+}
+
 /* Process the Flex Packet
  * Output: Success(0), Error(otherwise)
  */

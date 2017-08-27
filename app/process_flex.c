@@ -154,13 +154,13 @@ void print_flex_header(struct flexhdr *flex)
 	// Print Source Flex ID
 	printf("Source Flex ID: ");
 	for (i=0; i<FLEX_ID_LENGTH; i++)
-		printf("%x", (flex->sflex_id)[i]);
+		printf("%c", (flex->sflex_id)[i]);
 	printf("\n");
 
 	// Print Destination Flex ID
 	printf("Destination Flex ID: ");
 	for (i=0; i<FLEX_ID_LENGTH; i++)
-		printf("%x", (flex->dflex_id)[i]);
+		printf("%c", (flex->dflex_id)[i]);
 	printf("\n");
 
 	printf("Packet Length: %d\n", ntohs(flex->packet_len));

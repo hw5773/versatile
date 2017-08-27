@@ -202,5 +202,6 @@ proto_reg_handoff_foo(void)
 	static dissector_handle_t foo_handle;
 
 	foo_handle = create_dissector_handle(dissect_foo, proto_foo);
+	dissector_add_uint("ethertype", ETH_P_FLEX, foo_handle);
 	dissector_add_uint("tcp.port", FOO_PORT, foo_handle);
 }

@@ -22,6 +22,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/* Ethernet Frame Type */
+#define ETH_P_FLEX			0x7788
+
 /* Default port for Flex ID over TCP/IP */
 #define FLEX_PORT			1234
 

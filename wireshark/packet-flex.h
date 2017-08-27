@@ -22,15 +22,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/* Ethernet Frame Type */
+#define ETH_P_FLEX			0x7788
+
 /* Default port for Flex ID over TCP/IP */
 #define FLEX_PORT			1234
+
+/* Default Flex ID Length */
+#define FLEX_ID_LENGTH		21
 
 /* Version Definition
  * Version is composed of Major and Minor version
  * High 4 bits for Major, Low 4 bits for Minor
  */
 
-#define FLEX_1_0			0x01
+#define FLEX_1_0			0x10
 #define FLEX_1_0_MAJOR 		0x1
 #define FLEX_1_0_MINOR 		0x0
 
@@ -63,9 +69,9 @@
 #define FLEX_RESPONSE		0x17	// Response for Request by Packet ID?
 
 // Data Plane
-#define FLEX_INTEREST		0xf1	// Interest for the service/content
-#define FLEX_DATA			0xf2	// Data
-#define FLEX_DATA_ACK		0xf3	// ACK for Data
+#define FLEX_INTEREST		0x21	// Interest for the service/content
+#define FLEX_DATA			0x22	// Data
+#define FLEX_DATA_ACK		0x23	// ACK for Data
 
 /* Hash Type */
 #define SHA1				0x01	// SHA1, 160 bits (20 bytes)

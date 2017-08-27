@@ -18,7 +18,7 @@
 #define AF_FLEX				38
 #define PF_FLEX				AF_FLEX
 
-/* Ethernet Frame Type */
+/* Ethernet Frame Type for Flex ID */
 #define ETH_P_FLEX			0x7788
 
 /* Flex Version */

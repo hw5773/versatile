@@ -13,15 +13,16 @@ int main(int argc, char *argv[])
 {
 	int serv_sock;
 	int clnt_sock;
-	int rc;
+	int rc, len, packet_len;
 
 	struct sockaddr_in serv_addr;
 	struct sockaddr_in clnt_addr;
 	struct flexhdr *flex;
+	struct flexhdr *resp;
 	socklen_t clnt_addr_size;
 
-	char *buf;
-	char message[] = "{ \"interface\" : \"wifi\", \"bandwidth\" : \"10 Mbps\" }";
+	char buf[256];
+	char message[] = "{ \"error\" : \"0\"}";
 	int message_len = strlen(message);
 
 	int port;
@@ -73,7 +74,19 @@ int main(int argc, char *argv[])
 	if (clnt_sock == -1)
 		error_handling("accept() error");
 
-	rc = init_flex_header(&flex);
+	APP_LOG("Receive the Join message");
+	len = read(clnt_sock, buf, sizeof(buf));
+	if (len == -1)
+		error_handling("read() error");
+	
+	printf("Recv Length: %d\n", len);
+	printf("Message: %s\n", (buf + DEFAULT_HEADER_LEN));
+	parse_flex_header(buf, len, &flex);
+	print_flex_header(flex);
+
+	APP_LOG("Generate the Join ACK message");
+
+	rc = init_flex_header(&resp);
 
 	if (!rc)
 	{
@@ -85,31 +98,33 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	flex->version = FLEX_1_0;
-	flex->packet_type = FLEX_JOIN;
-	flex->hash_type = SHA1;
-	flex->hop_limit = DEFAULT_HOP_LIMIT;
-	flex->header_len = htons(DEFAULT_HEADER_LEN);
-	flex->check = htons(0x1234);
-	flex->packet_id = htons(0x7777);
-	flex->frag_off = htons(0x8000 | 0x2000 | 0x365);
-	memset(flex->sflex_id, 1, FLEX_ID_LENGTH);
-	memset(flex->dflex_id, 7, FLEX_ID_LENGTH);
-	flex->packet_len = htons(DEFAULT_HEADER_LEN + message_len);
-	flex->seq = htonl(0x12345678);
-	flex->ack = htonl(0x98765432);
+	resp->version = FLEX_1_0;
+	resp->packet_type = FLEX_JOIN_ACK;
+	resp->hash_type = SHA1;
+	resp->hop_limit = DEFAULT_HOP_LIMIT;
+	resp->header_len = htons(DEFAULT_HEADER_LEN);
+	resp->check = htons(0x1234);
+	resp->packet_id = htons(0x7777);
+	resp->frag_off = htons(0x8000 | 0x2000 | 0x365);
+	memset(resp->sflex_id, '7', FLEX_ID_LENGTH);
+	memset(resp->dflex_id, '1', FLEX_ID_LENGTH);
+	resp->packet_len = htons(DEFAULT_HEADER_LEN + message_len);
+	resp->seq = htonl(0x98765431);
+	resp->ack = htonl(0x12345678 + ntohs(flex->packet_len));
 
-	print_flex_header(flex);
+	print_flex_header(resp);
 
-	int packet_len = ntohs(flex->packet_len);
+	packet_len = ntohs(resp->packet_len);
 
-	buf = (char *)malloc(packet_len);
-	memcpy(buf, flex, ntohs(flex->header_len));
-	memcpy(buf + ntohs(flex->header_len), message, message_len);
+	memcpy(buf, resp, ntohs(resp->header_len));
+	memcpy(buf + ntohs(resp->header_len), message, message_len);
 
-	int len = write(clnt_sock, buf, packet_len);
-	printf("Sent Length: %d\n", len);
 	APP_LOG("Send the message");
+	len = write(clnt_sock, buf, packet_len);
+	printf("Sent Length: %d\n", len);
+
+	free_flex_header(flex);
+	free_flex_header(resp);
 
 	close(clnt_sock);
 	close(serv_sock);

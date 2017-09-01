@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
     printf("Sent Length: %d\n", len);
     APP_LOG("Send the message");
 
+	memset(buf, '\0', sizeof(buf));
 	len = read(sock, buf, sizeof(buf));
 	if (len == -1)
 		error_handling("read() error");

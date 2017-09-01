@@ -81,6 +81,10 @@ int parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex)
 	
 	(*flex) = (struct flexhdr *)malloc(sizeof(struct flexhdr));
 
+	memcpy((*flex), hdr, sizeof(struct flexhdr));
+	hdr = hdr + sizeof(struct flexhdr);
+
+/*
 	P_ONE(hdr, (*flex)->version);
 	P_ONE(hdr, (*flex)->packet_type);
 	P_ONE(hdr, (*flex)->hash_type);
@@ -94,6 +98,7 @@ int parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex)
 	P_TWO(hdr, (*flex)->packet_len);
 	P_FOUR(hdr, (*flex)->seq);
 	P_FOUR(hdr, (*flex)->ack);	
+*/
 
 	printf("Message in parse: %s\n", hdr);
 	

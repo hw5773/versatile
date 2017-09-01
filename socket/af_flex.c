@@ -34,6 +34,18 @@
 
 #include "flex.h"
 
+static struct packet_type flex_packet_type __read_mostly = 
+{
+	.type		=	cpu_to_be16(ETH_P_FLEX),
+	.func		= 	flex_rcv,
+};
+
+static struct proto flex_proto = {
+	.name		=	"FLEX",
+	.owner		=	THIS_MODULE,
+	.obj_size	=	sizeof(struct flex_sock),
+};
+
 static const struct proto_ops flex_reliable_ops = {
 	.family		=	PF_FLEX,
 	.owner		=	THIS_MODULE,
@@ -63,13 +75,13 @@ static const struct proto_ops flex_unreliable_ops = {
 	.connect	=	flex_unreliable_connect,
 	.socketpair	=	sock_no_socketpair,
 	.accept		=	sock_no_accept,
-	.getname	=	flex_getname,
-	.poll		=	flex_unreliable_poll,
-	.ioctl		=	flex_ioctl,
+	.getname	=	sock_no_getname,
+	.poll		=	datagram_poll,
+	.ioctl		=	sock_no_ioctl,
 	.listen		=	sock_no_listen,
 	.shutdown	=	flex_shutdown,
-	.setsockopt	=	flex_setsockopt,
-	.getsockopt	=	flex_getsockopt,
+	.setsockopt	=	sock_no_setsockopt,
+	.getsockopt	=	sock_no_getsockopt,
 	.sendmsg	=	flex_unreliable_sendmsg,
 	.recvmsg	=	flex_unreliable_recvmsg,
 	.mmap		=	sock_no_mmap,
@@ -79,7 +91,7 @@ static const struct proto_ops flex_unreliable_ops = {
 static struct sock *flex_alloc_socket(struct net *net)
 {
 	struct flex_sock *flex;
-	struct sock *sk = sk_alloc(net, AF_FLEX, GFP_ATOMIC, &flex_proto);
+	struct sock *sk = sk_alloc(net, AF_FLEX, GFP_ATOMIC, &flex_proto, 0);
 
 	FLEX_LOG("Enter the flex socket allocator");
 
@@ -119,6 +131,8 @@ static int flex_create(struct net *net, struct socket *sock, int protocol, int k
 
 	FLEX_LOG("Allocate the flex socket");
 
+	flex = flex_sk(sk);
+
 	sock_init_data(sock, sk);
 
 	FLEX_LOG("Initialize the socket data");
@@ -142,18 +156,6 @@ static int flex_create(struct net *net, struct socket *sock, int protocol, int k
 out:
 	return rc;
 }
-
-static struct packet_type flex_packet_type __read_mostly = 
-{
-	.type		=	cpu_to_be16(ETH_P_FLEX),
-	.func		= 	flex_rcv,
-};
-
-static struct proto flex_proto = {
-	.name		=	"FLEX",
-	.owner		=	THIS_MODULE,
-	.obj_size	=	sizeof(struct flex_sock),
-};
 
 static const struct net_proto_family flex_family_ops = {
 	.family 	=	PF_FLEX,

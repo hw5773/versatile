@@ -1,16 +1,18 @@
-#ifndef __FLEX_H__
-#define __FLEX_H__
+#ifndef __FLEX_HEADER__
+#define __FLEX_HEADER__
 #endif
 
-#include <linux/socket.h>
-#include <linux/slab.h>
-#include <net/sock.h>
+#include <linux/types.h>
 
 #define PROTOCOL_AUTHOR	"Hyunwoo Lee <hwlee2014@mmlab.snu.ac.kr>, Hyeonmin Lee <hmlee@mmlab.snu.ac.kr>, Dongjun Lee <djlee@mmlab.snu.ac.kr>, Hyunchul Oh <hcoh@mmlab.snu.ac.kr>"
 #define PROTOCOL_DESC	"Flex Protocol"
 
-#define FLEX_LOG(msg) \
-	printk(KERN_INFO "[Flex] %s: %s\n", __func__, msg)
+#ifdef DEBUG
+#define APP_LOG(msg) \
+	printf("[Flex] %s: %s\n", __func__, msg)
+#else
+#define APP_LOG(msg)
+#endif
 
 #define SUCCESS				0
 #define FAILURE				-1
@@ -21,19 +23,22 @@
 #define AF_FLEX				38
 #define PF_FLEX				AF_FLEX
 
-/* Ethernet Frame Type for Flex ID */
+/* Ethernet Frame Type */
 #define ETH_P_FLEX			0x7788
 
+/* Default port for Flex ID over TCP/IP */
+#define FLEX_PORT			1234
+
 /* Flex Version */
-#define FLEX_1_0        	0x0100
-#define FLEX_1_0_MAJOR  	0x01
-#define FLEX_1_0_MINOR  	0x00
+#define FLEX_1_0        	0x10
+#define FLEX_1_0_MAJOR  	0x1
+#define FLEX_1_0_MINOR  	0x0
 
 /* Flags */
 #define FLEX_PTC        	0x8000
 #define FLEX_DF         	0x4000
 #define FLEX_MF         	0x2000
-#define FLEX_OFFSET  	   	0x1FFF
+#define FLEX_OFFSET     	0x1FFF
 
 /* Packet Type
  * begin with 00 is for control plane messages, 01 is for control plane ack
@@ -72,6 +77,16 @@
 #define DEFAULT_HOP_LIMIT	128
 #define DEFAULT_HEADER_LEN	64
 
+/* Packet Processing Macro */
+#define P_ONE(buf, val)			val = ((unsigned char)(*((buf)++))) & 0xff
+#define P_TWO(buf, val)			(val = ((unsigned char)(*((buf)++)) & 0xff), \
+								val |= (((unsigned char)(*((buf)++)) & 0xff) << 8))
+#define P_FOUR(buf, val)		(val = ((unsigned char)(*((buf)++)) & 0xff), \
+								val |= (((unsigned char)(*((buf)++)) & 0xff) << 8), \
+								val |= (((unsigned char)(*((buf)++)) & 0xff) << 16), \
+								val |= (((unsigned char)(*((buf)++)) & 0xff) <<24))
+#define P_NCOPY(buf, val, n)	memcpy(val, buf, n); buf = buf + n
+
 /* Flex Header Field Index */
 #define VERSION_IDX			0
 #define PACKET_TYPE_IDX		1
@@ -104,44 +119,7 @@ struct flexhdr {
 	__be32	ack;
 };
 
-/* Socket related functions */
-struct flex_sock {
-	struct sock		sk;
-};
-
-static inline struct flex_sock *flex_sk(const struct sock *sk)
-{
-	return (struct flex_sock *)sk;
-}
-
-/* flex_input.c */
-extern int flex_rcv(struct sk_buff *, struct net_device *,
-			struct packet_type *, struct net_device *);
-
-/* flex_output.c */
-extern int flex_output(struct sk_buff *);
-
-/* flex_common.c */
-extern int flex_release(struct socket *);
-extern int flex_bind(struct socket *, struct sockaddr *, int);
-extern int flex_getname(struct socket *, struct sockaddr *, int *, int);
-extern int flex_ioctl(struct socket *, unsigned int, unsigned long);
-extern int flex_shutdown(struct socket *, int);
-extern int flex_setsockopt(struct socket *, int level, int optname, 
-		char __user *optval, unsigned int optlen);
-extern int flex_getsockopt(struct socket *, int level, int optname, 
-		char __user *optval, int __user *optlen);
-
-/* flex_reliable.c */
-extern int flex_reliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
-extern int flex_accept(struct socket *, struct socket *, int);
-extern unsigned int flex_reliable_poll(struct file *, struct socket *, poll_table *);
-extern int flex_listen(struct socket *, int backlog);
-extern int flex_reliable_sendmsg(struct socket *, struct msghdr *, size_t);
-extern int flex_reliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
-
-/* flex_unreliable.c */
-extern int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
-extern unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *);
-extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t);
-extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
+int init_flex_header(struct flexhdr **flex);
+int free_flex_header(struct flexhdr *flex);
+int parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex);
+void print_flex_header(struct flexhdr *flex);

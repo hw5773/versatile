@@ -22,9 +22,37 @@
 
 #include "flex.h"
 
+int flex_release_sock(struct sock *sk, int embrion)
+{
+	FLEX_LOG("Release the socket internally");
+	sk_del_node_init(sk);
+	
+	sock_set_flag(sk, SOCK_DEAD);
+	sock_set_flag(sk, SOCK_DESTROY);
+
+	FLEX_LOG("Invoke sock_orphan()");
+	sock_orphan(sk);
+	FLEX_LOG("Invoke release_sock()");
+	release_sock(sk);
+	FLEX_LOG("Invoke sock_put()");
+	sock_put(sk);
+
+	return 0;
+}
+
 int flex_release(struct socket *sock)
 {
+	struct sock *sk = sock->sk;
 	FLEX_LOG("Release the socket");
+	
+	if (!sk)
+		return 0;
+
+	flex_release_sock(sk, 0);
+	sock->sk = NULL;
+
+	FLEX_LOG("Release the socket complete");
+
 	return 0;
 }
 

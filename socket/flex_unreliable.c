@@ -36,7 +36,37 @@ unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_t
 
 int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
+	struct net_device *dev;
+	struct sk_buff *skb;
+	struct flexhdr *flex;
+
 	FLEX_LOG("Send the unreliable message");
+
+	dev = dev_get_by_name(&inet_net, "enp1s0");
+	skb = alloc_skb(sizeof(struct flexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
+
+	if (skb == NULL)
+	{
+		FLEX_LOG("Allocate Socket Buffer Failed");
+		goto out;
+	}
+
+	skb_reserve(skb, LL_RESERVED_SPACE(dev));
+	skb->dev = dev;
+	skb->protocol = htons(ETH_P_FLEX);
+
+	if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
+	{
+		FLEX_LOG("Make Header Frame Failed");
+		goto out;
+	}
+
+	FLEX_LOG("Make Header Frame Success");
+	dev_queue_xmit(skb);
+	FLEX_LOG("Send the Frame");
+	return -1;
+
+out:
 	return -1;
 }
 

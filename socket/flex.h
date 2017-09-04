@@ -25,9 +25,9 @@
 #define ETH_P_FLEX			0x7788
 
 /* Flex Version */
-#define FLEX_1_0        	0x0100
-#define FLEX_1_0_MAJOR  	0x01
-#define FLEX_1_0_MINOR  	0x00
+#define FLEX_1_0        	0x10
+#define FLEX_1_0_MAJOR  	0x1
+#define FLEX_1_0_MINOR  	0x0
 
 /* Flags */
 #define FLEX_PTC        	0x8000
@@ -143,5 +143,6 @@ extern int flex_reliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
 /* flex_unreliable.c */
 extern int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
 extern unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *);
-extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t);
+extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t len);
+extern int flex_unreliable_sendmsg_test(struct socket *, struct msghdr *, size_t len);
 extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	struct flexhdr *resp;
 	socklen_t clnt_addr_size;
 
-	char buf[256];
+	char buf[256] = "Test";
 
 	int port;
 
@@ -46,6 +46,14 @@ int main(int argc, char *argv[])
 		error_handling("socket() error");
 
 	APP_LOG("Socket Generation Succeed");
+
+	if (write(serv_sock, buf, 4) < 0)
+	{
+		close(serv_sock);
+		error_handling("write() error");
+	}
+
+	APP_LOG("After Write");
 
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;

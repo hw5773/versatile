@@ -22,11 +22,11 @@ include $(top_srcdir)/Makefile.am.inc
 include ../Makefile.am.inc
 
 # the name of the plugin
-PLUGIN_NAME = foo
+PLUGIN_NAME = flex
 
 # Non-generated sources to be scanned for registration routines
 NONGENERATED_REGISTER_C_FILES = \
-	packet-foo.c
+	packet-flex.c
 
 # Non-generated sources
 NONGENERATED_C_FILES = \
@@ -34,27 +34,27 @@ NONGENERATED_C_FILES = \
 
 # Headers.
 CLEAN_HEADER_FILES = \
-	packet-foo.h
+	packet-flex.h
 
 HEADER_FILES = \
 	$(CLEAN_HEADER_FILES)
 
-plugin_LTLIBRARIES = foo.la
+plugin_LTLIBRARIES = flex.la
 
-foo_la_SOURCES = \
+flex_la_SOURCES = \
 	plugin.c \
 	moduleinfo.h \
 	$(SRC_FILES)	\
 	$(HEADER_FILES)
 
-foo_la_CPPFLAGS = $(AM_CPPFLAGS) $(PLUGIN_CPPFLAGS)
+flex_la_CPPFLAGS = $(AM_CPPFLAGS) $(PLUGIN_CPPFLAGS)
 
-foo_la_CFLAGS = $(AM_CFLAGS) $(PLUGIN_CFLAGS)
+flex_la_CFLAGS = $(AM_CFLAGS) $(PLUGIN_CFLAGS)
 
-foo_la_LDFLAGS = $(PLUGIN_LDFLAGS)
+flex_la_LDFLAGS = $(PLUGIN_LDFLAGS)
 
 CLEANFILES = \
-	foo \
+	flex \
 	*~
 
 MAINTAINERCLEANFILES = \

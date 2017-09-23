@@ -28,7 +28,7 @@
 #endif
 
 /* Name of package */
-#define PACKAGE "foo"
+#define PACKAGE "flex"
 
 
 #ifdef VERSION

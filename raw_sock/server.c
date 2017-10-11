@@ -28,7 +28,7 @@ int main()
     memset((char *)ip_hdr, 0, 20);
     ip_hdr->version = 4;
     ip_hdr->ihl = 5;
-    ip_hdr->protocol = IPPROTO_RAW;
+    ip_hdr->protocol = IPPROTO_TCP;
     ip_hdr->tot_len = 40;
     ip_hdr->id = htons(777);
     ip_hdr->ttl = 60;

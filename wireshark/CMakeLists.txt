@@ -22,10 +22,10 @@
 include(WiresharkPlugin)
 
 # Plugin name and version info (major minor micro extra)
-set_module_info(foo 0 0 4 0)
+set_module_info(flex 0 0 4 0)
 
 set(DISSECTOR_SRC
-	packet-foo.c
+	packet-flex.c
 )
 
 set(PLUGIN_FILES
@@ -52,9 +52,9 @@ register_dissector_files(plugin.c
 	${DISSECTOR_SRC}
 )
 
-add_plugin_library(foo)
+add_plugin_library(flex)
 
-install(TARGETS foo
+install(TARGETS flex
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION} NAMELINK_SKIP
 	RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION}
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION}
@@ -63,7 +63,7 @@ install(TARGETS foo
 file(GLOB DISSECTOR_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*.h")
 CHECKAPI(
 	NAME
-	  foo
+	  flex
 	SWITCHES
 	  -g abort -g termoutput -build
 	SOURCES

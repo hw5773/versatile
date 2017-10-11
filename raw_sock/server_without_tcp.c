@@ -17,7 +17,7 @@ int main()
 
     struct sockaddr_in address;
     address.sin_family = AF_INET;
-    address.sin_port = htons(7777);
+    address.sin_port = htons(1234);
     address.sin_addr.s_addr = inet_addr("147.46.219.48");
     setsockopt(raw_socket, IPPROTO_IP, IP_HDRINCL, (char *)&on, sizeof(on));
 

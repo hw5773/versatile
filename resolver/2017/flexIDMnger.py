@@ -11,16 +11,17 @@ db_topic = "/DBQeury/flexMnger/"
 # global variable for manage number in service ID
 deviceID_cache = {}
 dbQuery_cache = {}
+collision_inc = 4
 
 def send_DBquery(msg, wait):
 
     queryID = codecs.encode(os.urandom(4), 'hex_codec').decode()
-    #queryID = '0x' + queryID
-    queryID = '0x' + '001'
+    queryID = '0x' + queryID
     while queryID in dbQuery_cache:
         queryID = codecs.encode(os.urandom(4), 'hex_codec').decode()
         queryID = '0x' + queryID
 
+    queryID = '0x' + '001'
     dbQuery_cache[queryID] = "None"
     query = {"id": queryID , "sql": msg}
     query = json.dumps(query)
@@ -31,14 +32,13 @@ def send_DBquery(msg, wait):
     if wait:
         while dbQuery_cache[queryID] == "None":
             continue
-
+    
     return queryID
 
 
 def gen_flag(cache_bit, segment_bit, collision_mngt):
-    
+   
     flag = 0
-
     if collision_mngt > 15:
         raise Exception ('Collision range error')
     
@@ -54,54 +54,52 @@ def gen_flag(cache_bit, segment_bit, collision_mngt):
     return flag
 
 
-def check_deviceID(deviceID, flag):
+def join_genID(deviceID, flag):
 
     # deviceID's cache bit and segment flag are 0, thus only use 4 bit management number
     newID = deviceID + str(flag)
-    
+   
     while newID in deviceID_cache:
-        flag = gen_flag(False, False, flag + 4)
+        flag = flag + collision_inc
         newID = deviceID + str(flag)
     deviceID_cache[newID] = "None"
 
-    print ("Check DeviceID collision...")
+    print ("\nCheck DeviceID collision...\n")
     queryID = send_DBquery("select ~", True)
 
     payload = dbQuery_cache[queryID]
     exist = payload.get('exist')
 
     del dbQuery_cache[queryID]
-    
+   
     deviceID_cache[newID] = True
     if not exist:
         return newID
     else:
         deviceID_cache[newID] = True
-        return check_deviceID(deviceID, flag + 4)
+        return join_genID(deviceID, flag + collision_inc)
 
 
-def join(deviceID, payload):
+def join(tempID, payload):
 
     print ("\n ##Process - Join\n")
-    
-    origin_devID = deviceID
-        
+   
     try:
         error = 0
-
-        # Device ID collision check
+        
+        relay = payload.get('relay')
+        if relay == "none":
+            deviceID = tempID
+        else:
+            deviceID = relay[-1]
+            
         print ("Temporary DeviceID: " + deviceID + "\n")
-        deviceID = check_deviceID(deviceID, 0)
+ 
+        # Device ID collision check
+        deviceID = join_genID(deviceID, 0)
         print ("Generated DeviceID: " + deviceID + "\n")
 
-        relay = payload.get('relay')
-        if (relay is None) or (relay == "none"):
-            relay = "none"
-            print ("\nNeed relay? No")
-        else:
-            relay = relay
-            print ("\nNeed relay? Yes - Relay Node: " + relay)
-  
+
         neighbors = payload.get('neighbors')
         if neighbors is None:
             neighbors = "NULL"
@@ -156,7 +154,7 @@ def join(deviceID, payload):
         print ("\nDB Update Completed..")
         query = {"error:": error, "id": deviceID, "relay": relay}
         query = json.dumps(query)
-        client.publish("/configuration/join_ack/" + origin_devID, query)
+        client.publish("/configuration/join_ack/" + tempID, query)
         
         print ("\n ##Process Completed - Join\n")
 
@@ -165,7 +163,7 @@ def join(deviceID, payload):
         print ("Join error: ", e)
         query = {"error:": error, "deviceID": deviceID}
         query = json.dumps(query)
-        client.publish("/configuration/join_ack/" + origin_devID, query)
+        client.publish("/configuration/join_ack/" + tempID, query)
 
 
 # Unjoin the target device
@@ -205,6 +203,26 @@ def leave(deviceID):
         query = json.dumps(query)
         client.publish("/configuration/leave_ack/" + deviceID, query)
  
+ 
+
+def register_genID(hash_val, flag):
+
+    newID = hash_val + str(flag)
+   
+    print ("\nCheck ID collision...\n")
+    queryID = send_DBquery("select ~", True)
+
+    payload = dbQuery_cache[queryID]
+    exist = payload.get('exist')
+
+    del dbQuery_cache[queryID]
+
+    if not exist:
+        return newID
+    else:
+        return register_genID(hash_val, flag + collision_inc)
+
+
 
 def register(deviceID, payload):
     print ("\n ##Process - Register\n")     
@@ -243,7 +261,7 @@ def register(deviceID, payload):
             # generate service/content ID
             hash_val = item.get('hash')
             flag = gen_flag(cache, segment, 0)
-            newID = hash_val + str(flag)
+            newID = register_genID(hash_val, flag)
             temp = {index:newID}
             idList.append(temp)
 

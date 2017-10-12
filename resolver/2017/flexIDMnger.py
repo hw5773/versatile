@@ -83,11 +83,11 @@ def join_genID(deviceID, flag):
 def join(tempID, payload):
 
     print ("\n ##Process - Join\n")
+    relay = payload.get('relay')
    
     try:
         error = 0
         
-        relay = payload.get('relay')
         if relay == "none":
             deviceID = tempID
         else:
@@ -161,35 +161,39 @@ def join(tempID, payload):
     except Exception as e:
         error = 1
         print ("Join error: ", e)
-        query = {"error:": error, "deviceID": deviceID}
+        query = {"error:": error, "deviceID":tempID, "relay":relay}
         query = json.dumps(query)
         client.publish("/configuration/join_ack/" + tempID, query)
 
 
 # Unjoin the target device
-def leave(deviceID):
+def leave(deviceID, payload):
     print ("\n ##Process - Leave\n")
+
+    relay = payload.get('relay')
     try:
         error = 0
         print ("Device ID: " + deviceID)
 
         send_DBquery("DELETE ~", False)
-        payload = dbQuery_cache[queryID]
-        db_error1 = payload.get('error')
+        db_payload = dbQuery_cache[queryID]
+        db_error1 = db_payload.get('error')
         del dbQuery_cache[queryID]
     
         send_DBquery("DELETE ~", False)
-        payload = dbQuery_cache[queryID]
-        db_error2 = payload.get('error')
+        db_payload = dbQuery_cache[queryID]
+        db_error2 = db_payload.get('error')
         del dbQuery_cache[queryID]
     
         send_DBquery("DELETE ~", False)
-        payload = dbQuery_cache[queryID]
-        db_error3 = payload.get('error')
+        db_payload = dbQuery_cache[queryID]
+        db_error3 = db_payload.get('error')
         del dbQuery_cache[queryID]
+
+        del deviceID_cache[deviceID]
     
         print ("\nDB Update Completed..")
-        query = {"error:": error}
+        query = {"error:": error, "relay":relay}
         query = json.dumps(query)
         client.publish("/configuration/leave_ack/" + deviceID, query)
         
@@ -199,7 +203,7 @@ def leave(deviceID):
     except Exception as e:
         error = 1
         print ("Leave error: ", e)
-        query = {"error:": error}
+        query = {"error:": error, "relay":relay}
         query = json.dumps(query)
         client.publish("/configuration/leave_ack/" + deviceID, query)
  
@@ -227,7 +231,8 @@ def register_genID(hash_val, flag):
 def register(deviceID, payload):
     print ("\n ##Process - Register\n")     
     print ("DeviceID: " + deviceID)
- 
+
+    relay = payload.get('relay')
     registerID = payload.get('registerID')
     try:
         error = 0
@@ -246,7 +251,6 @@ def register(deviceID, payload):
                 deviceID_cache[deviceID] = exist
 
         registerList = payload.get('registerList')
-        relay = payload.get('relay')
 
         idList = []
         for item in registerList:
@@ -255,13 +259,19 @@ def register(deviceID, payload):
             category = item.get('category')
             cache = item.get('cache')
             segment = item.get('segment')
+            collisionAvoid = item.get('collisionAvoid')
             #TODO: split attributes
             attributes = item.get('attributes')
 
             # generate service/content ID
             hash_val = item.get('hash')
             flag = gen_flag(cache, segment, 0)
-            newID = register_genID(hash_val, flag)
+            
+            if collisionAvoid:
+                newID = register_genID(hash_val, flag)
+            else:
+                newID = hash_val + str(flag)
+            
             temp = {index:newID}
             idList.append(temp)
 
@@ -284,7 +294,7 @@ def register(deviceID, payload):
     except Exception as e:
         error = 1
         print ("Register error: ", e)
-        query = {"error": error, "registerID": registerID}
+        query = {"error": error, "registerID": registerID "idList":[], "relay":relay}
         query = json.dumps(query)
         client.publish("/configuration/register_ack/" + deviceID, query)
 
@@ -295,6 +305,8 @@ def update(deviceID, payload):
     print ("DeviceID: " + deviceID)
  
     updateID = payload.get('updateID')
+    relay = payload.get('relay')
+
     try:
         error = 0
         
@@ -311,10 +323,20 @@ def update(deviceID, payload):
             else:
                 deviceID_cache[deviceID] = exist
 
-        relay = payload.get('relay')
         #TODO: process deregister 
         deregister = payload.get('deregister')
         attributes = payload.get('attributes')
+
+        # check if this content/service exists
+        queryID = send_DBquery("SELECT ~", True)
+        db_payload = dbQuery_cache[queryID]
+        exist = db_payload.get('exist')
+        del dbQuery_cache[queryID]
+        if not exist:
+            raise Exception ('No Content/Service Error')
+
+        if deregister:
+            send_DBquery("DELETE ~", False)
 
         # DB Update
         send_DBquery("UPDATE ~", False)
@@ -334,7 +356,7 @@ def update(deviceID, payload):
     except Exception as e:
         error = 1
         print ("Update error: ", e)
-        query = {"error": error, "updateID": updateID}
+        query = {"error": error, "updateID": updateID, "relay":relay}
         query = json.dumps(query)
         client.publish("/configuration/update_ack/" + deviceID, query)
 
@@ -345,6 +367,8 @@ def query(deviceID, payload):
     print ("DeviceID: " + deviceID)
  
     queryID = payload.get('queryID')
+    relay = payload.get('relay')
+
     try:
         error = 0
         
@@ -363,7 +387,6 @@ def query(deviceID, payload):
 
         queryType = payload.get('queryType')
         category = payload.get('type')
-        relay = payload.get('relay')
         order = payload.get('order')
         desc = payload.get('desc')
         limit = payload.get('limit')
@@ -391,7 +414,7 @@ def query(deviceID, payload):
     except Exception as e:
         error = 1
         print ("Query error: ", e)
-        reply = {"error": error, "queryID": queryID}
+        reply = {"error": error, "queryID": queryID, "relay":relay}
         reply = json.dumps(reply)
         client.publish("/utilization/reply/" + deviceID, reply)
 
@@ -426,7 +449,7 @@ def on_message(client, userdata, msg):
             join(deviceID, payload)
         elif "leave" == topic[2]:
             deviceID = topic[3]
-            leave(deviceID)
+            leave(deviceID, payload)
         elif "register" == topic[2]:
             deviceID = topic[3]
             register(deviceID, payload)

@@ -1,10 +1,14 @@
 import paho.mqtt.client as mqtt
-import paho.mqtt.publish as publish
+#import paho.mqtt.publish as publish
 import json
 
-def on_connect(client, userdata, rc):
+
+broker = "iot.eclipse.org"
+
+def on_connect(client, userdata, flags, rc):
 	print ("Connected with result code " + str(rc))
-	client.subscribe("hello/world")
+	client.subscribe("hello/snu/#")
+	client.subscribe("bye/snu")
 
 def on_message(client, userdata, msg):
 	print (msg.topic + " " + str(msg.payload))
@@ -25,5 +29,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.on_subscribe = on_subscribe
 
-client.connect("test.mosquitto.org", 1883, 60)
+client.connect(broker, 1883, 60)
 client.loop_forever()
+
+

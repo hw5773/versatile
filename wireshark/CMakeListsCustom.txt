@@ -1,4 +1,4 @@
-# Makefile.am
+# CMakeListsCustom.txt
 #
 # Wireshark - Network traffic analyzer
 # By Gerald Combs <gerald@wireshark.org>
@@ -17,50 +17,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+# Add a list of your custom plugins SRC dir here including the path
+#
 
-include $(top_srcdir)/Makefile.am.inc
-include ../Makefile.am.inc
+set(CUSTOM_PLUGIN_SRC_DIR
+	plugins/flex
+)
 
-# the name of the plugin
-PLUGIN_NAME = flex
-
-# Non-generated sources to be scanned for registration routines
-NONGENERATED_REGISTER_C_FILES = \
-	packet-flex.c
-
-# Non-generated sources
-NONGENERATED_C_FILES = \
-	$(NONGENERATED_REGISTER_C_FILES)
-
-# Headers.
-CLEAN_HEADER_FILES = \
-	packet-flex.h
-
-HEADER_FILES = \
-	$(CLEAN_HEADER_FILES)
-
-plugin_LTLIBRARIES = flex.la
-
-flex_la_SOURCES = \
-	plugin.c \
-	moduleinfo.h \
-	$(SRC_FILES)	\
-	$(HEADER_FILES)
-
-flex_la_CPPFLAGS = $(AM_CPPFLAGS) $(PLUGIN_CPPFLAGS)
-
-flex_la_CFLAGS = $(AM_CFLAGS) $(PLUGIN_CFLAGS)
-
-flex_la_LDFLAGS = $(PLUGIN_LDFLAGS)
-
-CLEANFILES = \
-	flex \
-	*~
-
-MAINTAINERCLEANFILES = \
-	Makefile.in	\
-	plugin.c
-
-EXTRA_DIST = \
-	plugin.rc.in		\
-	CMakeLists.txt
+#
+# Editor modelines  -  http://www.wireshark.org/tools/modelines.html
+#
+# Local variables:
+# c-basic-offset: 8
+# tab-width: 8
+# indent-tabs-mode: t
+# End:
+#
+# vi: set shiftwidth=8 tabstop=8 noexpandtab:
+# :indentSize=8:tabSize=8:noTabs=false:
+#

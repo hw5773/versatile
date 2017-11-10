@@ -15,10 +15,8 @@ int main(int argc, char *argv[])
 	int clnt_sock;
 	int rc, len, packet_len;
 
-	struct sockaddr_in serv_addr;
-	struct sockaddr_in clnt_addr;
-	struct flexhdr *flex;
-	struct flexhdr *resp;
+	struct sockaddr_flex serv_addr;
+	struct sockaddr_flex clnt_addr;
 	socklen_t clnt_addr_size;
 
 	char buf[256] = "Test";

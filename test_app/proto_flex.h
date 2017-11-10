@@ -102,24 +102,29 @@
 #define SEQ_IDX				12 + 2 * FLEX_ID_LENGTH + 2
 #define ACK_IDX				12 + 2 * FLEX_ID_LENGTH + 6
 
-/* Flex Header */
-struct flexhdr {
-	__u8	version;
-	__u8	packet_type;
-	__u8	hash_type;
-	__u8	hop_limit;
-	__be16	header_len;
-	__sum16	check;
-	__be16	packet_id;
-	__be16	frag_off;
-	char	sflex_id[FLEX_ID_LENGTH];
-	char	dflex_id[FLEX_ID_LENGTH];
-	__be16	packet_len;
-	__be32	seq;
-	__be32	ack;
-};
+/* Flex ID */
+struct flexid
+{
+  __be16  length;
+  __u8    cache_bit:1,
+          segment_bit:1,
+          collision_avoidance_bit:4,
+          reserved:2;
+  __u8    identity[20];
+  __be32  total_segments; // used only when segment_bit is 1
+  __be32  segment_num;    // used only when segment_bit is 1
+  struct flexid_ops *ops;
+}
 
-int init_flex_header(struct flexhdr **flex);
-int free_flex_header(struct flexhdr *flex);
-int parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex);
-void print_flex_header(struct flexhdr *flex);
+
+/* Flex socket address struct */
+struct sockaddr_flex 
+{
+  __kernel_sa_family_t  sin_family;
+  struct flexid         id;
+  int                   message;
+}
+
+struct flex_id *test_id();
+int get(struct flexid *id);
+int put(struct flexid *id);

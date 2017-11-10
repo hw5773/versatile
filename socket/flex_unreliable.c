@@ -44,12 +44,23 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	struct net_device *dev;
+  struct sock *sk = sock->sk;
+  struct flex_sock *flex = flex_sk(sk);
+  DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
+  struct sockaddr_flex *sflex;
 	struct sk_buff *skb;
-	struct flexhdr *flex;
+	struct flexhdr *flexh;
+
+  FLEX_LOG("Confirm the content of msghdr");
+  printk(KERN_INFO "[Flex] %s: msg_namelen: %d\n", __func__, msg->msg_namelen);
+  printk(KERN_INFO "[Flex] %s: size: %lu\n", __func__, size);
+  unsigned char *content = (unsigned char *)kmalloc(10, GFP_ATOMIC);
+  memcpy_from_msg(content, msg, size);
+  FLEX_LOG(content);
 
 	FLEX_LOG("Send the unreliable message");
 
-	dev = dev_get_by_name(&init_net, "enp1s0");
+	dev = dev_get_by_name(&init_net, "ens33");
 	skb = alloc_skb(sizeof(struct flexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
 
 	if (skb == NULL)
@@ -62,20 +73,20 @@ int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t
 	skb->dev = dev;
 	skb->protocol = htons(ETH_P_FLEX);
 
-	flex = (struct flexhdr *)skb_put(skb, sizeof(struct flexhdr));
-	flex->version = FLEX_1_0;
-	flex->packet_type = FLEX_JOIN;
-	flex->hash_type = SHA1;
-	flex->hop_limit = DEFAULT_HOP_LIMIT;
-	flex->header_len = htons(DEFAULT_HEADER_LEN);
-	flex->check = htons(0x1234);
-	flex->packet_id = htons(0x7777);
-	flex->frag_off = htons(0x8000 | 0x2000 | 0x365);
-	memset(flex->sflex_id, '1', FLEX_ID_LENGTH);
-	memset(flex->dflex_id, '7', FLEX_ID_LENGTH);
-	flex->packet_len = htons(DEFAULT_HEADER_LEN);
-	flex->seq = htonl(0x12345678);
-	flex->ack = htonl(0x98765432);
+	flexh = (struct flexhdr *)skb_put(skb, sizeof(struct flexhdr));
+	flexh->version = FLEX_1_0;
+	flexh->packet_type = FLEX_JOIN;
+	flexh->hash_type = SHA1;
+	flexh->hop_limit = DEFAULT_HOP_LIMIT;
+	flexh->header_len = htons(DEFAULT_HEADER_LEN);
+	flexh->check = htons(0x1234);
+	flexh->packet_id = htons(0x7777);
+	flexh->frag_off = htons(0x8000 | 0x2000 | 0x365);
+	memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
+	memset(flexh->dflex_id, '7', FLEX_ID_LENGTH);
+	flexh->packet_len = htons(DEFAULT_HEADER_LEN);
+	flexh->seq = htonl(0x12345678);
+	flexh->ack = htonl(0x98765432);
 
 	if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
 	{
@@ -86,6 +97,7 @@ int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t
 	FLEX_LOG("Make Header Frame Success");
 	dev_queue_xmit(skb);
 	FLEX_LOG("Send the Frame");
+  kfree(content);
 	return -1;
 
 out:

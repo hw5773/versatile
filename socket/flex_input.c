@@ -23,7 +23,7 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
 
 	printk(KERN_INFO "[Flex] %s: Enter Flex Receive Routine\n", __func__);
 
-	for (p = skb->data; p != skb->tail; p++) {
+	for (p = skb->data; p < (skb->tail); p++) {
 		data[index++] = *p;
 	}
 

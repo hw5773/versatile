@@ -77,8 +77,9 @@
 #define SHA224          	0x03  // 224 bits (28 bytes)
 #define SHA256          	0x04  // 256 bits (32 bytes)
 
-#define FLEX_ID_LENGTH		21
-#define DEFAULT_HOP_LIMIT	128
+#define FLEX_ID_LENGTH		  21
+#define FLEX_ID_EXT_LENGTH  29
+#define DEFAULT_HOP_LIMIT	  128
 #define DEFAULT_HEADER_LEN	64
 
 /* Flex Header Field Index */
@@ -96,31 +97,99 @@
 #define SEQ_IDX				12 + 2 * FLEX_ID_LENGTH + 2
 #define ACK_IDX				12 + 2 * FLEX_ID_LENGTH + 6
 
-/* Flex Header */
-struct flexhdr {
-	__u8	version;
-	__u8	packet_type;
-	__u8	hash_type;
-	__u8	hop_limit;
-	__be16	header_len;
+/* Flex Reliable Header */
+struct rflexhdr 
+{
+	__u8	  version;
+	__u8	  packet_type;
+	__u8	  hash_type;
+	__u8	  hop_limit;
+	__be16  header_len;
 	__sum16	check;
 	__be16	packet_id;
 	__be16	frag_off;
-	char	sflex_id[FLEX_ID_LENGTH];
-	char	dflex_id[FLEX_ID_LENGTH];
-	__be16	packet_len;
+	char	  *sflex_id[FLEX_ID_LENGTH];
+	char    *dflex_id[FLEX_ID_LENGTH];
+	__be16  packet_len;
 	__be32	seq;
 	__be32	ack;
 };
 
-/* Socket related functions */
-struct flex_sock {
-	struct sock		sk;
+/* Flex Reliable Ext Header */
+struct rflexhdr_ext
+{
+	__u8	  version;
+	__u8	  packet_type;
+	__u8	  hash_type;
+	__u8	  hop_limit;
+	__be16  header_len;
+	__sum16	check;
+	__be16	packet_id;
+	__be16	frag_off;
+	char	  *sflex_id[FLEX_ID_EXT_LENGTH];
+	char    *dflex_id[FLEX_ID_EXT_LENGTH];
+	__be16  packet_len;
+	__be32	seq;
+	__be32	ack;
 };
 
+/* Flex Unreliable Header */
+struct uflexhdr 
+{
+	__u8	  version;
+	__u8	  packet_type;
+	__u8	  hash_type;
+	__u8	  hop_limit;
+	__be16  header_len;
+	__sum16	check;
+	__be16	packet_id;
+	__be16	frag_off;
+	char	  *sflex_id[FLEX_ID_LENGTH];
+	char    *dflex_id[FLEX_ID_LENGTH];
+	__be16  packet_len;
+};
+
+/* Flex Unreliable Ext Header */
+struct uflexhdr_ext
+{
+	__u8	  version;
+	__u8	  packet_type;
+	__u8	  hash_type;
+	__u8	  hop_limit;
+	__be16  header_len;
+	__sum16	check;
+	__be16	packet_id;
+	__be16	frag_off;
+	char	  *sflex_id[FLEX_ID_EXT_LENGTH];
+	char    *dflex_id[FLEX_ID_EXT_LENGTH];
+	__be16  packet_len;
+};
+
+/* Socket related functions */
+struct flex_sock 
+{
+	struct sock		sk;
+  struct flexid dst;
+};
+
+/* Flex socket address struct */
+struct sockaddr_flex 
+{
+  __kernel_sa_family_t  sin_family;
+  struct flexid         id;
+  int                   message;
+}
+
+/* Change the general sock into flex sock */
 static inline struct flex_sock *flex_sk(const struct sock *sk)
 {
 	return (struct flex_sock *)sk;
+}
+
+/* Change the general address into flex address */
+static inline struct sockaddr_flex *flex_addr(const struct sockaddr *addr)
+{
+  return (struct sockaddr_flex *)addr;
 }
 
 /* flex_input.c */

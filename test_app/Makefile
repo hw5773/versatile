@@ -1,5 +1,6 @@
 all:
-	gcc -o server server.c
+	gcc -o publisher publisher.c
+	gcc -o subscriber subscriber.c
 
 clean:
-	rm server
+	rm publisher subscriber

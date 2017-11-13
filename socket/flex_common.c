@@ -20,7 +20,7 @@
 #include <linux/time.h>
 #include <linux/slab.h>
 
-#include "flex.h"
+#include "../include/flex.h"
 
 int flex_release_sock(struct sock *sk, int embrion)
 {

@@ -5,7 +5,7 @@
 #include <net/sock.h>
 #include <linux/slab.h>
 
-#include "flex.h"
+#include "../include/flex.h"
 
 int flex_rcv(struct sk_buff *skb, struct net_device *dev, 
 			struct packet_type *ptype, struct net_device *orig_dev)

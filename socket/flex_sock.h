@@ -9,10 +9,10 @@
 #define PROTOCOL_AUTHOR	"Hyunwoo Lee <hwlee2014@mmlab.snu.ac.kr>, Hyeonmin Lee <hmlee@mmlab.snu.ac.kr>, Dongjun Lee <djlee@mmlab.snu.ac.kr>, Hyunchul Oh <hcoh@mmlab.snu.ac.kr>"
 #define PROTOCOL_DESC	"Flex Protocol"
 
-#include "../include/flex_log.h"
-#include "../include/flex_const.h"
-#include "../include/flex_id.h"
-#include "../include/flex_hdr.h"
+#include <flex/flex_log.h>
+#include <flex/flex_const.h>
+#include <flex/flex_id.h>
+#include <flex/flex_hdr.h>
 
 /* Socket related functions */
 struct flex_sock 

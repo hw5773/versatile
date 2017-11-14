@@ -25,12 +25,15 @@ ARFLAGS=
 AR=ar $(ARFLAGS) r
 RANLIB=ranlib
 
-SRCDIR=.
+SRCDIR=`pwd`
 DESTDIR=
 RM= rm -f
 RMDIR= rmdir
 BASENAME= flex
 NAME= $(BASENAME)-$(VERSION)
+
+SOCKDIR=socket
+SOCK_MODULE=flex.ko
 
 PCS=libflex.pc flex.pc
 
@@ -67,6 +70,12 @@ install: all
 	@echo "install flex.pc -> $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc"
 	@cp flex.pc $(INSTALLTOP)/$(LIBDIR)/pkgconfig
 	@chmod 644 $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
+	@ :
+	@echo "Make Flex Network Socket"
+	(cd $(SOCKDIR); make; cd $(SRCDIR))
+	@echo "Insert Flex Network Socket"
+	@insmod $(SRCDIR)/$(SOCKDIR)/$(SOCK_MODULE)
+
 
 uninstall:
 	@echo "*** Uninstalling development files"
@@ -85,7 +94,10 @@ uninstall:
 	@ :
 	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/libflex.pc
 	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
-	-$(RMDIR) $(INSTALLTOP)/$(LIBDIR)/pkgconfig
+	@ :
+	@echo "Remove Flex Network Socket"
+	@rmmod $(SRCDIR)/$(SOCKDIR)/$(SOCK_MODULE)
+	(cd $(SOCKDIR);make clean; cd $(SRCDIR))
 
 libclean:
 	@set -e; for s in $(SHLIB_INFO); do\

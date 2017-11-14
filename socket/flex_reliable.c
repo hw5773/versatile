@@ -20,7 +20,7 @@
 #include <linux/time.h>
 #include <linux/slab.h>
 
-#include "../include/flex.h"
+#include "flex_sock.h"
 
 int flex_reliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
 {

@@ -21,7 +21,7 @@
 #include <linux/slab.h>
 #include <linux/netdevice.h>
 
-#include "../include/flex.h"
+#include "flex_sock.h"
 
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
 {

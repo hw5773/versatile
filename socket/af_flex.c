@@ -32,7 +32,7 @@
 #include <net/checksum.h>
 #include <linux/security.h>
 
-#include "../include/flex.h"
+#include "flex_sock.h"
 
 static struct packet_type flex_packet_type __read_mostly = 
 {

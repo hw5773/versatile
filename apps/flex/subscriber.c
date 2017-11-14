@@ -57,10 +57,3 @@ int main(int argc, char *argv[])
 	close(sock);
 	return 0;
 }
-
-void error_handling(char *buf)
-{
-	fputs(buf, stderr);
-	fputc('\n', stderr);
-	exit(1);
-}

@@ -37,7 +37,7 @@ SOCK_MODULE=flex.ko
 
 PCS=libflex.pc flex.pc
 
-OBJ=src/behavior.o src/flex_id.o
+OBJ=src/behavior.o src/flex_id.o src/error.o
 
 all: libflex.a libflex.pc flex.pc
 
@@ -149,3 +149,6 @@ src/behavior.o: src/behavior.c
 
 src/flex_id.o: src/flex_id.c
 	$(CC) -Iinclude -o $@ -c src/flex_id.c
+
+src/error.o: src/error.c
+	$(CC) -Iinclude -o $@ -c src/error.c

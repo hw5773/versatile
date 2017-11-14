@@ -21,5 +21,6 @@
 struct flex_id *test_id();
 int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
+void error_handling(char *buf);
 
 #endif /* __FLEX__ */

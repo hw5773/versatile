@@ -1,6 +1,12 @@
+#ifndef __FLEX_ID__
+#define __FLEX_ID__
+
+#include <flex/flex_types.h>
+
 /* Flex ID operation */
 struct flexid_ops
 {
+  int (*create)(flexid_t *, void *, int type);
   int (*set_cache_bit)(int set);
   int (*set_segment_bit)(int set);
   int (*set_collision_avoidance)(int set);
@@ -23,3 +29,5 @@ struct flexid
 
 int init_flexid(struct flexid **);
 int free_flexid(struct flexid *);
+
+#endif /* __FLEX_ID__ */

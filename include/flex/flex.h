@@ -1,6 +1,5 @@
-#ifndef __FLEX_HEADER__
-#define __FLEX_HEADER__
-#endif
+#ifndef __FLEX__
+#define __FLEX__
 
 #include <linux/types.h>
 
@@ -16,15 +15,10 @@
 
 #include <flex/flex_const.h>
 #include <flex/flex_id.h>
-
-/* Flex socket address struct */
-struct sockaddr_flex 
-{
-  __kernel_sa_family_t  sin_family;
-  struct flexid         id;
-  int                   message;
-}
+#include <flex/flex_socket.h>
 
 struct flex_id *test_id();
-int get(struct flexid *id);
-int put(struct flexid *id);
+int get(struct flexid *id, char *resp, int *len);
+int put(struct flexid *id, char *resp, int *len);
+
+#endif /* __FLEX__ */

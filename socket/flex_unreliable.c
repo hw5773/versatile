@@ -47,9 +47,8 @@ int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t
   struct sock *sk = sock->sk;
   struct flex_sock *flex = flex_sk(sk);
   DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
-  struct sockaddr_flex *sflex;
 	struct sk_buff *skb;
-	struct flexhdr *flexh;
+	struct uflexhdr *flexh;
 
   FLEX_LOG("Confirm the content of msghdr");
   printk(KERN_INFO "[Flex] %s: msg_namelen: %d\n", __func__, msg->msg_namelen);
@@ -61,7 +60,7 @@ int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t
 	FLEX_LOG("Send the unreliable message");
 
 	dev = dev_get_by_name(&init_net, "ens33");
-	skb = alloc_skb(sizeof(struct flexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
+	skb = alloc_skb(sizeof(struct uflexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
 
 	if (skb == NULL)
 	{
@@ -73,20 +72,18 @@ int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t
 	skb->dev = dev;
 	skb->protocol = htons(ETH_P_FLEX);
 
-	flexh = (struct flexhdr *)skb_put(skb, sizeof(struct flexhdr));
-	flexh->version = FLEX_1_0;
-	flexh->packet_type = FLEX_JOIN;
-	flexh->hash_type = SHA1;
-	flexh->hop_limit = DEFAULT_HOP_LIMIT;
-	flexh->header_len = htons(DEFAULT_HEADER_LEN);
-	flexh->check = htons(0x1234);
-	flexh->packet_id = htons(0x7777);
-	flexh->frag_off = htons(0x8000 | 0x2000 | 0x365);
+	flexh = (struct uflexhdr *)skb_put(skb, sizeof(struct uflexhdr));
+	flexh->common.version = FLEX_1_0;
+	flexh->common.packet_type = FLEX_JOIN;
+	flexh->common.hash_type = SHA1;
+	flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
+	flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
+	flexh->common.check = htons(0x1234);
+	flexh->common.packet_id = htons(0x7777);
+	flexh->common.frag_off = htons(FLEX_PTC | FLEX_MF | 0x365);
 	memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
 	memset(flexh->dflex_id, '7', FLEX_ID_LENGTH);
-	flexh->packet_len = htons(DEFAULT_HEADER_LEN);
-	flexh->seq = htonl(0x12345678);
-	flexh->ack = htonl(0x98765432);
+	flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
 	if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
 	{

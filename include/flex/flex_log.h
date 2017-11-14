@@ -1,3 +1,6 @@
+#ifndef __FLEX_LOG__
+#define __FLEX_LOG__
+
 #define FLEX_LOG(msg) \
 	printk(KERN_INFO "[Flex] %s: %s\n", __func__, msg)
 
@@ -10,4 +13,4 @@
 #define FLEX_LOG1s(msg, arg1) \
 	printk(KERN_INFO "[Flex] %s: %s: %s\n", __func__, msg, arg1)
 
-
+#endif /* __FLEX_LOG__ */

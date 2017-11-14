@@ -1,0 +1,21 @@
+/* Flex ID include files */
+flex.h
+  : Offers the application programming interface for the developer
+
+flex_const.h
+  : Defines constants to use the flex id networking
+
+flex_hdr.h
+  : Defines the headers for flex id
+
+flex_log.h
+  : Defines macros for the logging
+
+flex_socket.h
+  : Defines the data structures for the socket address
+
+flex_types.h
+  : Defines the types used in the flex id networking
+
+id_manage.h
+  : Defines the functions for managing the flex id

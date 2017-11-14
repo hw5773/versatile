@@ -1,10 +1,8 @@
-#ifndef __FLEX_HDR_H__
-#define __FLEX_HDR_H__
-#endif
+#ifndef __FLEX_HDR__
+#define __FLEX_HDR__
 
-#ifndef __FLEX_CONST_H__
-#include "flex_const.h"
-#endif
+#include <flex/flex_const.h>
+#include <linux/types.h>
 
 /* Flex Common Header */
 struct flexhdr
@@ -23,7 +21,7 @@ struct flexhdr
 struct rflexhdr 
 {
 	struct flexhdr	common;
-	char	*sflex_id[FLEX_ID_LENGTH];
+	char	  *sflex_id[FLEX_ID_LENGTH];
 	char    *dflex_id[FLEX_ID_LENGTH];
 	__be16  packet_len;
 	__be32	seq;
@@ -59,3 +57,24 @@ struct uflexhdr_ext
 	__be16  packet_len;
 };
 
+static inline struct rflexhdr *reliable_flex_hdr(struct flexhdr *hdr)
+{
+  return (struct rflexhdr *)hdr;
+}
+
+static inline struct rflexhdr_ext *reliable_ext_flex_hdr(struct flexhdr *hdr)
+{
+  return (struct rflexhdr_ext *)hdr;
+}
+
+static inline struct uflexhdr *unreliable_flex_hdr(struct flexhdr *hdr)
+{
+  return (struct uflexhdr *)hdr;
+}
+
+static inline struct uflexhdr_ext *unreliable_ext_flex_hdr(struct flexhdr *hdr)
+{
+  return (struct uflexhdr_ext *)hdr;
+}
+
+#endif /* __FLEX_HDR__ */

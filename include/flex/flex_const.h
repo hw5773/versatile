@@ -1,6 +1,5 @@
-#ifndef __FLEX_CONST_H__
-#define __FLEX_CONST_H__
-#endif
+#ifndef __FLEX_CONST__
+#define __FLEX_CONST__
 
 #define SUCCESS				0
 #define FAILURE				-1
@@ -58,10 +57,15 @@
 #define SHA224          	0x03  // 224 bits (28 bytes)
 #define SHA256          	0x04  // 256 bits (32 bytes)
 
-#define FLEX_ID_LENGTH		21
-#define FLEX_ID_EXT_LENGTH  29
-#define DEFAULT_HOP_LIMIT	  128
-#define DEFAULT_HEADER_LEN	64
+#define FLEX_ID_LENGTH		        21
+#define FLEX_ID_EXT_LENGTH        29
+#define DEFAULT_HOP_LIMIT	        128
+#define DEFAULT_HEADER_LEN	      64
+#define RELIABLE_HEADER_LEN       64
+#define RELIABLE_EXT_HEADER_LEN   80
+#define UNRELIABLE_HEADER_LEN     56
+#define UNRELIABLE_EXT_HEADER_LEN 72
+
 
 /* Flex Header Field Index */
 #define VERSION_IDX			0
@@ -78,3 +82,4 @@
 #define SEQ_IDX				12 + 2 * FLEX_ID_LENGTH + 2
 #define ACK_IDX				12 + 2 * FLEX_ID_LENGTH + 6
 
+#endif /* __FLEX_CONST__ */

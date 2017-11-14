@@ -32,6 +32,8 @@ RMDIR= rmdir
 BASENAME= flex
 NAME= $(BASENAME)-$(VERSION)
 
+PCS=libflex.pc flex.pc
+
 OBJ=src/behavior.o src/flex_id.o
 
 all: libflex.a libflex.pc flex.pc
@@ -100,7 +102,7 @@ libclean:
 	$(RM) *.map
 
 clean: libclean
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(PCS)
 	-$(RM) `find . -name '*.o' -a \! -path "./.git*"`
 
 libflex.pc:

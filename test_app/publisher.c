@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-#include "proto_flex.h"
+#include <flex/flex.h>
 
 void error_handling(char *message);
 

@@ -34,7 +34,7 @@ NAME= $(BASENAME)-$(VERSION)
 
 OBJ=src/behavior.o src/flex_id.o
 
-all: libflex.a
+all: libflex.a libflex.pc flex.pc
 
 install: all
 	@[ -n "$(INSTALLTOP)" ] || (echo INSTALLTOP should not be empty; exit 1)

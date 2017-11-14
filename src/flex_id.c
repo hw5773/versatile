@@ -3,11 +3,11 @@
 #include <flex/flex_types.h>
 #include <flex/id_manage.h>
 
-struct flexid *test_id()
+struct flexid test_id()
 {
   flexid_t *id;
   init_flexid(&id);
-  return id;
+  return (*id);
 }
 
 int init_flexid(flexid_t **id)

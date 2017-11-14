@@ -2,6 +2,8 @@
 
 int get(flexid_t *id, char *resp, int *len)
 {
+  int sock;
+  
   return SUCCESS;
 }
 

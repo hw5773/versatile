@@ -4,6 +4,9 @@
 #define SUCCESS				0
 #define FAILURE				-1
 
+#define TRUE          0
+#define FALSE         -1
+
 /* Address Family & Protocol Family 
  * 38 is collide with PF_ALG (if it is set, a Flex socket won't be set.)
  */
@@ -12,6 +15,11 @@
 
 /* Ethernet Frame Type for Flex ID */
 #define ETH_P_FLEX			0x7788
+
+/* Flex Type */
+#define FLEX_TYPE_CONTENT 1
+#define FLEX_TYPE_SEGMENT 2
+#define FLEX_TYPE_SERVICE 3     
 
 /* Flex Version */
 #define FLEX_1_0        	0x10

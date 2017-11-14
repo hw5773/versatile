@@ -13,5 +13,6 @@ typedef struct uflexhdr_ext uflexhdr_ext_t;
 
 /* Flex ID Types */
 typedef struct flexid flexid_t;
+typedef struct flexid_ops flexops_t;
 
 #endif /* __FLEX_TYPES__ */

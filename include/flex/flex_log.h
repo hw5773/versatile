@@ -13,4 +13,11 @@
 #define FLEX_LOG1s(msg, arg1) \
 	printk(KERN_INFO "[Flex] %s: %s: %s\n", __func__, msg, arg1)
 
+#ifdef DEBUG
+#define APP_LOG(msg) \
+	printf("[Flex] %s: %s\n", __func__, msg)
+#else
+#define APP_LOG(msg)
+#endif /* DEBUG */
+
 #endif /* __FLEX_LOG__ */

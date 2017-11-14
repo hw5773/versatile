@@ -4,6 +4,7 @@
 #include <flex/flex.h>
 #include <flex/flex_log.h>
 #include <flex/flex_socket.h>
+#include <flex/flex_err.h>
 
 int get(flexid_t *id, char *resp, int *len)
 {

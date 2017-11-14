@@ -18,7 +18,7 @@
 #include <flex/flex_socket.h>
 #include <flex/flex_types.h>
 
-struct flex_id *test_id();
+flexid_t *test_id(void);
 int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
 void error_handling(char *buf);

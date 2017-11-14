@@ -23,9 +23,16 @@
 
 #include "flex_sock.h"
 
-int flex_unreliable_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
+int flex_unreliable_connect(struct socket *sock, struct sockaddr *uaddr, int addr_len, int flags)
 {
 	FLEX_LOG("Unreliable Connect");
+  struct sock *sk;
+  struct flex_sock *flex;
+  struct sockaddr_flex *addr;
+  sk = sock->sk;
+  flex = flex_sk(sk);
+  addr = (struct sockaddr_flex *) uaddr;
+
 	return -1;
 }
 
@@ -44,16 +51,17 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	struct net_device *dev;
-  struct sock *sk = sock->sk;
-  struct flex_sock *flex = flex_sk(sk);
+  //struct sock *sk = sock->sk;
+  //struct flex_sock *flex = flex_sk(sk);
   DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
 	struct sk_buff *skb;
 	struct uflexhdr *flexh;
+  unsigned char *content;
 
   FLEX_LOG("Confirm the content of msghdr");
   printk(KERN_INFO "[Flex] %s: msg_namelen: %d\n", __func__, msg->msg_namelen);
   printk(KERN_INFO "[Flex] %s: size: %lu\n", __func__, size);
-  unsigned char *content = (unsigned char *)kmalloc(10, GFP_ATOMIC);
+  content = (unsigned char *)kmalloc(10, GFP_ATOMIC);
   memcpy_from_msg(content, msg, size);
   FLEX_LOG(content);
 

@@ -23,7 +23,7 @@ int free_flexid(flexid_t *id);
 /* Flex ID Manipulation */
 int set_cache_bit(flexid_t *id, int set);
 int set_segment_bit(flexid_t *id, int set);
-int set_collision_avoidance(flexid_t *id, int set);
+int set_collision_avoidance_bit(flexid_t *id, int set);
 int add_attribute_value_pair(flexid_t *id, unsigned char *key, unsigned char *value);
 
 /* Flex ID Print */

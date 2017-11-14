@@ -140,7 +140,7 @@ flex.pc:
 			echo 'Version: '$(VERSION); \
 			echo 'Requires: libflex' ) > flex.pc
 
-libflex.a: src/behavior.o src/flex_id.o
+libflex.a: src/behavior.o src/flex_id.o src/error.o
 	$(AR) $@ $?
 	$(RANLIB) $@
 

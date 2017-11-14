@@ -7,3 +7,8 @@ In Linux 2.6:
 In Linux above 3:
 	int (*sendmsg) (struct kiocb *iocb, struct socket *sock, struct msghdr *m, size_t total_len);
 	int (*recvmsg) (struct kiocb *iocb, struct socket *sock, struct msghdr *m, size_t total_len, int flags);
+
+
+Description of Socket operations
+connect:
+  - binds the target id with the socket

@@ -7,7 +7,8 @@
 struct flexid *test_id()
 {
   flexid_t *id;
-  if (init_flexid(&id) < 0)
+  char *buf = "Hello, World!";
+  if (init_flexid(&id, buf, FLEX_TYPE_CONTENT) < 0)
     return NULL;
 
   return id;
@@ -24,21 +25,21 @@ int init_flexid(flexid_t **id, void *buf, int type)
 
   if (type == FLEX_TYPE_CONTENT)
   {
-    set_cache_bit(id, TRUE);
-    set_segment_bit(id, FALSE);
-    set_collision_avoidance_bit(id, FALSE);
+    set_cache_bit(*id, TRUE);
+    set_segment_bit(*id, FALSE);
+    set_collision_avoidance_bit(*id, FALSE);
   }
   else if (type == FLEX_TYPE_SEGMENT)
   {
-    set_cache_bit(id, TRUE);
-    set_segment_bit(id, TRUE);
-    set_collision_avoidance_bit(id, FALSE);
+    set_cache_bit(*id, TRUE);
+    set_segment_bit(*id, TRUE);
+    set_collision_avoidance_bit(*id, FALSE);
   }
   else if (type == FLEX_TYPE_SERVICE)
   {
-    set_cache_bit(id, FALSE);
-    set_segment_bit(id, FALSE);
-    set_collision_avoidance_bit(id, TRUE);
+    set_cache_bit(*id, FALSE);
+    set_segment_bit(*id, FALSE);
+    set_collision_avoidance_bit(*id, TRUE);
   }
   else
   {
@@ -77,7 +78,7 @@ int set_segment_bit(flexid_t *id, int set)
   return SUCCESS;
 }
 
-int set_collision_avoidance(flexid_t *id, int set)
+int set_collision_avoidance_bit(flexid_t *id, int set)
 {
   if (set == TRUE)
     id->collision_avoidance_bit = 0xF;

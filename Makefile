@@ -11,6 +11,7 @@ SHLIB_MONOR=0
 
 LIBS=libflex.a
 INSTALLTOP=/usr/local
+INSTALL_LIBS=libflex.a
 LIBDIR=lib
 
 PROGRAMS=test_app/publisher test_app/subscriber
@@ -24,6 +25,7 @@ ARFLAGS=
 AR=ar $(ARFLAGS) r
 RANLIB=ranlib
 
+SRCDIR=.
 DESTDIR=
 RM= rm -f
 RMDIR= rmdir
@@ -34,9 +36,54 @@ OBJ=src/behavior.o src/flex_id.o
 
 all: libflex.a
 
-install:
+install: all
+	@[ -n "$(INSTALLTOP)" ] || (echo INSTALLTOP should not be empty; exit 1)
+	@echo "*** Installing development files"
+	@$(SRCDIR)/util/mkdir-p.pl $(INSTALLTOP)/include/flex
+	@ :
+	@set -e; for i in $(SRCDIR)/include/flex/*.h; do \
+		fn=`basename $$i`; \
+		echo "install $$i -> $(INSTALLTOP)/include/flex/$$fn"; \
+		cp $$i $(INSTALLTOP)/include/flex/$$fn; \
+		chmod 644 $(INSTALLTOP)/include/flex/$$fn; \
+	done
+	@$(SRCDIR)/util/mkdir-p.pl $(INSTALLTOP)/$(LIBDIR)
+	@set -e; for l in $(INSTALL_LIBS); do \
+		fn=`basename $$l`; \
+		echo "install $$l -> $(INSTALLTOP)/$(LIBDIR)/$$fn"; \
+		cp $$l $(INSTALLTOP)/$(LIBDIR)/$$fn.new; \
+		$(RANLIB) $(INSTALLTOP)/$(LIBDIR)/$$fn.new; \
+		chmod 644 $(INSTALLTOP)/$(LIBDIR)/$$fn.new; \
+		mv -f $(INSTALLTOP)/$(LIBDIR)/$$fn.new \
+					$(INSTALLTOP)/$(LIBDIR)/$$fn; \
+	done
+	@ :
+	@$(SRCDIR)/util/mkdir-p.pl $(INSTALLTOP)/$(LIBDIR)/pkgconfig
+	@echo "install libflex.pc -> $(INSTALLTOP)/$(LIBDIR)/pkgconfig/libflex.pc"
+	@cp libflex.pc $(INSTALLTOP)/$(LIBDIR)/pkgconfig
+	@chmod 644 $(INSTALLTOP)/$(LIBDIR)/pkgconfig/libflex.pc
+	@echo "install flex.pc -> $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc"
+	@cp flex.pc $(INSTALLTOP)/$(LIBDIR)/pkgconfig
+	@chmod 644 $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
 
 uninstall:
+	@echo "*** Uninstalling development files"
+	@ :
+	@set -e; for i in $(SRCDIR)/include/flex/*.h; do \
+		fn=`basename $$i`; \
+		echo "$(RM) $(INSTALLTOP)/include/flex/$$fn"; \
+		$(RM) $(INSTALLTOP)/include/flex/$$fn; \
+	done
+	-$(RMDIR) $(INSTALLTOP)/include/flex
+	@set -e; for l in $(INSTALL_LIBS); do \
+		fn=`basename $$l`; \
+		echo "$(RM) $(INSTALLTOP)/$(LIBDIR)/$$fn"; \
+		$(RM) $(INSTALLTOP)/$(LIBDIR)/$$fn; \
+	done
+	@ :
+	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/libflex.pc
+	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
+	-$(RMDIR) $(INSTALLTOP)/$(LIBDIR)/pkgconfig
 
 libclean:
 	@set -e; for s in $(SHLIB_INFO); do\

@@ -16,6 +16,7 @@
 #include <flex/flex_const.h>
 #include <flex/flex_id.h>
 #include <flex/flex_socket.h>
+#include <flex/flex_types.h>
 
 struct flex_id *test_id();
 int get(struct flexid *id, char *resp, int *len);

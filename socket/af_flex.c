@@ -141,10 +141,12 @@ static int flex_create(struct net *net, struct socket *sock, int protocol, int k
 	switch (sock->type) {
 	case SOCK_STREAM:
 		sock->ops = &flex_reliable_ops;
+    flex->protocol = FLEX_RELIABLE;
 		FLEX_LOG("Set the socket operations as reliable");
 		break;
 	case SOCK_DGRAM:
 		sock->ops = &flex_unreliable_ops;
+    flex->protocol = FLEX_UNRELIABLE;
 		FLEX_LOG("Set the socket operations as unreliable");
 		break;
 	default:

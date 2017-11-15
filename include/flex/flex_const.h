@@ -27,7 +27,8 @@
 #define FLEX_1_0_MINOR  	0x0
 
 /* Flags */
-#define FLEX_PTC        	0x8000
+#define FLEX_RELIABLE    	0x8000  // PTC is set to 1
+#define FLEX_UNRELIABLE   0x0000  // PTC is set to 0
 #define FLEX_DF         	0x4000
 #define FLEX_MF         	0x2000
 #define FLEX_OFFSET  	   	0x1FFF

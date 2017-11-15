@@ -2,6 +2,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <flex/flex.h>
+#include <flex/flex_const.h>
 #include <flex/flex_log.h>
 #include <flex/flex_socket.h>
 #include <flex/flex_err.h>

@@ -19,8 +19,9 @@
 struct flex_sock 
 {
 	struct sock	  sk;
+  unsigned char protocol;
+  short         message;
   struct flexid dst;
-  int           message;
 };
 
 /* Change the general sock into flex sock */

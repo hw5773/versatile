@@ -141,7 +141,7 @@ proto_register_flex(void)
 			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_packet_id,
-			{ "Checksum", "flex.packet_id", FT_UINT16, BASE_HEX,
+			{ "Packet ID", "flex.packet_id", FT_UINT16, BASE_HEX,
 			NULL, 0x0, NULL, HFILL }
 		},
 		{ &hf_flex_ptc,

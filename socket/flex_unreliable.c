@@ -99,6 +99,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   FLEX_LOG("Find the message type");
   
+  FLEX_LOG1x("Message Type", flex->message);
+
   switch (flex->message)
   {
     case FLEX_INTEREST:
@@ -126,7 +128,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
   flexh->common.check = htons(0x1234);
   flexh->common.packet_id = htons(0x7777);
-  flexh->common.frag_off = htons(FLEX_PTC | FLEX_DF | 0x365);
+  flexh->common.frag_off = htons(FLEX_UNRELIABLE | FLEX_DF | 0x365);
   memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
   memcpy(flexh->dflex_id, &(flex->dst), flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);

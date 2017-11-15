@@ -19,4 +19,6 @@ int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
 void error_handling(char *buf);
 
+static int repo_sock = 0;
+
 #endif /* __FLEX__ */

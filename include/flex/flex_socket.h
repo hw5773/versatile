@@ -12,4 +12,10 @@ struct sockaddr_flex
   int                   message;
 };
 
+/* Change to the Flex socket address struct */
+static inline struct sockaddr_flex *target_info(struct sockaddr *addr)
+{
+  return (struct sockaddr_flex *)addr;
+}
+
 #endif /* __FLEX_SOCKET__ */

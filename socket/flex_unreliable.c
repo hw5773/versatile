@@ -22,18 +22,23 @@
 #include <linux/netdevice.h>
 
 #include "flex_sock.h"
+#include "flex_dev_types.h"
 
-int flex_unreliable_connect(struct socket *sock, struct sockaddr *uaddr, int addr_len, int flags)
+int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)
 {
-	FLEX_LOG("Unreliable Connect");
   struct sock *sk;
   struct flex_sock *flex;
-  struct sockaddr_flex *addr;
+  struct sockaddr_flex *tinfo;
+
+	FLEX_LOG("Unreliable Connect");
+
   sk = sock->sk;
   flex = flex_sk(sk);
-  addr = (struct sockaddr_flex *) uaddr;
+  tinfo = target_info(taddr);
+  flex->dst = tinfo->id;
+  flex->message = tinfo->message;
 
-	return -1;
+	return SUCCESS;
 }
 
 unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)
@@ -44,7 +49,44 @@ unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_t
 
 int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
-	FLEX_LOG("Send the unreliable message");
+  int i;
+  struct net_device *dev;
+  struct sock *sk;
+  struct flex_sock *flex;
+  struct sk_buff *skb;
+  struct uflexhdr *flexh;
+  unsigned char *content;
+  DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
+
+  FLEX_LOG("Send the unreliable message");
+
+  sk = sock->sk;
+  flex = flex_sk(sk);
+
+  FLEX_LOG("Find the device to send");
+  for (i=0; i<MAX_DEV_TYPES; i++)
+  { 
+    dev = dev_getfirstbyhwtype(&init_net, dev_type[i]);
+
+    if (dev)
+      break;
+  }
+
+  // TODO: Error Type 
+  if (!dev)
+  {
+    FLEX_LOG("Error: No device to send");
+    return -NODEV;
+  }
+  else
+    FLEX_LOG1s("Device Name", netdev_name(dev));
+
+  FLEX_LOG("Find the message type");
+  
+//  switch (flex->message)
+//  {
+//    case FLEX_INTEREST
+
 	return -1;
 }
 

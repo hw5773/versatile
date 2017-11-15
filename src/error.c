@@ -1,4 +1,5 @@
 #include <flex/flex_err.h>
+#include <stdio.h>
 
 void error_handling(char *buf)
 {

@@ -1,6 +1,5 @@
 #ifndef __FLEX_SOCK_H__
 #define __FLEX_SOCK_H__
-#endif
 
 #include <linux/socket.h>
 #include <linux/slab.h>
@@ -13,32 +12,21 @@
 #include <flex/flex_const.h>
 #include <flex/flex_id.h>
 #include <flex/flex_hdr.h>
+#include <flex/flex_socket.h>
+#include <flex/flex_err.h>
 
 /* Socket related functions */
 struct flex_sock 
 {
-	struct sock		sk;
+	struct sock	  sk;
   struct flexid dst;
-};
-
-/* Flex socket address struct */
-struct sockaddr_flex 
-{
-  __kernel_sa_family_t  sin_family;
-  struct flexid         id;
-  int                   message;
+  int           message;
 };
 
 /* Change the general sock into flex sock */
 static inline struct flex_sock *flex_sk(const struct sock *sk)
 {
 	return (struct flex_sock *)sk;
-}
-
-/* Change the general address into flex address */
-static inline struct sockaddr_flex *flex_addr(const struct sockaddr *addr)
-{
-  return (struct sockaddr_flex *)addr;
 }
 
 /* flex_input.c */
@@ -73,3 +61,5 @@ extern unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_ta
 extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t len);
 extern int flex_unreliable_sendmsg_test(struct socket *, struct msghdr *, size_t len);
 extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
+
+#endif /* __FLEX_SOCK_H__ */

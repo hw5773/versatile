@@ -1,7 +1,8 @@
 #ifndef __FLEX_ERR__
 #define __FLEX_ERR__
 
-#include <stdio.h>
+// Error Code List
+#define NODEV     100
 
 void error_handling(char *);
 

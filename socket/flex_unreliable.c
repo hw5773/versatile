@@ -131,6 +131,17 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   memcpy(flexh->dflex_id, flex->dst, flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
+  if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
+  {
+    FLEX_LOG("Make Header Frame Failed");
+    err = -WRONG_HEADER;
+    goto out;
+  }
+
+  FLEX_LOG("Make Header Frame Success");
+  dev_queue_xmit(skb);
+  FLEX_LOG("Send the Frame");
+
 	return SUCCESS;
 
 out:

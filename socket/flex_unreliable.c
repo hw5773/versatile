@@ -49,7 +49,7 @@ unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_t
 
 int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
-  int i;
+  int i, err;
   struct net_device *dev;
   struct sock *sk;
   struct flex_sock *flex;
@@ -72,83 +72,69 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       break;
   }
 
-  // TODO: Error Type 
   if (!dev)
   {
     FLEX_LOG("Error: No device to send");
-    return -NODEV;
+    err = -NO_DEV;
   }
   else
     FLEX_LOG1s("Device Name", netdev_name(dev));
 
+  skb = alloc_skb(sizeof(struct uflexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
+
+  if (skb == NULL)
+  {
+    FLEX_LOG("Allocate Socket Buffer Failed");
+    goto out;
+  }
+
+  FLEX_LOG("Initialize the Flex Header");
+
+  skb_reserve(skb, LL_RESERVED_SPACE(dev));
+  skb->dev = dev;
+  skb->protocol = htons(ETH_P_FLEX);
+
+  flexh = (struct uflexhdr *)skb_put(skb, sizeof(struct uflexhdr));
+  flexh->common.version = FLEX_1_0;
+
   FLEX_LOG("Find the message type");
   
-//  switch (flex->message)
-//  {
-//    case FLEX_INTEREST
+  switch (flex->message)
+  {
+    case FLEX_INTEREST:
+      flexh->common.packet_type = FLEX_INTEREST;
+      FLEX_LOG("This is INTEREST message");
+      break;
+    case FLEX_DATA:
+      flexh->common.packet_type = FLEX_DATA;
+      content = (unsigned char *)kmalloc(size, GFP_ATOMIC);
+      memcpy_from_msg(content, msg, size);
+      FLEX_LOG("This is DATA message");
+      break;
+    case FLEX_DATA_ACK:
+      FLEX_LOG("Error: Unreliable communication doesn't support ACK");
+      err = -WRONG_MESSAGE_TYPE;
+      goto out;
+    default:
+      FLEX_LOG("Error: We only support data plane message yet");
+      err = -WRONG_MESSAGE_TYPE;
+      goto out;
+  }
 
-	return -1;
-}
+  flexh->common.hash_type = SHA1;
+  flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
+  flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
+  flexh->common.check = htons(0x1234);
+  flexh->common.packet_id = htons(0x7777);
+  flexh->common.frag_off = htons(FLEX_PTC | FLEX_DF | 0x365);
+  memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
+  memcpy(flexh->dflex_id, flex->dst, flex->dst.length);
+  flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
-int flex_unreliable_sendmsg_test(struct socket *sock, struct msghdr *msg, size_t size)
-{
-	struct net_device *dev;
-  //struct sock *sk = sock->sk;
-  //struct flex_sock *flex = flex_sk(sk);
-  DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
-	struct sk_buff *skb;
-	struct uflexhdr *flexh;
-  unsigned char *content;
-
-  FLEX_LOG("Confirm the content of msghdr");
-  printk(KERN_INFO "[Flex] %s: msg_namelen: %d\n", __func__, msg->msg_namelen);
-  printk(KERN_INFO "[Flex] %s: size: %lu\n", __func__, size);
-  content = (unsigned char *)kmalloc(10, GFP_ATOMIC);
-  memcpy_from_msg(content, msg, size);
-  FLEX_LOG(content);
-
-	FLEX_LOG("Send the unreliable message");
-
-	dev = dev_get_by_name(&init_net, "ens33");
-	skb = alloc_skb(sizeof(struct uflexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
-
-	if (skb == NULL)
-	{
-		FLEX_LOG("Allocate Socket Buffer Failed");
-		goto out;
-	}
-
-	skb_reserve(skb, LL_RESERVED_SPACE(dev));
-	skb->dev = dev;
-	skb->protocol = htons(ETH_P_FLEX);
-
-	flexh = (struct uflexhdr *)skb_put(skb, sizeof(struct uflexhdr));
-	flexh->common.version = FLEX_1_0;
-	flexh->common.packet_type = FLEX_JOIN;
-	flexh->common.hash_type = SHA1;
-	flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
-	flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
-	flexh->common.check = htons(0x1234);
-	flexh->common.packet_id = htons(0x7777);
-	flexh->common.frag_off = htons(FLEX_PTC | FLEX_MF | 0x365);
-	memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
-	memset(flexh->dflex_id, '7', FLEX_ID_LENGTH);
-	flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
-
-	if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
-	{
-		FLEX_LOG("Make Header Frame Failed");
-		goto out;
-	}
-
-	FLEX_LOG("Make Header Frame Success");
-	dev_queue_xmit(skb);
-	FLEX_LOG("Send the Frame");
-  kfree(content);
-	return -1;
+	return SUCCESS;
 
 out:
-	return -1;
+  return err;
 }
 
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)

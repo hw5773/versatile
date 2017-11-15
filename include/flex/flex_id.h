@@ -6,7 +6,6 @@
 /* Flex ID */
 struct flexid
 {
-  __be16  length;
   __u8    cache_bit:1,
           segment_bit:1,
           collision_avoidance_bit:4,
@@ -14,6 +13,7 @@ struct flexid
   __u8    identity[20];
   __be32  total_segments; // used only when segment_bit is 1
   __be32  segment_num;    // used only when segment_bit is 1
+  __be16  length;
 };
 
 /* Flex ID init and free */

@@ -128,7 +128,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->common.packet_id = htons(0x7777);
   flexh->common.frag_off = htons(FLEX_PTC | FLEX_DF | 0x365);
   memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
-  memcpy(flexh->dflex_id, flex->dst, flex->dst.length);
+  memcpy(flexh->dflex_id, &(flex->dst), flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)

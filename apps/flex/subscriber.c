@@ -15,9 +15,6 @@ int main(int argc, char *argv[])
 	char buf[256];
 	int rc, len;
 
-	char message[] = "{ \"interface\" : \"wire\", \"bandwidth\" : \"10 Mbps\" }";
-	int message_len = strlen(message);
-
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
   if ((err = test_query(&tid)) < 0)

@@ -20,7 +20,8 @@ int main(int argc, char *argv[])
 
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
-  test_query(&tid);
+  if ((err = test_query(&tid)) < 0)
+    goto out;
 
   APP_LOG("Set the test Flex ID Complete");
 

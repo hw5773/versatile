@@ -21,8 +21,8 @@ struct flexhdr
 struct rflexhdr 
 {
 	struct flexhdr	common;
-	char	  *sflex_id[FLEX_ID_LENGTH];
-	char    *dflex_id[FLEX_ID_LENGTH];
+	char	  sflex_id[FLEX_ID_LENGTH];
+	char    dflex_id[FLEX_ID_LENGTH];
 	__be16  packet_len;
 	__be32	seq;
 	__be32	ack;
@@ -32,8 +32,8 @@ struct rflexhdr
 struct rflexhdr_ext
 {
 	struct flexhdr	common;
-	char	  *sflex_id[FLEX_ID_EXT_LENGTH];
-	char    *dflex_id[FLEX_ID_EXT_LENGTH];
+	char	  sflex_id[FLEX_ID_EXT_LENGTH];
+	char    dflex_id[FLEX_ID_EXT_LENGTH];
 	__be16  packet_len;
 	__be32	seq;
 	__be32	ack;
@@ -43,8 +43,8 @@ struct rflexhdr_ext
 struct uflexhdr 
 {
 	struct flexhdr	common;
-	char	  *sflex_id[FLEX_ID_LENGTH];
-	char    *dflex_id[FLEX_ID_LENGTH];
+	char	  sflex_id[FLEX_ID_LENGTH];
+	char    dflex_id[FLEX_ID_LENGTH];
 	__be16  packet_len;
 };
 
@@ -52,8 +52,8 @@ struct uflexhdr
 struct uflexhdr_ext
 {
 	struct flexhdr common;
-	char	  *sflex_id[FLEX_ID_EXT_LENGTH];
-	char    *dflex_id[FLEX_ID_EXT_LENGTH];
+	char	  sflex_id[FLEX_ID_EXT_LENGTH];
+	char    dflex_id[FLEX_ID_EXT_LENGTH];
 	__be16  packet_len;
 };
 

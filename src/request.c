@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <flex/flex_types.h>
 #include <flex/flex_request.h>
 #include <flex/flex_err.h>

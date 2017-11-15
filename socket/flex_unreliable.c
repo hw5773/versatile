@@ -26,6 +26,7 @@
 
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)
 {
+  int i;
   struct sock *sk;
   struct flex_sock *flex;
   struct sockaddr_flex *tinfo;
@@ -37,13 +38,16 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   sk = sock->sk;
   flex = flex_sk(sk);
   tinfo = target_info(taddr);
-  flex->dst = tinfo->id;
+
+  memcpy(&(flex->dst), &(tinfo->id), sizeof(flexid_t));
   flex->message = tinfo->message;
 
   FLEX_LOG("Set the next hop to the Socket");
 
   flex->addr_type = tinfo->addr_type;
-  memcpy(flex->next_hop, tinfo->next_hop, MAX_ADDR_LEN);
+
+  for (i=0; i<tinfo->addr_len; i++)
+    flex->next_hop[i] = tinfo->next_hop[i];
 
 	return SUCCESS;
 }

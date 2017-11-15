@@ -12,10 +12,22 @@
 
 int test_query(flexid_t **id)
 {
-  int err;
-  char *buf = "Hello, World!";
-  if ((err = init_flexid(id, buf, FLEX_TYPE_CONTENT)) < 0)
-    goto out;
+  int i, err;
+  (*id) = (flexid_t *)malloc(sizeof(flexid_t));
+
+  set_cache_bit((*id), TRUE);
+  set_segment_bit((*id), FALSE);
+  set_collision_avoidance_bit((*id), FALSE);
+  
+  for (i=0; i<10; i++)
+    (*id)->identity[i] = 0x41;
+
+  for (i=10; i<20; i++)
+    (*id)->identity[i] = 0x42;
+
+  (*id)->length = FLEX_ID_LENGTH;
+
+  APP_LOG1d("First Bit", (*id));
 
   return SUCCESS;
 

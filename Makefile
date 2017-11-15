@@ -14,11 +14,11 @@ INSTALLTOP=/usr/local
 INSTALL_LIBS=libflex.a
 LIBDIR=lib
 
-PROGRAMS=test_app/publisher test_app/subscriber
+PROGRAMS=apps/flex/publisher apps/flex/subscriber
 LIBRPATH=$(INSTALLTOP)/$(LIBDIR)
 
 CC= cc
-CFLAGS=-O
+CFLAGS=-O -DDEBUG
 LDFLAGS=
 
 ARFLAGS=

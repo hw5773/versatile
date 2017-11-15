@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-	int sock, err;
+	int err;
 	flexid_t *tid;
 	struct sockaddr_flex target_id;
 	char buf[256];

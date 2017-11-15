@@ -37,7 +37,7 @@ SOCK_MODULE=flex.ko
 
 PCS=libflex.pc flex.pc
 
-OBJ=src/behavior.o src/flex_id.o src/error.o
+OBJ=src/behavior.o src/flex_id.o src/error.o src/test_func.o src/request.o
 
 all: libflex.a libflex.pc flex.pc
 
@@ -140,15 +140,21 @@ flex.pc:
 			echo 'Version: '$(VERSION); \
 			echo 'Requires: libflex' ) > flex.pc
 
-libflex.a: src/behavior.o src/flex_id.o src/error.o
+libflex.a: $(OBJ)
 	$(AR) $@ $?
 	$(RANLIB) $@
 
 src/behavior.o: src/behavior.c
-	$(CC) -Iinclude -o $@ -c src/behavior.c
+	$(CC) -Iinclude -o $@ -c $<
 
 src/flex_id.o: src/flex_id.c
-	$(CC) -Iinclude -o $@ -c src/flex_id.c
+	$(CC) -Iinclude -o $@ -c $<
 
 src/error.o: src/error.c
-	$(CC) -Iinclude -o $@ -c src/error.c
+	$(CC) -Iinclude -o $@ -c $<
+
+src/request.o: src/request.c
+	$(CC) -Iinclude -o $@ -c $<
+
+src/test_func.o: src/test_func.c
+	$(CC) -Iinclude -o $@ -c $<

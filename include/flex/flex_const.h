@@ -21,17 +21,21 @@
 #define FLEX_TYPE_SEGMENT 2
 #define FLEX_TYPE_SERVICE 3     
 
+/* Flex Reliable/Unreliable */
+#define FLEX_RELIABLE     1       // Used in struct flex_sock
+#define FLEX_UNRELIABLE   0       // Used in struct flex_sock
+
 /* Flex Version */
 #define FLEX_1_0        	0x10
 #define FLEX_1_0_MAJOR  	0x1
 #define FLEX_1_0_MINOR  	0x0
 
 /* Flags */
-#define FLEX_RELIABLE    	0x8000  // PTC is set to 1
-#define FLEX_UNRELIABLE   0x0000  // PTC is set to 0
-#define FLEX_DF         	0x4000
-#define FLEX_MF         	0x2000
-#define FLEX_OFFSET  	   	0x1FFF
+#define FLEX_PTC_RELIABLE    	0x8000  // PTC is set to 1
+#define FLEX_PTC_UNRELIABLE   0x0000  // PTC is set to 0
+#define FLEX_DF         	    0x4000
+#define FLEX_MF         	    0x2000
+#define FLEX_OFFSET  	   	    0x1FFF
 
 /* Packet Type
  * begin with 00 is for control plane messages, 01 is for control plane ack

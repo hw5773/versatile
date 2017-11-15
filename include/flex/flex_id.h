@@ -1,7 +1,7 @@
 #ifndef __FLEX_ID__
 #define __FLEX_ID__
 
-#include <flex/flex_types.h>
+#include <linux/types.h>
 
 /* Flex ID */
 struct flexid
@@ -17,16 +17,16 @@ struct flexid
 };
 
 /* Flex ID init and free */
-int init_flexid(flexid_t **id, void *buf, int type);
-int free_flexid(flexid_t *id);
+int init_flexid(struct flexid **id, void *buf, int type);
+int free_flexid(struct flexid *id);
 
 /* Flex ID Manipulation */
-int set_cache_bit(flexid_t *id, int set);
-int set_segment_bit(flexid_t *id, int set);
-int set_collision_avoidance_bit(flexid_t *id, int set);
-int add_attribute_value_pair(flexid_t *id, unsigned char *key, unsigned char *value);
+int set_cache_bit(struct flexid *id, int set);
+int set_segment_bit(struct flexid *id, int set);
+int set_collision_avoidance_bit(struct flexid *id, int set);
+int add_attribute_value_pair(struct flexid *id, unsigned char *key, unsigned char *value);
 
 /* Flex ID Print */
-int print_flex_id(flexid_t *id);
+int print_flex_id(struct flexid *id);
 
 #endif /* __FLEX_ID__ */

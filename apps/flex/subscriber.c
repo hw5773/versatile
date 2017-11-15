@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-	int sock;
+	int sock, err;
 	flexid_t *tid;
 	struct sockaddr_flex target_id;
 	char buf[256];
@@ -20,19 +20,20 @@ int main(int argc, char *argv[])
 
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
-  tid = test_id();
+  test_query(&tid);
 
   APP_LOG("Set the test Flex ID Complete");
 
   APP_LOG("Invoke get()");
 
-  if (get(tid, buf, &len) < 0)
-  {
-    APP_LOG("Error in get()");
-    exit(1);
-  }
+  if ((err = get(tid, buf, &len)) < 0)
+    goto out;
 
   APP_LOG("Invoke get() success");
 
-	return 0;
+	return SUCCESS;
+
+out:
+  APP_LOG1d("Error", err);
+  return err;
 }

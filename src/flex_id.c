@@ -4,16 +4,6 @@
 #include <flex/flex_types.h>
 #include <flex/flex_log.h>
 
-struct flexid *test_id()
-{
-  flexid_t *id;
-  char *buf = "Hello, World!";
-  if (init_flexid(&id, buf, FLEX_TYPE_CONTENT) < 0)
-    return NULL;
-
-  return id;
-}
-
 // TODO: Extract public key from the DER/PEM file
 // TODO: Make the hash value from the content
 int init_flexid(flexid_t **id, void *buf, int type)

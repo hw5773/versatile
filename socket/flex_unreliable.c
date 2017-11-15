@@ -32,11 +32,18 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
 
 	FLEX_LOG("Unreliable Connect");
 
+  FLEX_LOG("Bind the Socket with the Target ID");
+
   sk = sock->sk;
   flex = flex_sk(sk);
   tinfo = target_info(taddr);
   flex->dst = tinfo->id;
   flex->message = tinfo->message;
+
+  FLEX_LOG("Set the next hop to the Socket");
+
+  flex->addr_type = tinfo->addr_type;
+  memcpy(flex->next_hop, tinfo->next_hop, MAX_ADDR_LEN);
 
 	return SUCCESS;
 }
@@ -128,12 +135,12 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
   flexh->common.check = htons(0x1234);
   flexh->common.packet_id = htons(0x7777);
-  flexh->common.frag_off = htons(FLEX_UNRELIABLE | FLEX_DF | 0x365);
+  flexh->common.frag_off = htons(FLEX_PTC_UNRELIABLE | FLEX_DF | 0x365);
   memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
   memcpy(flexh->dflex_id, &(flex->dst), flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
-  if (dev_hard_header(skb, dev, ETH_P_FLEX, dev->broadcast, dev->dev_addr, skb->len) < 0)
+  if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
   {
     FLEX_LOG("Make Header Frame Failed");
     err = -WRONG_HEADER;

@@ -11,9 +11,11 @@
 #include <flex/flex_log.h>
 #include <flex/flex_const.h>
 #include <flex/flex_id.h>
+#include <flex/flex_request.h>
 #include <flex/flex_hdr.h>
 #include <flex/flex_socket.h>
 #include <flex/flex_err.h>
+#include <flex/flex_types.h>
 
 /* Socket related functions */
 struct flex_sock 
@@ -22,6 +24,9 @@ struct flex_sock
   unsigned char protocol;
   short         message;
   struct flexid dst;
+  short         addr_type;
+  unsigned char addr_len;
+  unsigned char next_hop[MAX_ADDR_LEN];
 };
 
 /* Change the general sock into flex sock */

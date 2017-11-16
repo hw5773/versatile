@@ -11,6 +11,29 @@
 #include <flex/flex_err.h>
 #include <flex/flex.h>
 
+int test_sid(flexid_t **id)
+{
+  int i, err;
+  (*id) = (flexid_t *)malloc(sizeof(flexid_t));
+
+  set_cache_bit((*id), FALSE);
+  set_segment_bit((*id), FALSE);
+  set_collision_avoidance_bit((*id), TRUE);
+  
+  for (i=0; i<10; i++)
+    (*id)->identity[i] = 0x46;
+
+  for (i=10; i<20; i++)
+    (*id)->identity[i] = 0x47;
+
+  (*id)->length = FLEX_ID_LENGTH;
+
+  return SUCCESS;
+
+out:
+  return err;
+}
+
 int test_query(flexid_t **id)
 {
   int i, err;
@@ -27,8 +50,6 @@ int test_query(flexid_t **id)
     (*id)->identity[i] = 0x42;
 
   (*id)->length = FLEX_ID_LENGTH;
-
-  APP_LOG1d("First Bit", (*id));
 
   return SUCCESS;
 

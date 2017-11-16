@@ -22,7 +22,50 @@
 #include <linux/netdevice.h>
 
 #include "flex_sock.h"
+#include "flex_unreliable.h"
 #include "flex_dev_types.h"
+
+struct u_table u_table __read_mostly;
+
+void __init flex_unreliable_init(void)
+{
+  FLEX_LOG("Start to initialize the unreliable one");
+  u_table_init(&u_table, "Unreliable");
+}
+
+void __exit flex_unreliable_exit(void)
+{
+  FLEX_LOG("Start to exit the unreliable one");
+  u_table_exit(&u_table);
+}
+
+void u_table_init(struct u_table *table, const char *name)
+{
+  int i;
+
+  FLEX_LOG("Start to initialize the Unreliable Table");
+  table->hash = kmalloc(MIN_UTABLE_SIZE * 2 * sizeof(struct u_hslot), GFP_KERNEL);
+  if (!(table->hash))
+  {
+    FLEX_LOG("Initialize Unreliable Socket Hash Table Failure");
+    panic(name);
+  }
+  table->log = ilog2(MIN_UTABLE_SIZE);
+  table->mask = MIN_UTABLE_SIZE - 1;
+
+  for (i=0; i<= table->mask; i++)
+  {
+    INIT_HLIST_NULLS_HEAD(&table->hash[i].head, i);
+    table->hash[i].count = 0;
+    spin_lock_init(&table->hash[i].lock);
+  }
+  FLEX_LOG("Allocate the table Succeed");
+}
+
+void u_table_exit(struct u_table *table)
+{
+  kfree(table->hash);
+}
 
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)
 {
@@ -39,7 +82,8 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   flex = flex_sk(sk);
   tinfo = target_info(taddr);
 
-  memcpy(&(flex->dst), &(tinfo->id), sizeof(flexid_t));
+  memcpy(&(flex->src), &(tinfo->sid), sizeof(flexid_t));
+  memcpy(&(flex->dst), &(tinfo->tid), sizeof(flexid_t));
   flex->message = tinfo->message;
 
   FLEX_LOG("Set the next hop to the Socket");

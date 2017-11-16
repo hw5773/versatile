@@ -17,6 +17,7 @@ int get(flexid_t *id, char *buf, int *len)
 {
   int sock, i, err;
   struct sockaddr_flex target_id;
+  flexid_t *sid;    // TODO: Need to change this to be automated.
   response_t *resp;
 
   APP_LOG("Unreliable Get message");
@@ -39,7 +40,9 @@ int get(flexid_t *id, char *buf, int *len)
   APP_LOG("Socket Generation Succeed");
   
   target_id.sin_family = AF_FLEX;
-  target_id.id = *id;
+  test_sid(&sid);
+  target_id.sid = *sid;
+  target_id.tid = *id;
   target_id.message = FLEX_INTEREST;
 
   APP_LOG("Set the Message Info to Target ID");

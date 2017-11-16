@@ -169,6 +169,8 @@ static const struct net_proto_family flex_family_ops = {
 static void __exit af_flex_exit(void)
 {
 	FLEX_LOG("Enter the flex protocol destructor");
+  flex_unreliable_exit();
+  FLEX_LOG("Remove the flex unreliable table success!");
 	dev_remove_pack(&flex_packet_type);
 	FLEX_LOG("Remove the flex packet success!");
 	sock_unregister(AF_FLEX);
@@ -198,6 +200,10 @@ static int __init af_flex_init(void)
 	dev_add_pack(&flex_packet_type);
 
 	FLEX_LOG("The Protocal and Socket for Flex ID are registered");
+
+  flex_unreliable_init();
+
+  FLEX_LOG("Flex Unreliable Protocol Init");
 
 out_proto:
 	proto_unregister(&flex_proto);

@@ -9,7 +9,8 @@
 struct sockaddr_flex 
 {
   __kernel_sa_family_t  sin_family;
-  struct flexid         id;
+  struct flexid         sid;
+  struct flexid         tid;
   short                 message;
   short                 addr_type;
   unsigned char         addr_len;

@@ -9,8 +9,8 @@
 int flex_rcv(struct sk_buff *skb, struct net_device *dev, 
 			struct packet_type *ptype, struct net_device *orig_dev)
 {
-  struct flexhdr *flex;
-  flex = (struct flexhdr *)skb->data;
+  flexhdr_t *flex;
+  flex = (flexhdr_t *)skb->data;
 
 	FLEX_LOG("Enter Flex Receive Routine");
 

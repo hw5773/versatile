@@ -87,15 +87,17 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   {
     FLEX_LOG("Error: No device to send");
     err = -NO_DEV;
+    goto out;
   }
   else
     FLEX_LOG1s("Device Name", netdev_name(dev));
 
-  skb = alloc_skb(sizeof(struct uflexhdr) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
+  skb = alloc_skb(sizeof(uflexhdr_t) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
 
-  if (skb == NULL)
+  if (!skb)
   {
     FLEX_LOG("Allocate Socket Buffer Failed");
+    err = -ERROR_MALLOC;
     goto out;
   }
 

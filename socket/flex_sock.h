@@ -23,6 +23,7 @@ struct flex_sock
 	struct sock	  sk;
   unsigned char protocol;
   short         message;
+  struct flexid src;
   struct flexid dst;
   short         addr_type;
   unsigned char addr_len;

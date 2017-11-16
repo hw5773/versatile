@@ -1,3 +1,11 @@
+/**
+ * @file flex_sock.h
+ * @author Hyunwoo Lee
+ * @date 17 Nov 2017
+ * @brief This file contains the data structures and the signature of functions
+ * for Flex socket.
+ */
+
 #ifndef __FLEX_SOCK_H__
 #define __FLEX_SOCK_H__
 
@@ -18,16 +26,19 @@
 #include <flex/flex_types.h>
 
 /* Socket related functions */
+/** 
+ * @brief The data structure for the Flex specified socket
+ */
 struct flex_sock 
 {
-	struct sock	  sk;
-  unsigned char protocol;
-  short         message;
-  struct flexid src;
-  struct flexid dst;
-  short         addr_type;
-  unsigned char addr_len;
-  unsigned char next_hop[MAX_ADDR_LEN];
+	struct sock	  sk;                     /**< This member contains the sock structure */
+  unsigned char protocol;               /**< This member shows the reliable/unreliable communication is used */
+  short         message;                /**< The message type */
+  struct flexid src;                    /**< Flex ID of the source */
+  struct flexid dst;                    /**< Flex ID of the destination */
+  short         addr_type;              /**< The address type of the next hop */
+  unsigned char addr_len;               /**< The length of the address in the next hop */
+  unsigned char next_hop[MAX_ADDR_LEN]; /**< The address of the next hop */
 };
 
 /* Change the general sock into flex sock */

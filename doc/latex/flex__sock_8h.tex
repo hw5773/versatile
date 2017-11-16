@@ -1,0 +1,126 @@
+\hypertarget{flex__sock_8h}{}\section{socket/flex\+\_\+sock.h File Reference}
+\label{flex__sock_8h}\index{socket/flex\+\_\+sock.\+h@{socket/flex\+\_\+sock.\+h}}
+
+
+This file contains the data structures and the signature of functions for Flex socket.  
+
+
+{\ttfamily \#include $<$linux/socket.\+h$>$}\\*
+{\ttfamily \#include $<$linux/slab.\+h$>$}\\*
+{\ttfamily \#include $<$net/sock.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+log.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+const.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+id.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+request.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+hdr.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+socket.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+err.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+types.\+h$>$}\\*
+Include dependency graph for flex\+\_\+sock.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{flex__sock_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflex__sock}{flex\+\_\+sock}
+\begin{DoxyCompactList}\small\item\em The data structure for the Flex specified socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR}~\char`\"{}Hyunwoo Lee $<$hwlee2014@mmlab.\+snu.\+ac.\+kr$>$, Hyeonmin Lee $<$hmlee@mmlab.\+snu.\+ac.\+kr$>$, Dongjun Lee $<$djlee@mmlab.\+snu.\+ac.\+kr$>$, Hyunchul Oh $<$hcoh@mmlab.\+snu.\+ac.\+kr$>$\char`\"{}\hypertarget{flex__sock_8h_a0ab74dcdaf7ac4a22fe6c0829b47f213}{}\label{flex__sock_8h_a0ab74dcdaf7ac4a22fe6c0829b47f213}
+
+\item 
+\#define {\bfseries P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC}~\char`\"{}Flex Protocol\char`\"{}\hypertarget{flex__sock_8h_aabb836f86580b572864dc23195880b9d}{}\label{flex__sock_8h_aabb836f86580b572864dc23195880b9d}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries flex\+\_\+rcv} (struct sk\+\_\+buff $\ast$, struct net\+\_\+device $\ast$, struct packet\+\_\+type $\ast$, struct net\+\_\+device $\ast$)\hypertarget{flex__sock_8h_a9d7395d4017f0325eadf491f4d1e6785}{}\label{flex__sock_8h_a9d7395d4017f0325eadf491f4d1e6785}
+
+\item 
+int {\bfseries flex\+\_\+output} (struct sk\+\_\+buff $\ast$)\hypertarget{flex__sock_8h_a12cb1bb002ee550024588904f498e0e3}{}\label{flex__sock_8h_a12cb1bb002ee550024588904f498e0e3}
+
+\item 
+int {\bfseries flex\+\_\+release} (struct socket $\ast$)\hypertarget{flex__sock_8h_abc97aa726f0c81225d056190080589e0}{}\label{flex__sock_8h_abc97aa726f0c81225d056190080589e0}
+
+\item 
+int {\bfseries flex\+\_\+bind} (struct socket $\ast$, struct sockaddr $\ast$, int)\hypertarget{flex__sock_8h_a980041ed71aa191c0241154fb477852e}{}\label{flex__sock_8h_a980041ed71aa191c0241154fb477852e}
+
+\item 
+int {\bfseries flex\+\_\+getname} (struct socket $\ast$, struct sockaddr $\ast$, int $\ast$, int)\hypertarget{flex__sock_8h_aa99c9ed27907243169d97e2e6725aee6}{}\label{flex__sock_8h_aa99c9ed27907243169d97e2e6725aee6}
+
+\item 
+int {\bfseries flex\+\_\+ioctl} (struct socket $\ast$, unsigned int, unsigned long)\hypertarget{flex__sock_8h_a4ea5d75a5a2596c0cf70cc785951b9b6}{}\label{flex__sock_8h_a4ea5d75a5a2596c0cf70cc785951b9b6}
+
+\item 
+int {\bfseries flex\+\_\+shutdown} (struct socket $\ast$, int)\hypertarget{flex__sock_8h_ad229fc0cae6b99033d1ead2dd589cac4}{}\label{flex__sock_8h_ad229fc0cae6b99033d1ead2dd589cac4}
+
+\item 
+int {\bfseries flex\+\_\+setsockopt} (struct socket $\ast$, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, unsigned int optlen)\hypertarget{flex__sock_8h_a6fb0ed005ab1981bdfda12aafcd6c8f7}{}\label{flex__sock_8h_a6fb0ed005ab1981bdfda12aafcd6c8f7}
+
+\item 
+int {\bfseries flex\+\_\+getsockopt} (struct socket $\ast$, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, int \+\_\+\+\_\+user $\ast$optlen)\hypertarget{flex__sock_8h_aaa87f8f1b7e3664fac78679ffa20e21f}{}\label{flex__sock_8h_aaa87f8f1b7e3664fac78679ffa20e21f}
+
+\item 
+int {\bfseries flex\+\_\+reliable\+\_\+connect} (struct socket $\ast$, struct sockaddr $\ast$, int addr\+\_\+len, int flags)\hypertarget{flex__sock_8h_ad8b803452df41ff17ee6ed9d54390daa}{}\label{flex__sock_8h_ad8b803452df41ff17ee6ed9d54390daa}
+
+\item 
+int {\bfseries flex\+\_\+accept} (struct socket $\ast$, struct socket $\ast$, int)\hypertarget{flex__sock_8h_a5f7f08e24297ed0801d7eae63a504614}{}\label{flex__sock_8h_a5f7f08e24297ed0801d7eae63a504614}
+
+\item 
+unsigned int {\bfseries flex\+\_\+reliable\+\_\+poll} (struct file $\ast$, struct socket $\ast$, poll\+\_\+table $\ast$)\hypertarget{flex__sock_8h_ad2040432d2089b68f5ed099dfe4ad53e}{}\label{flex__sock_8h_ad2040432d2089b68f5ed099dfe4ad53e}
+
+\item 
+int {\bfseries flex\+\_\+listen} (struct socket $\ast$, int backlog)\hypertarget{flex__sock_8h_a79d6380fb1fdddc8abf635b7e78eae22}{}\label{flex__sock_8h_a79d6380fb1fdddc8abf635b7e78eae22}
+
+\item 
+int {\bfseries flex\+\_\+reliable\+\_\+sendmsg} (struct socket $\ast$, struct msghdr $\ast$, size\+\_\+t)\hypertarget{flex__sock_8h_ad1d9fb3501f80e6fe5e8c0aeb151304c}{}\label{flex__sock_8h_ad1d9fb3501f80e6fe5e8c0aeb151304c}
+
+\item 
+int {\bfseries flex\+\_\+reliable\+\_\+recvmsg} (struct socket $\ast$, struct msghdr $\ast$, size\+\_\+t, int)\hypertarget{flex__sock_8h_ac38aaa6a5b8be1f05a125e840d7db5c2}{}\label{flex__sock_8h_ac38aaa6a5b8be1f05a125e840d7db5c2}
+
+\item 
+void {\bfseries flex\+\_\+unreliable\+\_\+init} (void)\hypertarget{flex__sock_8h_a8b15b3a1fa295cd41ed84eb8345deb09}{}\label{flex__sock_8h_a8b15b3a1fa295cd41ed84eb8345deb09}
+
+\item 
+void {\bfseries flex\+\_\+unreliable\+\_\+exit} (void)\hypertarget{flex__sock_8h_a829a829dc121685ea50358d9debfcb1c}{}\label{flex__sock_8h_a829a829dc121685ea50358d9debfcb1c}
+
+\item 
+int {\bfseries flex\+\_\+unreliable\+\_\+connect} (struct socket $\ast$, struct sockaddr $\ast$, int addr\+\_\+len, int flags)\hypertarget{flex__sock_8h_a807568142cfac32992b16d2fe0855428}{}\label{flex__sock_8h_a807568142cfac32992b16d2fe0855428}
+
+\item 
+unsigned int {\bfseries flex\+\_\+unreliable\+\_\+poll} (struct file $\ast$, struct socket $\ast$, poll\+\_\+table $\ast$)\hypertarget{flex__sock_8h_abd648df33fbc90ddd05924e022d885f5}{}\label{flex__sock_8h_abd648df33fbc90ddd05924e022d885f5}
+
+\item 
+int {\bfseries flex\+\_\+unreliable\+\_\+sendmsg} (struct socket $\ast$, struct msghdr $\ast$, size\+\_\+t len)\hypertarget{flex__sock_8h_a660b864a3d0ee0cc7b31dc1f20ed59cc}{}\label{flex__sock_8h_a660b864a3d0ee0cc7b31dc1f20ed59cc}
+
+\item 
+int {\bfseries flex\+\_\+unreliable\+\_\+sendmsg\+\_\+test} (struct socket $\ast$, struct msghdr $\ast$, size\+\_\+t len)\hypertarget{flex__sock_8h_af0fe4f0731c9b5bfcccc5e80a006b9bc}{}\label{flex__sock_8h_af0fe4f0731c9b5bfcccc5e80a006b9bc}
+
+\item 
+int {\bfseries flex\+\_\+unreliable\+\_\+recvmsg} (struct socket $\ast$, struct msghdr $\ast$, size\+\_\+t, int)\hypertarget{flex__sock_8h_a6fcbab846c5ab576766843281a7d8fc4}{}\label{flex__sock_8h_a6fcbab846c5ab576766843281a7d8fc4}
+
+\item 
+int {\bfseries flex\+\_\+unreliable\+\_\+release} (struct socket $\ast$)\hypertarget{flex__sock_8h_ac34b20888d099e7f09c3a52a06723860}{}\label{flex__sock_8h_ac34b20888d099e7f09c3a52a06723860}
+
+\item 
+int {\bfseries test\+\_\+output} (struct sk\+\_\+buff $\ast$)\hypertarget{flex__sock_8h_ac490a5c95753877a99bc51d5cd2301ed}{}\label{flex__sock_8h_ac490a5c95753877a99bc51d5cd2301ed}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains the data structures and the signature of functions for Flex socket. 
+
+\begin{DoxyAuthor}{Author}
+Hyunwoo Lee 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+17 Nov 2017 
+\end{DoxyDate}

@@ -1,0 +1,10 @@
+Note that the signature of sendmsg in proto\+\_\+ops in Linux 2.\+6 is different from that in Linux version above 3.\+0
+
+In Linux 2.\+6\+: int ($\ast$sendmsg) (struct socket $\ast$sock, struct msghdr $\ast$m, size\+\_\+t total\+\_\+len); int ($\ast$recvmsg) (struct socket $\ast$sock, struct msghdr $\ast$m, size\+\_\+t total\+\_\+len, int flags);
+
+In Linux above 3\+: int ($\ast$sendmsg) (struct kiocb $\ast$iocb, struct socket $\ast$sock, struct msghdr $\ast$m, size\+\_\+t total\+\_\+len); int ($\ast$recvmsg) (struct kiocb $\ast$iocb, struct socket $\ast$sock, struct msghdr $\ast$m, size\+\_\+t total\+\_\+len, int flags);
+
+Description of Socket operations connect\+:
+\begin{DoxyItemize}
+\item binds the target id with the socket 
+\end{DoxyItemize}

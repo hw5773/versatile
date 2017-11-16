@@ -1,0 +1,74 @@
+\hypertarget{structflex__sock}{}\section{flex\+\_\+sock Struct Reference}
+\label{structflex__sock}\index{flex\+\_\+sock@{flex\+\_\+sock}}
+
+
+The data structure for the Flex specified socket.  
+
+
+
+
+{\ttfamily \#include $<$flex\+\_\+sock.\+h$>$}
+
+
+
+Collaboration diagram for flex\+\_\+sock\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=139pt]{structflex__sock__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct sock \hyperlink{structflex__sock_a1ffc5042c0d6dd6b651ecb6a8e9b1096}{sk}
+\item 
+unsigned char \hyperlink{structflex__sock_acea083a0cc7f13d3491228dd261bfc70}{protocol}
+\item 
+short \hyperlink{structflex__sock_af4d0be6245faa22590e3d672d095a2a7}{message}
+\item 
+struct \hyperlink{structflexid}{flexid} \hyperlink{structflex__sock_a132b613c5f785e07196306bff98ef85d}{src}
+\item 
+struct \hyperlink{structflexid}{flexid} \hyperlink{structflex__sock_a1704e9612c290ef88bf674ea245b1835}{dst}
+\item 
+short \hyperlink{structflex__sock_afb460ef1d9e2fc1cc389ca5922f967d8}{addr\+\_\+type}
+\item 
+unsigned char \hyperlink{structflex__sock_a1c183d812ac68e320df127d58d303677}{addr\+\_\+len}
+\item 
+unsigned char \hyperlink{structflex__sock_a7c9d43f00ac325627f1396ffc10fe74a}{next\+\_\+hop} \mbox{[}M\+A\+X\+\_\+\+A\+D\+D\+R\+\_\+\+L\+EN\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The data structure for the Flex specified socket. 
+
+\subsection{Member Data Documentation}
+\index{flex\+\_\+sock@{flex\+\_\+sock}!addr\+\_\+len@{addr\+\_\+len}}
+\index{addr\+\_\+len@{addr\+\_\+len}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{addr\+\_\+len}{addr_len}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char flex\+\_\+sock\+::addr\+\_\+len}\hypertarget{structflex__sock_a1c183d812ac68e320df127d58d303677}{}\label{structflex__sock_a1c183d812ac68e320df127d58d303677}
+The length of the address in the next hop \index{flex\+\_\+sock@{flex\+\_\+sock}!addr\+\_\+type@{addr\+\_\+type}}
+\index{addr\+\_\+type@{addr\+\_\+type}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{addr\+\_\+type}{addr_type}}]{\setlength{\rightskip}{0pt plus 5cm}short flex\+\_\+sock\+::addr\+\_\+type}\hypertarget{structflex__sock_afb460ef1d9e2fc1cc389ca5922f967d8}{}\label{structflex__sock_afb460ef1d9e2fc1cc389ca5922f967d8}
+The address type of the next hop \index{flex\+\_\+sock@{flex\+\_\+sock}!dst@{dst}}
+\index{dst@{dst}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{dst}{dst}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf flexid} flex\+\_\+sock\+::dst}\hypertarget{structflex__sock_a1704e9612c290ef88bf674ea245b1835}{}\label{structflex__sock_a1704e9612c290ef88bf674ea245b1835}
+Flex ID of the destination \index{flex\+\_\+sock@{flex\+\_\+sock}!message@{message}}
+\index{message@{message}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{message}{message}}]{\setlength{\rightskip}{0pt plus 5cm}short flex\+\_\+sock\+::message}\hypertarget{structflex__sock_af4d0be6245faa22590e3d672d095a2a7}{}\label{structflex__sock_af4d0be6245faa22590e3d672d095a2a7}
+The message type \index{flex\+\_\+sock@{flex\+\_\+sock}!next\+\_\+hop@{next\+\_\+hop}}
+\index{next\+\_\+hop@{next\+\_\+hop}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{next\+\_\+hop}{next_hop}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char flex\+\_\+sock\+::next\+\_\+hop\mbox{[}M\+A\+X\+\_\+\+A\+D\+D\+R\+\_\+\+L\+EN\mbox{]}}\hypertarget{structflex__sock_a7c9d43f00ac325627f1396ffc10fe74a}{}\label{structflex__sock_a7c9d43f00ac325627f1396ffc10fe74a}
+The address of the next hop \index{flex\+\_\+sock@{flex\+\_\+sock}!protocol@{protocol}}
+\index{protocol@{protocol}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{protocol}{protocol}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char flex\+\_\+sock\+::protocol}\hypertarget{structflex__sock_acea083a0cc7f13d3491228dd261bfc70}{}\label{structflex__sock_acea083a0cc7f13d3491228dd261bfc70}
+This member shows the reliable/unreliable communication is used \index{flex\+\_\+sock@{flex\+\_\+sock}!sk@{sk}}
+\index{sk@{sk}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{sk}{sk}}]{\setlength{\rightskip}{0pt plus 5cm}struct sock flex\+\_\+sock\+::sk}\hypertarget{structflex__sock_a1ffc5042c0d6dd6b651ecb6a8e9b1096}{}\label{structflex__sock_a1ffc5042c0d6dd6b651ecb6a8e9b1096}
+This member contains the sock structure \index{flex\+\_\+sock@{flex\+\_\+sock}!src@{src}}
+\index{src@{src}!flex\+\_\+sock@{flex\+\_\+sock}}
+\subsubsection[{\texorpdfstring{src}{src}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf flexid} flex\+\_\+sock\+::src}\hypertarget{structflex__sock_a132b613c5f785e07196306bff98ef85d}{}\label{structflex__sock_a132b613c5f785e07196306bff98ef85d}
+Flex ID of the source 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+socket/\hyperlink{flex__sock_8h}{flex\+\_\+sock.\+h}\end{DoxyCompactItemize}

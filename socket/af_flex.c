@@ -1,3 +1,5 @@
+/** @file This file is to define the Flex address family */
+
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/signal.h>
@@ -89,6 +91,11 @@ static const struct proto_ops flex_unreliable_ops = {
 	.sendpage	=	sock_no_sendpage,
 };
 
+/**
+ * This function allocate the socket for Flex
+ * @param net The network structure
+ * @return The allocated socket
+ */
 static struct sock *flex_alloc_socket(struct net *net)
 {
 	struct flex_sock *flex;

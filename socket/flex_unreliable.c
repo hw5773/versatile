@@ -84,8 +84,16 @@ struct sock *u_table_lookup_skb(flexid_t id, struct u_table *table)
   sk_nulls_for_each_rcu(sk, node, &hslot->head)
   {
     flex = flex_sk(sk);
-    if (strncmp(flex->dst.identity, id.identity, sizeof(flexid_t)) == 0)
-      result = sk;
+    if (flex->message == FLEX_INTEREST)
+    {
+      if (strncmp(flex->dst.identity, id.identity, sizeof(flexid_t)) == 0)
+        result = sk;
+    }
+    else if (flex->message == FLEX_DATA)
+    {
+      if (strncmp(flex->src.identity, id.identity, sizeof(flexid_t)) == 0)
+        result = sk;
+    }
   }
   rcu_read_unlock();
 
@@ -260,4 +268,48 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
 {
 	FLEX_LOG("Receive the unreliable message");
 	return -1;
+}
+
+int flex_unreliable_release(struct socket *sock)
+{
+  struct sock *sk;
+  struct flex_sock *flex;
+  struct u_table *table;
+  struct u_hslot *hslot;
+  unsigned int slot;
+
+	FLEX_LOG("Release the socket internally");
+
+  sk = sock->sk;
+
+  if (!sk)
+    return 0;
+
+  flex = flex_sk(sk);
+  table = &u_table;
+
+  if (flex->message == FLEX_INTEREST)
+    slot = hash_fn(flex->dst, table->mask);
+  else if (flex->message == FLEX_DATA)
+    slot = hash_fn(flex->src, table->mask);
+  hslot = &table->hash[slot];
+
+  spin_lock_bh(&hslot->lock);
+  if (sk_nulls_del_node_init_rcu(sk))
+    hslot->count--;
+  spin_unlock_bh(&hslot->lock);
+
+	sock_set_flag(sk, SOCK_DEAD);
+	sock_set_flag(sk, SOCK_DESTROY);
+
+	FLEX_LOG("Invoke sock_orphan()");
+	sock_orphan(sk);
+	FLEX_LOG("Invoke release_sock()");
+	release_sock(sk);
+	FLEX_LOG("Invoke sock_put()");
+	sock_put(sk);
+
+  sock->sk = NULL;
+
+	return 0;
 }

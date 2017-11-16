@@ -9,6 +9,7 @@
 #include <flex/flex_types.h>
 #include <flex/flex_addr.h>
 #include <flex/flex_err.h>
+#include <flex/flex.h>
 
 int test_query(flexid_t **id)
 {

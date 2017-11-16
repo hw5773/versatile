@@ -4,6 +4,7 @@
 // Error Code List (1XX: NO, 2XX: WRONG, 3XX: ERROR)
 #define NO_DEV              100
 #define NO_RESP             101
+#define NO_SOCK             102
 
 #define WRONG_MESSAGE_TYPE  200
 #define WRONG_HEADER        201

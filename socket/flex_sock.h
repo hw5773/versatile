@@ -64,6 +64,7 @@ extern int flex_reliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
 
 /* flex_unreliable.c */
 extern void flex_unreliable_init(void);
+extern void flex_unreliable_exit(void);
 extern int flex_unreliable_connect(struct socket *, struct sockaddr *, int addr_len, int flags);
 extern unsigned int flex_unreliable_poll(struct file *, struct socket *, poll_table *);
 extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t len);

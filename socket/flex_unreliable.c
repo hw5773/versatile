@@ -67,12 +67,52 @@ void u_table_exit(struct u_table *table)
   kfree(table->hash);
 }
 
+struct sock *u_table_lookup_skb(flexid_t id, struct u_table *table)
+{
+  int err;
+  struct sock *sk, *result;
+  struct flex_sock *flex;
+  struct u_hslot *hslot;
+  struct hlist_nulls_node *node;
+  unsigned int slot;
+
+  slot = hash_fn(id, table->mask);
+  hslot = &table->hash[slot];
+
+  result = NULL;
+  rcu_read_lock();
+  sk_nulls_for_each_rcu(sk, node, &hslot->head)
+  {
+    flex = flex_sk(sk);
+    if (strncmp(flex->dst.identity, id.identity, sizeof(flexid_t)) == 0)
+      result = sk;
+  }
+  rcu_read_unlock();
+
+  if (!result)
+  {
+    FLEX_LOG("Fail to find the appropriate socket.");
+    err = -NO_SOCK;
+    goto out;
+  }
+
+  FLEX_LOG("Find the appropriate socket.");
+
+  return result;
+
+out:
+  return NULL;
+}
+
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)
 {
   int i;
-  struct sock *sk;
+  struct sock *sk, *test;
   struct flex_sock *flex;
   struct sockaddr_flex *tinfo;
+  struct u_hslot *hslot;
+  unsigned int slot;
+  struct u_table *table;
 
 	FLEX_LOG("Unreliable Connect");
 
@@ -92,6 +132,15 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
 
   for (i=0; i<tinfo->addr_len; i++)
     flex->next_hop[i] = tinfo->next_hop[i];
+
+  table = &u_table;
+
+  slot = hash_fn(flex->dst, table->mask);
+  hslot = &table->hash[slot];
+  sk_nulls_add_node_rcu(sk, &hslot->head);
+  hslot->count++;
+
+  FLEX_LOG("Add the Socket Complete");
 
 	return SUCCESS;
 }

@@ -30,6 +30,7 @@ static int repo_sock = 0;
 #define FIFTH   0x8d
 #define SIXTH   0x25
 
+int test_sid(flexid_t **id);
 int test_query(flexid_t **id);
 int test_request(flexid_t *id, response_t **resp);
 

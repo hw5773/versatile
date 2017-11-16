@@ -10,10 +10,11 @@
 int main(int argc, char *argv[])
 {
 	int err;
+  unsigned char *fn;
 
 	APP_LOG("Start Flex ID Test Publisher Application");
 
-  if ((err = init_repo()) < 0)
+  if ((err = pub(fn)) < 0)
     goto err;
 
   APP_LOG1d("repo sock", repo_sock);

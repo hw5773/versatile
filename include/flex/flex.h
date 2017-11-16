@@ -13,12 +13,24 @@
 #include <flex/flex_err.h>
 #include <flex/flex_log.h>
 
-int test_query(flexid_t **id);
-int test_request(flexid_t *id, response_t **resp);
+// Behaviors for the Applications
 int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
+int pub(unsigned char *fn);
+int serv(unsigned char *crt, unsigned char *key);
 void error_handling(char *buf);
 
 static int repo_sock = 0;
+
+// For the test reason
+#define FIRST   0x00
+#define SECOND  0x0c
+#define THIRD   0x29
+#define FOURTH  0xcb
+#define FIFTH   0x8d
+#define SIXTH   0x25
+
+int test_query(flexid_t **id);
+int test_request(flexid_t *id, response_t **resp);
 
 #endif /* __FLEX__ */

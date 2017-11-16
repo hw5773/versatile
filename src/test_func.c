@@ -51,12 +51,12 @@ int test_request(flexid_t *id, response_t **ret)
   (*ret)->addr_type = AT_MAC;
   (*ret)->addr_len = AT_MAC_LEN;
   
-  (*ret)->next_hop[0] = 0x00;
-  (*ret)->next_hop[1] = 0x0c;
-  (*ret)->next_hop[2] = 0x29;
-  (*ret)->next_hop[3] = 0xcb;
-  (*ret)->next_hop[4] = 0x8d;
-  (*ret)->next_hop[5] = 0x25;
+  (*ret)->next_hop[0] = FIRST;
+  (*ret)->next_hop[1] = SECOND;
+  (*ret)->next_hop[2] = THIRD;
+  (*ret)->next_hop[3] = FOURTH;
+  (*ret)->next_hop[4] = FIFTH;
+  (*ret)->next_hop[5] = SIXTH;
 
   return SUCCESS;
 

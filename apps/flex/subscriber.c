@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
+  // query message should be trasferred to the below layer. (in the get/put)
   if ((err = test_query(&tid)) < 0)
     goto out;
 

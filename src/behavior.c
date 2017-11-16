@@ -3,6 +3,8 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+
+// Flex ID Related Headers
 #include <flex/flex.h>
 #include <flex/flex_const.h>
 #include <flex/flex_log.h>
@@ -74,6 +76,16 @@ out:
 }
 
 int put(flexid_t *id, char *resp, int *len)
+{
+  return SUCCESS;
+}
+
+int pub(unsigned char *name)
+{
+  return SUCCESS;
+}
+
+int serv(unsigned char *crt, unsigned char *key)
 {
   return SUCCESS;
 }

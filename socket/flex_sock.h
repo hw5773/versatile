@@ -68,4 +68,7 @@ extern int flex_unreliable_sendmsg(struct socket *, struct msghdr *, size_t len)
 extern int flex_unreliable_sendmsg_test(struct socket *, struct msghdr *, size_t len);
 extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
 
+/* test output */
+extern int test_output(struct sk_buff *);
+
 #endif /* __FLEX_SOCK_H__ */

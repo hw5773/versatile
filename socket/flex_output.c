@@ -9,7 +9,7 @@
 int flex_output(struct sk_buff *skb)
 {
 	FLEX_LOG("Enter Flex Transmit Routine");
-	return 0;
+	return SUCCESS;
 }
 
 int test_output(struct sk_buff *skb)
@@ -18,4 +18,5 @@ int test_output(struct sk_buff *skb)
   struct flexhdr *flex;
   FLEX_LOG("Enter Test Output Routine");
 
-
+  return SUCCESS;
+}

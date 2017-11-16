@@ -3,7 +3,6 @@
 #include <linux/skbuff.h>
 #include <linux/slab.h>
 #include <net/sock.h>
-#include <linux/slab.h>
 
 #include "flex_sock.h"
 
@@ -15,10 +14,13 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
 
 	FLEX_LOG("Enter Flex Receive Routine");
 
-	// Parse *data to *flex
-	FLEX_LOG1x("Version", flex->version);
-	FLEX_LOG1x("Packet Type", flex->packet_type);
-	FLEX_LOG1x("Hash Type", flex->hash_type);
-	
-	return 0;
+  if (GET_FLEX_PTC(flex->frag_off))
+    FLEX_LOG("Received Packet uses Reliable Communication");
+  else
+  {
+    FLEX_LOG("Received Packet uses Unreliable Communication");
+  	test_output(skb);
+  }
+
+	return SUCCESS;
 }

@@ -70,6 +70,7 @@
 #define SHA224          	0x03  // 224 bits (28 bytes)
 #define SHA256          	0x04  // 256 bits (32 bytes)
 
+/* Length Constant */
 #define FLEX_ID_LENGTH		        21
 #define FLEX_ID_EXT_LENGTH        29
 #define DEFAULT_HOP_LIMIT	        128
@@ -78,7 +79,6 @@
 #define RELIABLE_EXT_HEADER_LEN   80
 #define UNRELIABLE_HEADER_LEN     56
 #define UNRELIABLE_EXT_HEADER_LEN 72
-
 
 /* Flex Header Field Index */
 #define VERSION_IDX			0
@@ -94,5 +94,15 @@
 #define PACKET_LEN_IDX		12 + 2 * FLEX_ID_LENGTH
 #define SEQ_IDX				12 + 2 * FLEX_ID_LENGTH + 2
 #define ACK_IDX				12 + 2 * FLEX_ID_LENGTH + 6
+
+/* Flag Parser */
+#define GET_FLEX_PTC(frag) \
+  (frag & FLEX_PTC_RELIABLE) >> 15
+
+#define GET_FLEX_DF(frag) \
+  (frag & FLEX_DF) >> 14
+
+#define GET_FLEX_MF(frag) \
+  (frag & FLEX_MF) >> 13
 
 #endif /* __FLEX_CONST__ */

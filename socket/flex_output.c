@@ -4,8 +4,18 @@
 #include <linux/slab.h>
 #include <net/sock.h>
 
+#include "flex_sock.h"
+
 int flex_output(struct sk_buff *skb)
 {
-	printk(KERN_INFO "[Flex] %s: Enter Flex Transmit Routine\n", __func__);
+	FLEX_LOG("Enter Flex Transmit Routine");
 	return 0;
 }
+
+int test_output(struct sk_buff *skb)
+{
+  int err;
+  struct flexhdr *flex;
+  FLEX_LOG("Enter Test Output Routine");
+
+

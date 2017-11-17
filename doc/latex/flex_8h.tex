@@ -1,0 +1,201 @@
+\hypertarget{flex_8h}{}\section{include/flex/flex.h File Reference}
+\label{flex_8h}\index{include/flex/flex.\+h@{include/flex/flex.\+h}}
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+const.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+id.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+socket.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+types.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+err.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+log.\+h$>$}\\*
+Include dependency graph for flex.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{flex_8h_a0ab74dcdaf7ac4a22fe6c0829b47f213}{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR}~\char`\"{}Hyunwoo Lee $<$hwlee2014@mmlab.\+snu.\+ac.\+kr$>$, Hyeonmin Lee $<$hmlee@mmlab.\+snu.\+ac.\+kr$>$, Dongjun Lee $<$djlee@mmlab.\+snu.\+ac.\+kr$>$, Hyunchul Oh $<$hcoh@mmlab.\+snu.\+ac.\+kr$>$\char`\"{}
+\item 
+\#define \hyperlink{flex_8h_aabb836f86580b572864dc23195880b9d}{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC}~\char`\"{}Flex Protocol\char`\"{}
+\item 
+\#define \hyperlink{flex_8h_a492c6ccf2bde2bebcd32e73e0933ee92}{F\+I\+R\+ST}~0x00
+\item 
+\#define \hyperlink{flex_8h_a94212be2394d2d37d9dfd33d07d82dba}{S\+E\+C\+O\+ND}~0x0c
+\item 
+\#define \hyperlink{flex_8h_a987db2b5d50589e097378a13c5d87fef}{T\+H\+I\+RD}~0x29
+\item 
+\#define \hyperlink{flex_8h_ac22fab896eebac0a6653be012dd6fef0}{F\+O\+U\+R\+TH}~0xcb
+\item 
+\#define \hyperlink{flex_8h_a4e3cfe750a69583a108ba4f44fdc363b}{F\+I\+F\+TH}~0x8d
+\item 
+\#define \hyperlink{flex_8h_afd003d597d6fa5e7e56f35ad70716925}{S\+I\+X\+TH}~0x25
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{flex_8h_adfe19b66dbfa7889818ba9c23981d93f}{get} (struct \hyperlink{structflexid}{flexid} $\ast$id, char $\ast$resp, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em Getting the content by Flex ID of the content. \end{DoxyCompactList}\item 
+int \hyperlink{flex_8h_a20f56bbacf648dc775e888ca587600f7}{put} (struct \hyperlink{structflexid}{flexid} $\ast$id, char $\ast$resp, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em Sending the data to the entity with the Flex ID. \end{DoxyCompactList}\item 
+int \hyperlink{flex_8h_af3f064cfa470750d6a90ec87e5d1df74}{pub} (unsigned char $\ast$fn)
+\begin{DoxyCompactList}\small\item\em Publishing the content with the name. \end{DoxyCompactList}\item 
+int \hyperlink{flex_8h_aa6a92981765045cf15ff3550cc3e4dbc}{serv} (unsigned char $\ast$crt, unsigned char $\ast$key)
+\begin{DoxyCompactList}\small\item\em Serving the dynamic content. \end{DoxyCompactList}\item 
+void \hyperlink{flex_8h_a30210939bd8cd3bd2c7621e2f59dc201}{error\+\_\+handling} (char $\ast$buf)
+\item 
+int \hyperlink{flex_8h_aba8181e1ed0d05096ba84f6d14552571}{test\+\_\+sid} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} $\ast$$\ast$id)
+\item 
+int \hyperlink{flex_8h_ae853b662b3bc64f5544c736a933c17f5}{test\+\_\+query} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} $\ast$$\ast$id)
+\item 
+int \hyperlink{flex_8h_a93a5e765bfff9f47e2bf616fc3ef3386}{test\+\_\+request} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} $\ast$id, \hyperlink{flex__types_8h_ae28817caa5cb8b1eef6c0d3e00529692}{response\+\_\+t} $\ast$$\ast$resp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{flex.\+h@{flex.\+h}!F\+I\+F\+TH@{F\+I\+F\+TH}}
+\index{F\+I\+F\+TH@{F\+I\+F\+TH}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{F\+I\+F\+TH}{FIFTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+I\+F\+TH~0x8d}\hypertarget{flex_8h_a4e3cfe750a69583a108ba4f44fdc363b}{}\label{flex_8h_a4e3cfe750a69583a108ba4f44fdc363b}
+\index{flex.\+h@{flex.\+h}!F\+I\+R\+ST@{F\+I\+R\+ST}}
+\index{F\+I\+R\+ST@{F\+I\+R\+ST}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{F\+I\+R\+ST}{FIRST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+I\+R\+ST~0x00}\hypertarget{flex_8h_a492c6ccf2bde2bebcd32e73e0933ee92}{}\label{flex_8h_a492c6ccf2bde2bebcd32e73e0933ee92}
+\index{flex.\+h@{flex.\+h}!F\+O\+U\+R\+TH@{F\+O\+U\+R\+TH}}
+\index{F\+O\+U\+R\+TH@{F\+O\+U\+R\+TH}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{F\+O\+U\+R\+TH}{FOURTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+O\+U\+R\+TH~0xcb}\hypertarget{flex_8h_ac22fab896eebac0a6653be012dd6fef0}{}\label{flex_8h_ac22fab896eebac0a6653be012dd6fef0}
+\index{flex.\+h@{flex.\+h}!P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR}}
+\index{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR}{PROTOCOL_AUTHOR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+U\+T\+H\+OR~\char`\"{}Hyunwoo Lee $<$hwlee2014@mmlab.\+snu.\+ac.\+kr$>$, Hyeonmin Lee $<$hmlee@mmlab.\+snu.\+ac.\+kr$>$, Dongjun Lee $<$djlee@mmlab.\+snu.\+ac.\+kr$>$, Hyunchul Oh $<$hcoh@mmlab.\+snu.\+ac.\+kr$>$\char`\"{}}\hypertarget{flex_8h_a0ab74dcdaf7ac4a22fe6c0829b47f213}{}\label{flex_8h_a0ab74dcdaf7ac4a22fe6c0829b47f213}
+\index{flex.\+h@{flex.\+h}!P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC}}
+\index{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC}{PROTOCOL_DESC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+D\+E\+SC~\char`\"{}Flex Protocol\char`\"{}}\hypertarget{flex_8h_aabb836f86580b572864dc23195880b9d}{}\label{flex_8h_aabb836f86580b572864dc23195880b9d}
+\index{flex.\+h@{flex.\+h}!S\+E\+C\+O\+ND@{S\+E\+C\+O\+ND}}
+\index{S\+E\+C\+O\+ND@{S\+E\+C\+O\+ND}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+C\+O\+ND}{SECOND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+C\+O\+ND~0x0c}\hypertarget{flex_8h_a94212be2394d2d37d9dfd33d07d82dba}{}\label{flex_8h_a94212be2394d2d37d9dfd33d07d82dba}
+\index{flex.\+h@{flex.\+h}!S\+I\+X\+TH@{S\+I\+X\+TH}}
+\index{S\+I\+X\+TH@{S\+I\+X\+TH}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{S\+I\+X\+TH}{SIXTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+X\+TH~0x25}\hypertarget{flex_8h_afd003d597d6fa5e7e56f35ad70716925}{}\label{flex_8h_afd003d597d6fa5e7e56f35ad70716925}
+\index{flex.\+h@{flex.\+h}!T\+H\+I\+RD@{T\+H\+I\+RD}}
+\index{T\+H\+I\+RD@{T\+H\+I\+RD}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+I\+RD}{THIRD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+I\+RD~0x29}\hypertarget{flex_8h_a987db2b5d50589e097378a13c5d87fef}{}\label{flex_8h_a987db2b5d50589e097378a13c5d87fef}
+
+
+\subsection{Function Documentation}
+\index{flex.\+h@{flex.\+h}!error\+\_\+handling@{error\+\_\+handling}}
+\index{error\+\_\+handling@{error\+\_\+handling}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{error\+\_\+handling(char $\ast$buf)}{error_handling(char *buf)}}]{\setlength{\rightskip}{0pt plus 5cm}void error\+\_\+handling (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_a30210939bd8cd3bd2c7621e2f59dc201}{}\label{flex_8h_a30210939bd8cd3bd2c7621e2f59dc201}
+\index{flex.\+h@{flex.\+h}!get@{get}}
+\index{get@{get}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{get(struct flexid $\ast$id, char $\ast$resp, int $\ast$len)}{get(struct flexid *id, char *resp, int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}int get (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$}]{id, }
+\item[{char $\ast$}]{buf, }
+\item[{int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_adfe19b66dbfa7889818ba9c23981d93f}{}\label{flex_8h_adfe19b66dbfa7889818ba9c23981d93f}
+
+
+Getting the content by Flex ID of the content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Flex ID of the content \\
+\hline
+{\em buf} & Buffer for the response \\
+\hline
+{\em len} & Length of the buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{flex.\+h@{flex.\+h}!pub@{pub}}
+\index{pub@{pub}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{pub(unsigned char $\ast$fn)}{pub(unsigned char *fn)}}]{\setlength{\rightskip}{0pt plus 5cm}int pub (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_af3f064cfa470750d6a90ec87e5d1df74}{}\label{flex_8h_af3f064cfa470750d6a90ec87e5d1df74}
+
+
+Publishing the content with the name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the file name of the content \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{flex.\+h@{flex.\+h}!put@{put}}
+\index{put@{put}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{put(struct flexid $\ast$id, char $\ast$resp, int $\ast$len)}{put(struct flexid *id, char *resp, int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}int put (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$}]{id, }
+\item[{char $\ast$}]{resp, }
+\item[{int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_a20f56bbacf648dc775e888ca587600f7}{}\label{flex_8h_a20f56bbacf648dc775e888ca587600f7}
+
+
+Sending the data to the entity with the Flex ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The Flex ID of the target \\
+\hline
+{\em resp} & Buffer for the response \\
+\hline
+{\em len} & Length of the buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{flex.\+h@{flex.\+h}!serv@{serv}}
+\index{serv@{serv}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{serv(unsigned char $\ast$crt, unsigned char $\ast$key)}{serv(unsigned char *crt, unsigned char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}int serv (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{crt, }
+\item[{unsigned char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_aa6a92981765045cf15ff3550cc3e4dbc}{}\label{flex_8h_aa6a92981765045cf15ff3550cc3e4dbc}
+
+
+Serving the dynamic content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em crt} & Certificate of the entity \\
+\hline
+{\em key} & Private key corresponding to the Certificate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{flex.\+h@{flex.\+h}!test\+\_\+query@{test\+\_\+query}}
+\index{test\+\_\+query@{test\+\_\+query}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{test\+\_\+query(flexid\+\_\+t $\ast$$\ast$id)}{test_query(flexid_t **id)}}]{\setlength{\rightskip}{0pt plus 5cm}int test\+\_\+query (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$$\ast$}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_ae853b662b3bc64f5544c736a933c17f5}{}\label{flex_8h_ae853b662b3bc64f5544c736a933c17f5}
+\index{flex.\+h@{flex.\+h}!test\+\_\+request@{test\+\_\+request}}
+\index{test\+\_\+request@{test\+\_\+request}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{test\+\_\+request(flexid\+\_\+t $\ast$id, response\+\_\+t $\ast$$\ast$resp)}{test_request(flexid_t *id, response_t **resp)}}]{\setlength{\rightskip}{0pt plus 5cm}int test\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$}]{id, }
+\item[{{\bf response\+\_\+t} $\ast$$\ast$}]{resp}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_a93a5e765bfff9f47e2bf616fc3ef3386}{}\label{flex_8h_a93a5e765bfff9f47e2bf616fc3ef3386}
+\index{flex.\+h@{flex.\+h}!test\+\_\+sid@{test\+\_\+sid}}
+\index{test\+\_\+sid@{test\+\_\+sid}!flex.\+h@{flex.\+h}}
+\subsubsection[{\texorpdfstring{test\+\_\+sid(flexid\+\_\+t $\ast$$\ast$id)}{test_sid(flexid_t **id)}}]{\setlength{\rightskip}{0pt plus 5cm}int test\+\_\+sid (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$$\ast$}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{flex_8h_aba8181e1ed0d05096ba84f6d14552571}{}\label{flex_8h_aba8181e1ed0d05096ba84f6d14552571}

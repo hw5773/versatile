@@ -1,10 +1,17 @@
+/**
+ * @file behavior.c
+ * @author Hyunwoo Lee
+ * @date 17 Nov 2017
+ * @brief This file is to define the interface for the application layer
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-// Flex ID Related Headers
+/* Flex ID Related Headers */
 #include <flex/flex.h>
 #include <flex/flex_const.h>
 #include <flex/flex_log.h>
@@ -13,6 +20,18 @@
 #include <flex/flex_const.h>
 #include <flex/flex_request.h>
 
+/* OpenSSL Related Headers */
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/sha.h>
+
+/**
+ * @brief Getting the content by Flex ID of the content
+ * @param id Flex ID of the content
+ * @param buf Buffer for the response
+ * @param len Length of the buffer
+ * @return Error code
+ */
 int get(flexid_t *id, char *buf, int *len)
 {
   int sock, i, err;
@@ -78,16 +97,43 @@ out:
   return err;
 }
 
+/**
+ * @brief Sending the data to the entity with the Flex ID
+ * @param id The Flex ID of the target
+ * @param resp Buffer for the response
+ * @param len Length of the buffer
+ * @return Error code
+ */
 int put(flexid_t *id, char *resp, int *len)
 {
   return SUCCESS;
 }
 
+/**
+ * @brief Publishing the content with the name
+ * @param name the file name of the content
+ * @return Error code
+ */
 int pub(unsigned char *name)
 {
+  int err, bytes, len;
+  flexid_t *id;
+
+  if ((err = init_flexid(&id, name, FLEX_TYPE_CONTENT)) < 0) goto out;
+  printf("Make the Flex ID succeed\n");
+
   return SUCCESS;
+
+out:
+  return err;
 }
 
+/**
+ * @brief Serving the dynamic content
+ * @param crt Certificate of the entity
+ * @param key Private key corresponding to the Certificate
+ * @return Error code
+ */
 int serv(unsigned char *crt, unsigned char *key)
 {
   return SUCCESS;

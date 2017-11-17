@@ -1,0 +1,106 @@
+\hypertarget{flexid_2flex__id_8h}{}\section{flexid/flex\+\_\+id.h File Reference}
+\label{flexid_2flex__id_8h}\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+Include dependency graph for flex\+\_\+id.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflexidhdr}{flexidhdr}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{flexid_2flex__id_8h_aa90cac659d18e8ef6294c7ae337f6b58}{S\+U\+C\+C\+E\+SS}~0
+\item 
+\#define \hyperlink{flexid_2flex__id_8h_a6d58f9ac447476b4e084d7ca383f5183}{F\+A\+I\+L\+U\+RE}~1
+\item 
+\#define \hyperlink{flexid_2flex__id_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+UE}~1
+\item 
+\#define \hyperlink{flexid_2flex__id_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}~0
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structflexidhdr}{flexidhdr} \hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{flexid_2flex__id_8h_a91183ca288699119ced3dfd5fa1b5035}{flexidhdr\+\_\+init} (\hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr} $\ast$$\ast$fhdr, int length)
+\item 
+int \hyperlink{flexid_2flex__id_8h_a56a534cdaa2e9b63d0c0dda14b4cc6d7}{flexidhdr\+\_\+free} (\hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr} $\ast$fhdr)
+\item 
+int \hyperlink{flexid_2flex__id_8h_ad6ad8242e5622a56e2a623c4c91b3beb}{serialize} (\hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr} $\ast$fhdr, uint8\+\_\+t $\ast$$\ast$buffer)
+\item 
+int \hyperlink{flexid_2flex__id_8h_a79c3325eeb8ca82e69d51cb3d04a7179}{deserialize} (\hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr} $\ast$$\ast$fhdr, uint8\+\_\+t $\ast$buffer)
+\item 
+int \hyperlink{flexid_2flex__id_8h_a89924743e64e73a920869f67b1010e1b}{have\+\_\+more\+\_\+frag} (\hyperlink{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{Flexhdr} $\ast$fhdr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!F\+A\+I\+L\+U\+RE@{F\+A\+I\+L\+U\+RE}}
+\index{F\+A\+I\+L\+U\+RE@{F\+A\+I\+L\+U\+RE}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{F\+A\+I\+L\+U\+RE}{FAILURE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+I\+L\+U\+RE~1}\hypertarget{flexid_2flex__id_8h_a6d58f9ac447476b4e084d7ca383f5183}{}\label{flexid_2flex__id_8h_a6d58f9ac447476b4e084d7ca383f5183}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!F\+A\+L\+SE@{F\+A\+L\+SE}}
+\index{F\+A\+L\+SE@{F\+A\+L\+SE}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{F\+A\+L\+SE}{FALSE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+L\+SE~0}\hypertarget{flexid_2flex__id_8h_aa93f0eb578d23995850d61f7d61c55c1}{}\label{flexid_2flex__id_8h_aa93f0eb578d23995850d61f7d61c55c1}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!S\+U\+C\+C\+E\+SS@{S\+U\+C\+C\+E\+SS}}
+\index{S\+U\+C\+C\+E\+SS@{S\+U\+C\+C\+E\+SS}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{S\+U\+C\+C\+E\+SS}{SUCCESS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+U\+C\+C\+E\+SS~0}\hypertarget{flexid_2flex__id_8h_aa90cac659d18e8ef6294c7ae337f6b58}{}\label{flexid_2flex__id_8h_aa90cac659d18e8ef6294c7ae337f6b58}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!T\+R\+UE@{T\+R\+UE}}
+\index{T\+R\+UE@{T\+R\+UE}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{T\+R\+UE}{TRUE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+R\+UE~1}\hypertarget{flexid_2flex__id_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{}\label{flexid_2flex__id_8h_aa8cecfc5c5c054d2875c03e77b7be15d}
+
+
+\subsection{Typedef Documentation}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!Flexhdr@{Flexhdr}}
+\index{Flexhdr@{Flexhdr}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{Flexhdr}{Flexhdr}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf flexidhdr}  {\bf Flexhdr}}\hypertarget{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}{}\label{flexid_2flex__id_8h_ac4318188ed039fdadf09ee43a0ff9bd5}
+
+
+\subsection{Function Documentation}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!deserialize@{deserialize}}
+\index{deserialize@{deserialize}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{deserialize(\+Flexhdr $\ast$$\ast$fhdr, uint8\+\_\+t $\ast$buffer)}{deserialize(Flexhdr **fhdr, uint8_t *buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}int deserialize (
+\begin{DoxyParamCaption}
+\item[{{\bf Flexhdr} $\ast$$\ast$}]{fhdr, }
+\item[{uint8\+\_\+t $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{flexid_2flex__id_8h_a79c3325eeb8ca82e69d51cb3d04a7179}{}\label{flexid_2flex__id_8h_a79c3325eeb8ca82e69d51cb3d04a7179}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!flexidhdr\+\_\+free@{flexidhdr\+\_\+free}}
+\index{flexidhdr\+\_\+free@{flexidhdr\+\_\+free}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{flexidhdr\+\_\+free(\+Flexhdr $\ast$fhdr)}{flexidhdr_free(Flexhdr *fhdr)}}]{\setlength{\rightskip}{0pt plus 5cm}int flexidhdr\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf Flexhdr} $\ast$}]{fhdr}
+\end{DoxyParamCaption}
+)}\hypertarget{flexid_2flex__id_8h_a56a534cdaa2e9b63d0c0dda14b4cc6d7}{}\label{flexid_2flex__id_8h_a56a534cdaa2e9b63d0c0dda14b4cc6d7}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!flexidhdr\+\_\+init@{flexidhdr\+\_\+init}}
+\index{flexidhdr\+\_\+init@{flexidhdr\+\_\+init}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{flexidhdr\+\_\+init(\+Flexhdr $\ast$$\ast$fhdr, int length)}{flexidhdr_init(Flexhdr **fhdr, int length)}}]{\setlength{\rightskip}{0pt plus 5cm}int flexidhdr\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Flexhdr} $\ast$$\ast$}]{fhdr, }
+\item[{int}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{flexid_2flex__id_8h_a91183ca288699119ced3dfd5fa1b5035}{}\label{flexid_2flex__id_8h_a91183ca288699119ced3dfd5fa1b5035}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!have\+\_\+more\+\_\+frag@{have\+\_\+more\+\_\+frag}}
+\index{have\+\_\+more\+\_\+frag@{have\+\_\+more\+\_\+frag}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{have\+\_\+more\+\_\+frag(\+Flexhdr $\ast$fhdr)}{have_more_frag(Flexhdr *fhdr)}}]{\setlength{\rightskip}{0pt plus 5cm}int have\+\_\+more\+\_\+frag (
+\begin{DoxyParamCaption}
+\item[{{\bf Flexhdr} $\ast$}]{fhdr}
+\end{DoxyParamCaption}
+)}\hypertarget{flexid_2flex__id_8h_a89924743e64e73a920869f67b1010e1b}{}\label{flexid_2flex__id_8h_a89924743e64e73a920869f67b1010e1b}
+\index{flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}!serialize@{serialize}}
+\index{serialize@{serialize}!flexid/flex\+\_\+id.\+h@{flexid/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{serialize(\+Flexhdr $\ast$fhdr, uint8\+\_\+t $\ast$$\ast$buffer)}{serialize(Flexhdr *fhdr, uint8_t **buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}int serialize (
+\begin{DoxyParamCaption}
+\item[{{\bf Flexhdr} $\ast$}]{fhdr, }
+\item[{uint8\+\_\+t $\ast$$\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{flexid_2flex__id_8h_ad6ad8242e5622a56e2a623c4c91b3beb}{}\label{flexid_2flex__id_8h_ad6ad8242e5622a56e2a623c4c91b3beb}

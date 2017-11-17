@@ -18,8 +18,8 @@ PROGRAMS=apps/flex/publisher apps/flex/subscriber
 LIBRPATH=$(INSTALLTOP)/$(LIBDIR)
 
 CC= cc
-CFLAGS=-O -DDEBUG
-LDFLAGS=
+CFLAGS=-O -DDEBUG -I/usr/local/include
+LDFLAGS= -L/usr/local/lib -lssl -lcrypto
 
 ARFLAGS=
 AR=ar $(ARFLAGS) r

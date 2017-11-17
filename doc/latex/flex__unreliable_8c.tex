@@ -1,0 +1,148 @@
+\hypertarget{flex__unreliable_8c}{}\section{socket/flex\+\_\+unreliable.c File Reference}
+\label{flex__unreliable_8c}\index{socket/flex\+\_\+unreliable.\+c@{socket/flex\+\_\+unreliable.\+c}}
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$linux/poll.\+h$>$}\\*
+{\ttfamily \#include $<$linux/init.\+h$>$}\\*
+{\ttfamily \#include $<$linux/fs.\+h$>$}\\*
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/scatterlist.\+h$>$}\\*
+{\ttfamily \#include $<$linux/splice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/net.\+h$>$}\\*
+{\ttfamily \#include $<$linux/socket.\+h$>$}\\*
+{\ttfamily \#include $<$linux/random.\+h$>$}\\*
+{\ttfamily \#include $<$linux/bootmem.\+h$>$}\\*
+{\ttfamily \#include $<$linux/highmem.\+h$>$}\\*
+{\ttfamily \#include $<$linux/swap.\+h$>$}\\*
+{\ttfamily \#include $<$linux/cache.\+h$>$}\\*
+{\ttfamily \#include $<$linux/err.\+h$>$}\\*
+{\ttfamily \#include $<$linux/crypto.\+h$>$}\\*
+{\ttfamily \#include $<$linux/time.\+h$>$}\\*
+{\ttfamily \#include $<$linux/slab.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}flex\+\_\+sock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}flex\+\_\+unreliable.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}flex\+\_\+dev\+\_\+types.\+h\char`\"{}}\\*
+Include dependency graph for flex\+\_\+unreliable.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \+\_\+\+\_\+init \hyperlink{flex__unreliable_8c_a2059f2998864b28c5cf9b78a8a284567}{flex\+\_\+unreliable\+\_\+init} (void)
+\item 
+void \+\_\+\+\_\+exit \hyperlink{flex__unreliable_8c_a57af5e1421e5ed1eb7e44608b41c8fc9}{flex\+\_\+unreliable\+\_\+exit} (void)
+\item 
+void \hyperlink{flex__unreliable_8c_a4b2695e5b13ffead1be4cd396a75995a}{u\+\_\+table\+\_\+init} (struct \hyperlink{structu__table}{u\+\_\+table} $\ast$table, const char $\ast$name)
+\item 
+void \hyperlink{flex__unreliable_8c_a74473894a52eb94311acd3204f60c57a}{u\+\_\+table\+\_\+exit} (struct \hyperlink{structu__table}{u\+\_\+table} $\ast$table)
+\item 
+struct sock $\ast$ \hyperlink{flex__unreliable_8c_a32ca63632a51dfc9b5bc5e9b53bb7d7e}{u\+\_\+table\+\_\+lookup\+\_\+skb} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} id, struct \hyperlink{structu__table}{u\+\_\+table} $\ast$table)
+\item 
+int \hyperlink{flex__unreliable_8c_a5eb34db469fcc8cfad52d0757a550015}{flex\+\_\+unreliable\+\_\+connect} (struct socket $\ast$sock, struct sockaddr $\ast$taddr, int addr\+\_\+len, int flags)
+\item 
+unsigned int \hyperlink{flex__unreliable_8c_a9dcc414aaf7d4a50aa5be1f5be8535fc}{flex\+\_\+unreliable\+\_\+poll} (struct file $\ast$file, struct socket $\ast$sock, poll\+\_\+table $\ast$wait)
+\item 
+int \hyperlink{flex__unreliable_8c_ac32467559e187faceb52d47d6da94e02}{flex\+\_\+unreliable\+\_\+sendmsg} (struct socket $\ast$sock, struct msghdr $\ast$msg, size\+\_\+t size)
+\item 
+int \hyperlink{flex__unreliable_8c_acf9d7a44a416eefdde5c94294e7fa0d7}{flex\+\_\+unreliable\+\_\+recvmsg} (struct socket $\ast$sock, struct msghdr $\ast$msg, size\+\_\+t size, int flags)
+\item 
+int \hyperlink{flex__unreliable_8c_a3225fc05a1326f4c12a9c9343122233e}{flex\+\_\+unreliable\+\_\+release} (struct socket $\ast$sock)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structu__table}{u\+\_\+table} \hyperlink{structu__table}{u\+\_\+table} \hyperlink{flex__unreliable_8c_a9b8865315ae0dc203dff7b4798a7eb3d}{\+\_\+\+\_\+read\+\_\+mostly}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+connect@{flex\+\_\+unreliable\+\_\+connect}}
+\index{flex\+\_\+unreliable\+\_\+connect@{flex\+\_\+unreliable\+\_\+connect}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+connect(struct socket $\ast$sock, struct sockaddr $\ast$taddr, int addr\+\_\+len, int flags)}{flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+unreliable\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{struct sockaddr $\ast$}]{taddr, }
+\item[{int}]{addr\+\_\+len, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a5eb34db469fcc8cfad52d0757a550015}{}\label{flex__unreliable_8c_a5eb34db469fcc8cfad52d0757a550015}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+exit@{flex\+\_\+unreliable\+\_\+exit}}
+\index{flex\+\_\+unreliable\+\_\+exit@{flex\+\_\+unreliable\+\_\+exit}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+exit(void)}{flex_unreliable_exit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void \+\_\+\+\_\+exit flex\+\_\+unreliable\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a57af5e1421e5ed1eb7e44608b41c8fc9}{}\label{flex__unreliable_8c_a57af5e1421e5ed1eb7e44608b41c8fc9}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+init@{flex\+\_\+unreliable\+\_\+init}}
+\index{flex\+\_\+unreliable\+\_\+init@{flex\+\_\+unreliable\+\_\+init}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+init(void)}{flex_unreliable_init(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void \+\_\+\+\_\+init flex\+\_\+unreliable\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a2059f2998864b28c5cf9b78a8a284567}{}\label{flex__unreliable_8c_a2059f2998864b28c5cf9b78a8a284567}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+poll@{flex\+\_\+unreliable\+\_\+poll}}
+\index{flex\+\_\+unreliable\+\_\+poll@{flex\+\_\+unreliable\+\_\+poll}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+poll(struct file $\ast$file, struct socket $\ast$sock, poll\+\_\+table $\ast$wait)}{flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int flex\+\_\+unreliable\+\_\+poll (
+\begin{DoxyParamCaption}
+\item[{struct file $\ast$}]{file, }
+\item[{struct socket $\ast$}]{sock, }
+\item[{poll\+\_\+table $\ast$}]{wait}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a9dcc414aaf7d4a50aa5be1f5be8535fc}{}\label{flex__unreliable_8c_a9dcc414aaf7d4a50aa5be1f5be8535fc}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+recvmsg@{flex\+\_\+unreliable\+\_\+recvmsg}}
+\index{flex\+\_\+unreliable\+\_\+recvmsg@{flex\+\_\+unreliable\+\_\+recvmsg}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+recvmsg(struct socket $\ast$sock, struct msghdr $\ast$msg, size\+\_\+t size, int flags)}{flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+unreliable\+\_\+recvmsg (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{struct msghdr $\ast$}]{msg, }
+\item[{size\+\_\+t}]{size, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_acf9d7a44a416eefdde5c94294e7fa0d7}{}\label{flex__unreliable_8c_acf9d7a44a416eefdde5c94294e7fa0d7}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+release@{flex\+\_\+unreliable\+\_\+release}}
+\index{flex\+\_\+unreliable\+\_\+release@{flex\+\_\+unreliable\+\_\+release}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+release(struct socket $\ast$sock)}{flex_unreliable_release(struct socket *sock)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+unreliable\+\_\+release (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a3225fc05a1326f4c12a9c9343122233e}{}\label{flex__unreliable_8c_a3225fc05a1326f4c12a9c9343122233e}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!flex\+\_\+unreliable\+\_\+sendmsg@{flex\+\_\+unreliable\+\_\+sendmsg}}
+\index{flex\+\_\+unreliable\+\_\+sendmsg@{flex\+\_\+unreliable\+\_\+sendmsg}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+unreliable\+\_\+sendmsg(struct socket $\ast$sock, struct msghdr $\ast$msg, size\+\_\+t size)}{flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+unreliable\+\_\+sendmsg (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{struct msghdr $\ast$}]{msg, }
+\item[{size\+\_\+t}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_ac32467559e187faceb52d47d6da94e02}{}\label{flex__unreliable_8c_ac32467559e187faceb52d47d6da94e02}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!u\+\_\+table\+\_\+exit@{u\+\_\+table\+\_\+exit}}
+\index{u\+\_\+table\+\_\+exit@{u\+\_\+table\+\_\+exit}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+exit(struct u\+\_\+table $\ast$table)}{u_table_exit(struct u_table *table)}}]{\setlength{\rightskip}{0pt plus 5cm}void u\+\_\+table\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf u\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a74473894a52eb94311acd3204f60c57a}{}\label{flex__unreliable_8c_a74473894a52eb94311acd3204f60c57a}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!u\+\_\+table\+\_\+init@{u\+\_\+table\+\_\+init}}
+\index{u\+\_\+table\+\_\+init@{u\+\_\+table\+\_\+init}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+init(struct u\+\_\+table $\ast$table, const char $\ast$name)}{u_table_init(struct u_table *table, const char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}void u\+\_\+table\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf u\+\_\+table} $\ast$}]{table, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a4b2695e5b13ffead1be4cd396a75995a}{}\label{flex__unreliable_8c_a4b2695e5b13ffead1be4cd396a75995a}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!u\+\_\+table\+\_\+lookup\+\_\+skb@{u\+\_\+table\+\_\+lookup\+\_\+skb}}
+\index{u\+\_\+table\+\_\+lookup\+\_\+skb@{u\+\_\+table\+\_\+lookup\+\_\+skb}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+lookup\+\_\+skb(flexid\+\_\+t id, struct u\+\_\+table $\ast$table)}{u_table_lookup_skb(flexid_t id, struct u_table *table)}}]{\setlength{\rightskip}{0pt plus 5cm}struct sock$\ast$ u\+\_\+table\+\_\+lookup\+\_\+skb (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t}}]{id, }
+\item[{struct {\bf u\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8c_a32ca63632a51dfc9b5bc5e9b53bb7d7e}{}\label{flex__unreliable_8c_a32ca63632a51dfc9b5bc5e9b53bb7d7e}
+
+
+\subsection{Variable Documentation}
+\index{flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}!\+\_\+\+\_\+read\+\_\+mostly@{\+\_\+\+\_\+read\+\_\+mostly}}
+\index{\+\_\+\+\_\+read\+\_\+mostly@{\+\_\+\+\_\+read\+\_\+mostly}!flex\+\_\+unreliable.\+c@{flex\+\_\+unreliable.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+read\+\_\+mostly}{__read_mostly}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf u\+\_\+table} {\bf u\+\_\+table} \+\_\+\+\_\+read\+\_\+mostly}\hypertarget{flex__unreliable_8c_a9b8865315ae0dc203dff7b4798a7eb3d}{}\label{flex__unreliable_8c_a9b8865315ae0dc203dff7b4798a7eb3d}

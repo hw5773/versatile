@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	APP_LOG("Start Flex ID Test Publisher Application");
 
   if ((err = pub(fn)) < 0)
-    goto err;
+    goto out;
 
   APP_LOG1d("repo sock", repo_sock);
 

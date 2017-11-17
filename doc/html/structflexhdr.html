@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -90,49 +91,195 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">flexhdr Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="proto__flex_8h_source.html">proto_flex.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a58658c0c3ac88c2ae21cf52cdbeaefd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58658c0c3ac88c2ae21cf52cdbeaefd0"></a>
-__u8&#160;</td><td class="memItemRight" valign="bottom"><b>version</b></td></tr>
+<tr class="memitem:a58658c0c3ac88c2ae21cf52cdbeaefd0"><td class="memItemLeft" align="right" valign="top">__u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a58658c0c3ac88c2ae21cf52cdbeaefd0">version</a></td></tr>
 <tr class="separator:a58658c0c3ac88c2ae21cf52cdbeaefd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e17e4077f496e9eed85b5705a40b06f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e17e4077f496e9eed85b5705a40b06f"></a>
-__u8&#160;</td><td class="memItemRight" valign="bottom"><b>packet_type</b></td></tr>
+<tr class="memitem:a3e17e4077f496e9eed85b5705a40b06f"><td class="memItemLeft" align="right" valign="top">__u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a3e17e4077f496e9eed85b5705a40b06f">packet_type</a></td></tr>
 <tr class="separator:a3e17e4077f496e9eed85b5705a40b06f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2a7292e9ff348680f83067955b58d0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2a7292e9ff348680f83067955b58d0f"></a>
-__u8&#160;</td><td class="memItemRight" valign="bottom"><b>hash_type</b></td></tr>
+<tr class="memitem:aa2a7292e9ff348680f83067955b58d0f"><td class="memItemLeft" align="right" valign="top">__u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#aa2a7292e9ff348680f83067955b58d0f">hash_type</a></td></tr>
 <tr class="separator:aa2a7292e9ff348680f83067955b58d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a550e9254701dcd7665cdc1d52f9599fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a550e9254701dcd7665cdc1d52f9599fa"></a>
-__u8&#160;</td><td class="memItemRight" valign="bottom"><b>hop_limit</b></td></tr>
+<tr class="memitem:a550e9254701dcd7665cdc1d52f9599fa"><td class="memItemLeft" align="right" valign="top">__u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a550e9254701dcd7665cdc1d52f9599fa">hop_limit</a></td></tr>
 <tr class="separator:a550e9254701dcd7665cdc1d52f9599fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a2903458e61241565c61177a87c6dbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a2903458e61241565c61177a87c6dbb"></a>
-__be16&#160;</td><td class="memItemRight" valign="bottom"><b>header_len</b></td></tr>
+<tr class="memitem:a7a2903458e61241565c61177a87c6dbb"><td class="memItemLeft" align="right" valign="top">__be16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a7a2903458e61241565c61177a87c6dbb">header_len</a></td></tr>
 <tr class="separator:a7a2903458e61241565c61177a87c6dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e2d0c232c92ea39204ec52563cbd33e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e2d0c232c92ea39204ec52563cbd33e"></a>
-__sum16&#160;</td><td class="memItemRight" valign="bottom"><b>check</b></td></tr>
+<tr class="memitem:a7e2d0c232c92ea39204ec52563cbd33e"><td class="memItemLeft" align="right" valign="top">__sum16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a7e2d0c232c92ea39204ec52563cbd33e">check</a></td></tr>
 <tr class="separator:a7e2d0c232c92ea39204ec52563cbd33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15281b3aa64868e176dffbb7ee5f2acc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15281b3aa64868e176dffbb7ee5f2acc"></a>
-__be16&#160;</td><td class="memItemRight" valign="bottom"><b>packet_id</b></td></tr>
+<tr class="memitem:a15281b3aa64868e176dffbb7ee5f2acc"><td class="memItemLeft" align="right" valign="top">__be16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a15281b3aa64868e176dffbb7ee5f2acc">packet_id</a></td></tr>
 <tr class="separator:a15281b3aa64868e176dffbb7ee5f2acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85f045e7acaf63edb2cd192266ef49bf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85f045e7acaf63edb2cd192266ef49bf"></a>
-__be16&#160;</td><td class="memItemRight" valign="bottom"><b>frag_off</b></td></tr>
+<tr class="memitem:a85f045e7acaf63edb2cd192266ef49bf"><td class="memItemLeft" align="right" valign="top">__be16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a85f045e7acaf63edb2cd192266ef49bf">frag_off</a></td></tr>
 <tr class="separator:a85f045e7acaf63edb2cd192266ef49bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d0b687dac926a77cde8a5cc01f05533"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d0b687dac926a77cde8a5cc01f05533"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>sflex_id</b> [FLEX_ID_LENGTH]</td></tr>
+<tr class="memitem:a3d0b687dac926a77cde8a5cc01f05533"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a3d0b687dac926a77cde8a5cc01f05533">sflex_id</a> [<a class="el" href="flex__const_8h.html#a342f27a8d723d83c803e6d934f999ada">FLEX_ID_LENGTH</a>]</td></tr>
 <tr class="separator:a3d0b687dac926a77cde8a5cc01f05533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab2628ec55f6dedda9cd48de1677d49c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab2628ec55f6dedda9cd48de1677d49c"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>dflex_id</b> [FLEX_ID_LENGTH]</td></tr>
+<tr class="memitem:aab2628ec55f6dedda9cd48de1677d49c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#aab2628ec55f6dedda9cd48de1677d49c">dflex_id</a> [<a class="el" href="flex__const_8h.html#a342f27a8d723d83c803e6d934f999ada">FLEX_ID_LENGTH</a>]</td></tr>
 <tr class="separator:aab2628ec55f6dedda9cd48de1677d49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e177eb08fa03f382eb67f75d9bf16b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e177eb08fa03f382eb67f75d9bf16b9"></a>
-__be16&#160;</td><td class="memItemRight" valign="bottom"><b>packet_len</b></td></tr>
+<tr class="memitem:a8e177eb08fa03f382eb67f75d9bf16b9"><td class="memItemLeft" align="right" valign="top">__be16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a8e177eb08fa03f382eb67f75d9bf16b9">packet_len</a></td></tr>
 <tr class="separator:a8e177eb08fa03f382eb67f75d9bf16b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f437e344ae8752c7ea0586104bf67b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f437e344ae8752c7ea0586104bf67b4"></a>
-__be32&#160;</td><td class="memItemRight" valign="bottom"><b>seq</b></td></tr>
+<tr class="memitem:a1f437e344ae8752c7ea0586104bf67b4"><td class="memItemLeft" align="right" valign="top">__be32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a1f437e344ae8752c7ea0586104bf67b4">seq</a></td></tr>
 <tr class="separator:a1f437e344ae8752c7ea0586104bf67b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9504db4a12b79baa7937e1d11f521e57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9504db4a12b79baa7937e1d11f521e57"></a>
-__be32&#160;</td><td class="memItemRight" valign="bottom"><b>ack</b></td></tr>
+<tr class="memitem:a9504db4a12b79baa7937e1d11f521e57"><td class="memItemLeft" align="right" valign="top">__be32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflexhdr.html#a9504db4a12b79baa7937e1d11f521e57">ack</a></td></tr>
 <tr class="separator:a9504db4a12b79baa7937e1d11f521e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a9504db4a12b79baa7937e1d11f521e57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be32 flexhdr::ack</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7e2d0c232c92ea39204ec52563cbd33e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__sum16 flexhdr::check</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aab2628ec55f6dedda9cd48de1677d49c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char flexhdr::dflex_id[<a class="el" href="flex__const_8h.html#a342f27a8d723d83c803e6d934f999ada">FLEX_ID_LENGTH</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a85f045e7acaf63edb2cd192266ef49bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be16 flexhdr::frag_off</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa2a7292e9ff348680f83067955b58d0f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__u8 flexhdr::hash_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7a2903458e61241565c61177a87c6dbb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be16 flexhdr::header_len</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a550e9254701dcd7665cdc1d52f9599fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__u8 flexhdr::hop_limit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a15281b3aa64868e176dffbb7ee5f2acc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be16 flexhdr::packet_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8e177eb08fa03f382eb67f75d9bf16b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be16 flexhdr::packet_len</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3e17e4077f496e9eed85b5705a40b06f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__u8 flexhdr::packet_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1f437e344ae8752c7ea0586104bf67b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__be32 flexhdr::seq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3d0b687dac926a77cde8a5cc01f05533"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char flexhdr::sflex_id[<a class="el" href="flex__const_8h.html#a342f27a8d723d83c803e6d934f999ada">FLEX_ID_LENGTH</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a58658c0c3ac88c2ae21cf52cdbeaefd0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__u8 flexhdr::version</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>apps/ipv4/<a class="el" href="proto__flex_8h_source.html">proto_flex.h</a></li>
 <li>include/flex/<a class="el" href="flex__hdr_8h_source.html">flex_hdr.h</a></li>

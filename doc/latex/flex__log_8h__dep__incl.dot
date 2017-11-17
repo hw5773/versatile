@@ -1,0 +1,36 @@
+digraph "include/flex/flex_log.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/flex/flex_log.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="include/flex/flex.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex_8h.html"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="apps/flex/publisher.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$publisher_8c.html"];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="apps/flex/subscriber.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$subscriber_8c.html"];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="src/behavior.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$behavior_8c.html",tooltip="This file is to define the interface for the application layer. "];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="src/test_func.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test__func_8c.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="socket/flex_sock.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__sock_8h.html",tooltip="This file contains the data structures and the signature of functions for Flex socket. "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="socket/af_flex.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$af__flex_8c.html"];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="socket/flex_common.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__common_8c.html"];
+  Node7 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="socket/flex_input.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__input_8c.html"];
+  Node7 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="socket/flex_output.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__output_8c.html"];
+  Node7 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="socket/flex_reliable.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__reliable_8c.html"];
+  Node7 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="socket/flex_unreliable.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__unreliable_8c.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="src/flex_id.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__id_8c.html"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="src/request.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$request_8c.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

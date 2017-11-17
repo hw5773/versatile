@@ -65,10 +65,10 @@
 #define FLEX_DATA_ACK       0x23  // ACK for Data
 
 /* Hash Type */
-#define SHA1	            0x01  // SHA1, 160 bits (20 bytes)
-#define SHA192	          	0x02  // 192 bits (24 bytes)
-#define SHA224          	0x03  // 224 bits (28 bytes)
-#define SHA256          	0x04  // 256 bits (32 bytes)
+#define FLEX_SHA1           0x01  // SHA1, 160 bits (20 bytes)
+#define FLEX_SHA192        	0x02  // 192 bits (24 bytes)
+#define FLEX_SHA224        	0x03  // 224 bits (28 bytes)
+#define FLEX_SHA256        	0x04  // 256 bits (32 bytes)
 
 /* Length Constant */
 #define FLEX_ID_LENGTH		        21

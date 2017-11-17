@@ -1,0 +1,18 @@
+digraph "socket/flex_sock.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="socket/flex_sock.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="socket/af_flex.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$af__flex_8c.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="socket/flex_common.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__common_8c.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="socket/flex_input.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__input_8c.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="socket/flex_output.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__output_8c.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="socket/flex_reliable.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__reliable_8c.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="socket/flex_unreliable.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__unreliable_8c.html"];
+}

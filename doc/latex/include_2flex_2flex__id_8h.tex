@@ -1,0 +1,80 @@
+\hypertarget{include_2flex_2flex__id_8h}{}\section{include/flex/flex\+\_\+id.h File Reference}
+\label{include_2flex_2flex__id_8h}\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$asm/byteorder.\+h$>$}\\*
+Include dependency graph for flex\+\_\+id.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflexid}{flexid}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_aba613d21c7c6f4b0f1aeef882281540d}{init\+\_\+flexid} (struct \hyperlink{structflexid}{flexid} $\ast$$\ast$id, void $\ast$buf, int type)
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_a86b0e58f9219f3ab5c1eb6717b042c27}{free\+\_\+flexid} (struct \hyperlink{structflexid}{flexid} $\ast$id)
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_aa30fd035f20e3adb5fad9ce9c66d8c34}{set\+\_\+cache\+\_\+bit} (struct \hyperlink{structflexid}{flexid} $\ast$id, int \hyperlink{CMakeLists_8txt_a93f56ed3a15886b9e5882950ceb42805}{set})
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_a299bd37a6606fd0b9883172170bf3099}{set\+\_\+segment\+\_\+bit} (struct \hyperlink{structflexid}{flexid} $\ast$id, int \hyperlink{CMakeLists_8txt_a93f56ed3a15886b9e5882950ceb42805}{set})
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_a3db48ae850cdb9976cf024c2124c1fce}{set\+\_\+collision\+\_\+avoidance\+\_\+bit} (struct \hyperlink{structflexid}{flexid} $\ast$id, int \hyperlink{CMakeLists_8txt_a93f56ed3a15886b9e5882950ceb42805}{set})
+\item 
+int \hyperlink{include_2flex_2flex__id_8h_a2806529035e25dbd6a50c26b8a696f1c}{add\+\_\+attribute\+\_\+value\+\_\+pair} (struct \hyperlink{structflexid}{flexid} $\ast$id, unsigned char $\ast$key, unsigned char $\ast$value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!add\+\_\+attribute\+\_\+value\+\_\+pair@{add\+\_\+attribute\+\_\+value\+\_\+pair}}
+\index{add\+\_\+attribute\+\_\+value\+\_\+pair@{add\+\_\+attribute\+\_\+value\+\_\+pair}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{add\+\_\+attribute\+\_\+value\+\_\+pair(struct flexid $\ast$id, unsigned char $\ast$key, unsigned char $\ast$value)}{add_attribute_value_pair(struct flexid *id, unsigned char *key, unsigned char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+attribute\+\_\+value\+\_\+pair (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$}]{id, }
+\item[{unsigned char $\ast$}]{key, }
+\item[{unsigned char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_a2806529035e25dbd6a50c26b8a696f1c}{}\label{include_2flex_2flex__id_8h_a2806529035e25dbd6a50c26b8a696f1c}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!free\+\_\+flexid@{free\+\_\+flexid}}
+\index{free\+\_\+flexid@{free\+\_\+flexid}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+flexid(struct flexid $\ast$id)}{free_flexid(struct flexid *id)}}]{\setlength{\rightskip}{0pt plus 5cm}int free\+\_\+flexid (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_a86b0e58f9219f3ab5c1eb6717b042c27}{}\label{include_2flex_2flex__id_8h_a86b0e58f9219f3ab5c1eb6717b042c27}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!init\+\_\+flexid@{init\+\_\+flexid}}
+\index{init\+\_\+flexid@{init\+\_\+flexid}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{init\+\_\+flexid(struct flexid $\ast$$\ast$id, void $\ast$buf, int type)}{init_flexid(struct flexid **id, void *buf, int type)}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+flexid (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$$\ast$}]{id, }
+\item[{void $\ast$}]{buf, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_aba613d21c7c6f4b0f1aeef882281540d}{}\label{include_2flex_2flex__id_8h_aba613d21c7c6f4b0f1aeef882281540d}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!set\+\_\+cache\+\_\+bit@{set\+\_\+cache\+\_\+bit}}
+\index{set\+\_\+cache\+\_\+bit@{set\+\_\+cache\+\_\+bit}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{set\+\_\+cache\+\_\+bit(struct flexid $\ast$id, int set)}{set_cache_bit(struct flexid *id, int set)}}]{\setlength{\rightskip}{0pt plus 5cm}int set\+\_\+cache\+\_\+bit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$}]{id, }
+\item[{int}]{set}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_aa30fd035f20e3adb5fad9ce9c66d8c34}{}\label{include_2flex_2flex__id_8h_aa30fd035f20e3adb5fad9ce9c66d8c34}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!set\+\_\+collision\+\_\+avoidance\+\_\+bit@{set\+\_\+collision\+\_\+avoidance\+\_\+bit}}
+\index{set\+\_\+collision\+\_\+avoidance\+\_\+bit@{set\+\_\+collision\+\_\+avoidance\+\_\+bit}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{set\+\_\+collision\+\_\+avoidance\+\_\+bit(struct flexid $\ast$id, int set)}{set_collision_avoidance_bit(struct flexid *id, int set)}}]{\setlength{\rightskip}{0pt plus 5cm}int set\+\_\+collision\+\_\+avoidance\+\_\+bit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$}]{id, }
+\item[{int}]{set}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_a3db48ae850cdb9976cf024c2124c1fce}{}\label{include_2flex_2flex__id_8h_a3db48ae850cdb9976cf024c2124c1fce}
+\index{include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}!set\+\_\+segment\+\_\+bit@{set\+\_\+segment\+\_\+bit}}
+\index{set\+\_\+segment\+\_\+bit@{set\+\_\+segment\+\_\+bit}!include/flex/flex\+\_\+id.\+h@{include/flex/flex\+\_\+id.\+h}}
+\subsubsection[{\texorpdfstring{set\+\_\+segment\+\_\+bit(struct flexid $\ast$id, int set)}{set_segment_bit(struct flexid *id, int set)}}]{\setlength{\rightskip}{0pt plus 5cm}int set\+\_\+segment\+\_\+bit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexid} $\ast$}]{id, }
+\item[{int}]{set}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2flex__id_8h_a299bd37a6606fd0b9883172170bf3099}{}\label{include_2flex_2flex__id_8h_a299bd37a6606fd0b9883172170bf3099}

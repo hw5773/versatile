@@ -25,8 +25,10 @@ struct flexid
 };
 
 /* Flex ID init and free */
-int init_flexid(struct flexid **id, void *buf, int type);
+int init_flexid(struct flexid **id, unsigned char *name, int type);
 int free_flexid(struct flexid *id);
+int service_identity(unsigned char **, unsigned char *);
+int content_identity(unsigned char **, unsigned char *);
 
 /* Flex ID Manipulation */
 int set_cache_bit(struct flexid *id, int set);

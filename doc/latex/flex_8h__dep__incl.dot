@@ -1,0 +1,14 @@
+digraph "include/flex/flex.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/flex/flex.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="apps/flex/publisher.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$publisher_8c.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="apps/flex/subscriber.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$subscriber_8c.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="src/behavior.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$behavior_8c.html",tooltip="This file is to define the interface for the application layer. "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="src/test_func.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test__func_8c.html"];
+}

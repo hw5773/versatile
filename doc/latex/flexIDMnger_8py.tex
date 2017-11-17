@@ -1,0 +1,77 @@
+\hypertarget{flexIDMnger_8py}{}\section{resolver/2017/flex\+I\+D\+Mnger.py File Reference}
+\label{flexIDMnger_8py}\index{resolver/2017/flex\+I\+D\+Mnger.\+py@{resolver/2017/flex\+I\+D\+Mnger.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflexIDMnger}{flex\+I\+D\+Mnger}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceflexIDMnger_a652a7bbc0ce6a1a608f6161092ccaf0b}{flex\+I\+D\+Mnger.\+init\+\_\+manager} ()
+\item 
+def \hyperlink{namespaceflexIDMnger_ab0d711eb10db1022c77f0b2b8dbddf0a}{flex\+I\+D\+Mnger.\+send\+\_\+\+D\+Bquery} (msg, topic, wait)
+\item 
+def \hyperlink{namespaceflexIDMnger_ab63851993ef0e716a311a266b148f40a}{flex\+I\+D\+Mnger.\+gen\+\_\+flag} (cache\+\_\+bit, segment\+\_\+bit, collision\+\_\+mngt)
+\item 
+def \hyperlink{namespaceflexIDMnger_a7bf5319f433d75d5f7a3d29ea46c61b0}{flex\+I\+D\+Mnger.\+join\+\_\+gen\+ID} (device\+ID, flag)
+\item 
+def \hyperlink{namespaceflexIDMnger_a254360eeaead4225f59b589292545e92}{flex\+I\+D\+Mnger.\+join} (temp\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_ad8bef091b94d947a722b85cc02983b3b}{flex\+I\+D\+Mnger.\+leave} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a08a046d2b95cf1363e51486565e8e484}{flex\+I\+D\+Mnger.\+register\+\_\+gen\+ID} (hash\+\_\+val, flag)
+\item 
+def \hyperlink{namespaceflexIDMnger_ac5207b0e188d32e0f6fbc53be7c1a4c7}{flex\+I\+D\+Mnger.\+register} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_aba39b4b12e83409d89e6557292a69101}{flex\+I\+D\+Mnger.\+update} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a45402acfbbc4327962abde9dd6fec0f4}{flex\+I\+D\+Mnger.\+query} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a54f6e56e90d3f6fdb1c031397e385256}{flex\+I\+D\+Mnger.\+on\+\_\+connect} (client, userdata, flags, rc)
+\item 
+def \hyperlink{namespaceflexIDMnger_aa83a4c45a3078be5a5538e4c0ee7e688}{flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+connect} (client, userdata, flags, rc)
+\item 
+def \hyperlink{namespaceflexIDMnger_ab4402465dd325fa7090293b438150f64}{flex\+I\+D\+Mnger.\+on\+\_\+message} (client, userdata, msg)
+\item 
+def \hyperlink{namespaceflexIDMnger_afe56cc6ed0dfca7472d466474520a4ca}{flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+message} (client, userdata, msg)
+\item 
+def \hyperlink{namespaceflexIDMnger_ac3b53feda9816f03d96d73ec08657a94}{flex\+I\+D\+Mnger.\+on\+\_\+publish} (client, userdata, mid)
+\item 
+def \hyperlink{namespaceflexIDMnger_aa440eb79190d2e914d460ae1f99e6418}{flex\+I\+D\+Mnger.\+on\+\_\+subscribe} (client, userdata, mid, granted\+\_\+qos)
+\item 
+def \hyperlink{namespaceflexIDMnger_a649fcecdc02f23be2733fac4616acfae}{flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+publish} (client, userdata, mid)
+\item 
+def \hyperlink{namespaceflexIDMnger_a7ecd528167e56a9c7e90dfe70cf45c0d}{flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+subscribe} (client, userdata, mid, granted\+\_\+qos)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{namespaceflexIDMnger_a7921a1547a604812b8598511ec7510b1}{flex\+I\+D\+Mnger.\+broker} = \char`\"{}iot.\+eclipse.\+org\char`\"{}
+\item 
+dictionary \hyperlink{namespaceflexIDMnger_a410887fb1e5741855597352a40e77a16}{flex\+I\+D\+Mnger.\+device\+I\+D\+\_\+cache} = \{\}
+\item 
+dictionary \hyperlink{namespaceflexIDMnger_a5cbd9153a4dcde4ba9c238730f139570}{flex\+I\+D\+Mnger.\+db\+Query\+\_\+cache} = \{\}
+\item 
+int \hyperlink{namespaceflexIDMnger_a5f94c1426e81cb817d657b1ae5837d8c}{flex\+I\+D\+Mnger.\+collision\+\_\+inc} = 4
+\item 
+string \hyperlink{namespaceflexIDMnger_a9dab00781c88df93251321044fd86d63}{flex\+I\+D\+Mnger.\+manager\+ID} = \textquotesingle{}\textquotesingle{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a1981fc00829b540f8d58471de23e3acd}{flex\+I\+D\+Mnger.\+db\+\_\+insert} = \char`\"{}/dbqeury/insert/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a423e288f8377fcad63137ba3798070e3}{flex\+I\+D\+Mnger.\+db\+\_\+select} = \char`\"{}/dbquery/select/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a386574d9419f6dfafb0b9110c8523bbd}{flex\+I\+D\+Mnger.\+db\+\_\+delete} = \char`\"{}/dbquery/delete/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a3cc825d50191d10077c31adec3a44cbe}{flex\+I\+D\+Mnger.\+db\+\_\+update} = \char`\"{}/dbquery/update/\char`\"{}
+\item 
+\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{flex\+I\+D\+Mnger.\+client} = mqtt.\+Client()
+\item 
+\hyperlink{namespaceflexIDMnger_a6e31c5c83adf5a1635c60ecbc0eb7dd6}{flex\+I\+D\+Mnger.\+db\+\_\+client} = mqtt.\+Client()
+\item 
+\hyperlink{namespaceflexIDMnger_aab705630161ba445dfd16818fee4fa7a}{flex\+I\+D\+Mnger.\+on\+\_\+connect}
+\item 
+\hyperlink{namespaceflexIDMnger_aebb6d039352acac6b65f782692fec334}{flex\+I\+D\+Mnger.\+on\+\_\+message}
+\item 
+\hyperlink{namespaceflexIDMnger_ad0afbb619c7964838188ee89009f7957}{flex\+I\+D\+Mnger.\+on\+\_\+publish}
+\end{DoxyCompactItemize}

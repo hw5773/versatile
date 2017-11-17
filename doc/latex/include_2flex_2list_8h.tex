@@ -1,0 +1,143 @@
+\hypertarget{include_2flex_2list_8h}{}\section{include/flex/list.h File Reference}
+\label{include_2flex_2list_8h}\index{include/flex/list.\+h@{include/flex/list.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlist__head}{list\+\_\+head}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a4642d4b7df28478bb762fe43c85b5c63}{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}(name)~\{ \&(name), \&(name) \}
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a42f0e72af970a790b60a740af8c9ecd0}{L\+I\+S\+T\+\_\+\+H\+E\+AD}(name)~struct \hyperlink{structlist__head}{list\+\_\+head} name = \hyperlink{util_2list_8h_a4642d4b7df28478bb762fe43c85b5c63}{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}(name)
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a0ffe9d28c36d7b018a9cfae33bae45c0}{I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD}(ptr)
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\+\_\+entry}(ptr,  type,  member)~((type $\ast$)((char $\ast$)(ptr)-\/(unsigned long)(\&((type $\ast$)0)-\/$>$member)))
+\item 
+\#define \hyperlink{include_2flex_2list_8h_ab8b24e6660ab3760c923e4b4db3fa502}{list\+\_\+for\+\_\+each}(pos,  \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a19fc06b83f3502a83ce566b8887e6aec}{list\+\_\+for\+\_\+each\+\_\+prev}(pos,  \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a9e4b9328744994b9d3878f5dad75c09f}{list\+\_\+for\+\_\+each\+\_\+safe}(pos,  n,  \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})
+\item 
+\#define \hyperlink{include_2flex_2list_8h_a9b782fefb5ab71ce9762182e45a615e1}{list\+\_\+for\+\_\+each\+\_\+entry}(pos,  \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head},  member)
+\item 
+\#define \hyperlink{include_2flex_2list_8h_ac3f72d6bd5144c7970824813810d2da1}{list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}(pos,  n,  \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head},  member)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{include/flex/list.\+h@{include/flex/list.\+h}!I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD}{INIT_LIST_HEAD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+I\+T\+\_\+\+L\+I\+S\+T\+\_\+\+H\+E\+AD(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_a0ffe9d28c36d7b018a9cfae33bae45c0}{}\label{include_2flex_2list_8h_a0ffe9d28c36d7b018a9cfae33bae45c0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    (ptr)->next = (ptr); (ptr)->prev = (ptr); \(\backslash\)
+\} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+\index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+entry@{list\+\_\+entry}}
+\index{list\+\_\+entry@{list\+\_\+entry}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+entry}{list_entry}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+entry(
+\begin{DoxyParamCaption}
+\item[{}]{ptr, }
+\item[{}]{type, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)~((type $\ast$)((char $\ast$)(ptr)-\/(unsigned long)(\&((type $\ast$)0)-\/$>$member)))}\hypertarget{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{}\label{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}
+list\+\_\+entry -\/ get the struct for this entry \+: the \&struct \hyperlink{structlist__head}{list\+\_\+head} pointer. \+: the type of the struct this is embedded in. \+: the name of the list\+\_\+struct within the struct. \index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+for\+\_\+each@{list\+\_\+for\+\_\+each}}
+\index{list\+\_\+for\+\_\+each@{list\+\_\+for\+\_\+each}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+for\+\_\+each}{list_for_each}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+for\+\_\+each(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{{\bf head}}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_ab8b24e6660ab3760c923e4b4db3fa502}{}\label{include_2flex_2list_8h_ab8b24e6660ab3760c923e4b4db3fa502}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})->next; pos != (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head}); \(\backslash\)
+            pos = pos->next)
+\end{DoxyCode}
+list\+\_\+for\+\_\+each -\/ iterate over a list \+: the \&struct \hyperlink{structlist__head}{list\+\_\+head} to use as a loop counter. \+: the head for your list. \index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+for\+\_\+each\+\_\+entry@{list\+\_\+for\+\_\+each\+\_\+entry}}
+\index{list\+\_\+for\+\_\+each\+\_\+entry@{list\+\_\+for\+\_\+each\+\_\+entry}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+for\+\_\+each\+\_\+entry}{list_for_each_entry}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+for\+\_\+each\+\_\+entry(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{{\bf head}, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_a9b782fefb5ab71ce9762182e45a615e1}{}\label{include_2flex_2list_8h_a9b782fefb5ab71ce9762182e45a615e1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\_entry}((\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})->next, typeof(*pos), member);    \(\backslash\)
+         &pos->member != (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head});                    \(\backslash\)
+         pos = \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\_entry}(pos->member.next, typeof(*pos), member))
+\end{DoxyCode}
+list\+\_\+for\+\_\+each\+\_\+entry -\/ iterate over list of given type \+: the type $\ast$ to use as a loop counter. \+: the head for your list. \+: the name of the list\+\_\+struct within the struct. \index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe@{list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}}
+\index{list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe@{list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}{list_for_each_entry_safe}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{n, }
+\item[{}]{{\bf head}, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_ac3f72d6bd5144c7970824813810d2da1}{}\label{include_2flex_2list_8h_ac3f72d6bd5144c7970824813810d2da1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\_entry}((\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})->next, typeof(*pos), member),    \(\backslash\)
+        n = \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\_entry}(pos->member.next, typeof(*pos), member);   \(\backslash\)
+         &pos->member != (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head});                    \(\backslash\)
+         pos = n, n = \hyperlink{include_2flex_2list_8h_a26c976b7f654e70df318c1843e5094de}{list\_entry}(n->member.next, typeof(*n), member))
+\end{DoxyCode}
+list\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe -\/ iterate over list of given type safe against removal of list entry \+: the type $\ast$ to use as a loop counter. ~\newline
+\+: another type $\ast$ to use as temporary storage \+: the head for your list. \+: the name of the list\+\_\+struct within the struct. \index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+for\+\_\+each\+\_\+prev@{list\+\_\+for\+\_\+each\+\_\+prev}}
+\index{list\+\_\+for\+\_\+each\+\_\+prev@{list\+\_\+for\+\_\+each\+\_\+prev}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+for\+\_\+each\+\_\+prev}{list_for_each_prev}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+for\+\_\+each\+\_\+prev(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{{\bf head}}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_a19fc06b83f3502a83ce566b8887e6aec}{}\label{include_2flex_2list_8h_a19fc06b83f3502a83ce566b8887e6aec}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})->prev; pos != (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head}); \(\backslash\)
+            pos = pos->prev)
+\end{DoxyCode}
+list\+\_\+for\+\_\+each\+\_\+prev -\/ iterate over a list backwards \+: the \&struct \hyperlink{structlist__head}{list\+\_\+head} to use as a loop counter. \+: the head for your list. \index{include/flex/list.\+h@{include/flex/list.\+h}!list\+\_\+for\+\_\+each\+\_\+safe@{list\+\_\+for\+\_\+each\+\_\+safe}}
+\index{list\+\_\+for\+\_\+each\+\_\+safe@{list\+\_\+for\+\_\+each\+\_\+safe}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{list\+\_\+for\+\_\+each\+\_\+safe}{list_for_each_safe}}]{\setlength{\rightskip}{0pt plus 5cm}\#define list\+\_\+for\+\_\+each\+\_\+safe(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{n, }
+\item[{}]{{\bf head}}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2flex_2list_8h_a9e4b9328744994b9d3878f5dad75c09f}{}\label{include_2flex_2list_8h_a9e4b9328744994b9d3878f5dad75c09f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head})->next, n = pos->next; pos != (\hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head}); \(\backslash\)
+        pos = n, n = pos->next)
+\end{DoxyCode}
+list\+\_\+for\+\_\+each\+\_\+safe -\/ iterate over a list safe against removal of list entry \+: the \&struct \hyperlink{structlist__head}{list\+\_\+head} to use as a loop counter. ~\newline
+\+: another \&struct \hyperlink{structlist__head}{list\+\_\+head} to use as temporary storage \+: the head for your list. \index{include/flex/list.\+h@{include/flex/list.\+h}!L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{L\+I\+S\+T\+\_\+\+H\+E\+AD@{L\+I\+S\+T\+\_\+\+H\+E\+AD}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{L\+I\+S\+T\+\_\+\+H\+E\+AD}{LIST_HEAD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+S\+T\+\_\+\+H\+E\+AD(
+\begin{DoxyParamCaption}
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~struct {\bf list\+\_\+head} name = {\bf L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}(name)}\hypertarget{include_2flex_2list_8h_a42f0e72af970a790b60a740af8c9ecd0}{}\label{include_2flex_2list_8h_a42f0e72af970a790b60a740af8c9ecd0}
+\index{include/flex/list.\+h@{include/flex/list.\+h}!L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}}
+\index{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}!include/flex/list.\+h@{include/flex/list.\+h}}
+\subsubsection[{\texorpdfstring{L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT}{LIST_HEAD_INIT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+\_\+\+I\+N\+IT(
+\begin{DoxyParamCaption}
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~\{ \&(name), \&(name) \}}\hypertarget{include_2flex_2list_8h_a4642d4b7df28478bb762fe43c85b5c63}{}\label{include_2flex_2list_8h_a4642d4b7df28478bb762fe43c85b5c63}

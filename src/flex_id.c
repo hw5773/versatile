@@ -1,48 +1,119 @@
 #include <stdlib.h>
+#include <string.h>
+
+/* Flex ID Related Headers */
 #include <flex/flex_const.h>
 #include <flex/flex_id.h>
 #include <flex/flex_types.h>
 #include <flex/flex_log.h>
+#include <flex/flex_err.h>
 
-// TODO: Extract public key from the DER/PEM file
-// TODO: Make the hash value from the content
-int init_flexid(flexid_t **id, void *buf, int type)
+/* OpenSSL Related Headers */
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/sha.h>
+
+/**
+ * @brief Initialize the Flex ID
+ * @param id Flex ID
+ * @param name Name of the file
+ * @param type Type of the Flex ID (Service/Content)
+ */
+int init_flexid(flexid_t **id, unsigned char *name, int type)
 {
-  (*id) = (flexid_t *)malloc(sizeof(flexid_t));
+  int err;
+  FILE *fp;
+  unsigned char *identity;
 
-  if (!(*id))
-    return FAILURE;
+  err = -ERROR_INIT_ID;
+  if (!((*id) = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
-  if (type == FLEX_TYPE_CONTENT)
+  err = -ERROR_MISTYPE;
+  switch(type)
   {
-    set_cache_bit(*id, TRUE);
-    set_segment_bit(*id, FALSE);
-    set_collision_avoidance_bit(*id, FALSE);
-  }
-  else if (type == FLEX_TYPE_SEGMENT)
-  {
-    set_cache_bit(*id, TRUE);
-    set_segment_bit(*id, TRUE);
-    set_collision_avoidance_bit(*id, FALSE);
-  }
-  else if (type == FLEX_TYPE_SERVICE)
-  {
-    set_cache_bit(*id, FALSE);
-    set_segment_bit(*id, FALSE);
-    set_collision_avoidance_bit(*id, TRUE);
-  }
-  else
-  {
-    APP_LOG("Flex Type mismatch");
-    return FAILURE;
+    case FLEX_TYPE_CONTENT:
+      set_cache_bit(*id, TRUE);
+      set_segment_bit(*id, FALSE);
+      set_collision_avoidance_bit(*id, FALSE);
+      content_identity(&identity, name);
+      memcpy((*id)->identity, identity, SHA_DIGEST_LENGTH);
+      (*id)->length = FLEX_ID_LENGTH;
+      break;
+    case FLEX_TYPE_SEGMENT:
+      set_cache_bit(*id, TRUE);
+      set_segment_bit(*id, TRUE);
+      set_collision_avoidance_bit(*id, FALSE);
+      (*id)->length = FLEX_ID_EXT_LENGTH;
+      break;
+    case FLEX_TYPE_SERVICE:
+      set_cache_bit(*id, FALSE);
+      set_segment_bit(*id, FALSE);
+      set_collision_avoidance_bit(*id, TRUE);
+      service_identity(&identity, name);
+      memcpy((*id)->identity, identity, SHA_DIGEST_LENGTH);
+      (*id)->length = FLEX_ID_LENGTH;
+      break;
+    default:
+      APP_LOG("Flex Type mismatch");
+      goto out;
   }
 
   return SUCCESS;
+
+out:
+  return err;
 }
 
 int free_flexid(flexid_t *id)
 {
   free(id);
+  return SUCCESS;
+}
+
+int content_identity(unsigned char **identity, unsigned char *name)
+{
+  int err, bytes, len;
+  FILE *fp;
+  unsigned char data[2];
+  EVP_MD_CTX *ctx;
+
+  err = -ERROR_MALLOC;
+  if (!((*identity) = (unsigned char *)malloc(SHA_DIGEST_LENGTH))) goto out;
+
+  err = -ERROR_READ_FILE;
+  if (!(fp = fopen(name, "r"))) goto out;
+
+  err = -ERROR_INIT_MD_CTX;
+  if (!(ctx = EVP_MD_CTX_new())) goto out;
+  
+  err = -ERROR_INIT_MD;
+  if (!EVP_DigestInit_ex(ctx, EVP_sha1(), NULL)) goto out;
+
+  err = -ERROR_PROCESS_MD;
+  while (bytes = fread(data, 1, 1, fp) != 0)
+  {
+    if (!EVP_DigestUpdate(ctx, data, bytes)) goto out;
+  }
+
+  err = -ERROR_FINAL_MD;
+  if (!EVP_DigestFinal_ex(ctx, (*identity), &len)) goto out;
+
+  int i;
+  printf("Generated ID\n");
+  printf("  len: %d\n", len);
+  printf("  ");
+  for (i=0; i<len; i++)
+    printf("%02X ", (*identity)[i]);
+  printf("\n");
+
+  return SUCCESS;
+
+out:
+  return err;
+}
+
+int service_identity(unsigned char **identity, unsigned char *name)
+{
   return SUCCESS;
 }
 

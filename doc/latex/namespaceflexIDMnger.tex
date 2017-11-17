@@ -1,0 +1,277 @@
+\hypertarget{namespaceflexIDMnger}{}\section{flex\+I\+D\+Mnger Namespace Reference}
+\label{namespaceflexIDMnger}\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceflexIDMnger_a652a7bbc0ce6a1a608f6161092ccaf0b}{init\+\_\+manager} ()
+\item 
+def \hyperlink{namespaceflexIDMnger_ab0d711eb10db1022c77f0b2b8dbddf0a}{send\+\_\+\+D\+Bquery} (msg, topic, wait)
+\item 
+def \hyperlink{namespaceflexIDMnger_ab63851993ef0e716a311a266b148f40a}{gen\+\_\+flag} (cache\+\_\+bit, segment\+\_\+bit, collision\+\_\+mngt)
+\item 
+def \hyperlink{namespaceflexIDMnger_a7bf5319f433d75d5f7a3d29ea46c61b0}{join\+\_\+gen\+ID} (device\+ID, flag)
+\item 
+def \hyperlink{namespaceflexIDMnger_a254360eeaead4225f59b589292545e92}{join} (temp\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_ad8bef091b94d947a722b85cc02983b3b}{leave} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a08a046d2b95cf1363e51486565e8e484}{register\+\_\+gen\+ID} (hash\+\_\+val, flag)
+\item 
+def \hyperlink{namespaceflexIDMnger_ac5207b0e188d32e0f6fbc53be7c1a4c7}{register} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_aba39b4b12e83409d89e6557292a69101}{update} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a45402acfbbc4327962abde9dd6fec0f4}{query} (device\+ID, payload)
+\item 
+def \hyperlink{namespaceflexIDMnger_a54f6e56e90d3f6fdb1c031397e385256}{on\+\_\+connect} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, flags, rc)
+\item 
+def \hyperlink{namespaceflexIDMnger_aa83a4c45a3078be5a5538e4c0ee7e688}{on\+\_\+db\+\_\+connect} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, flags, rc)
+\item 
+def \hyperlink{namespaceflexIDMnger_ab4402465dd325fa7090293b438150f64}{on\+\_\+message} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, msg)
+\item 
+def \hyperlink{namespaceflexIDMnger_afe56cc6ed0dfca7472d466474520a4ca}{on\+\_\+db\+\_\+message} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, msg)
+\item 
+def \hyperlink{namespaceflexIDMnger_ac3b53feda9816f03d96d73ec08657a94}{on\+\_\+publish} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, mid)
+\item 
+def \hyperlink{namespaceflexIDMnger_aa440eb79190d2e914d460ae1f99e6418}{on\+\_\+subscribe} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, mid, granted\+\_\+qos)
+\item 
+def \hyperlink{namespaceflexIDMnger_a649fcecdc02f23be2733fac4616acfae}{on\+\_\+db\+\_\+publish} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, mid)
+\item 
+def \hyperlink{namespaceflexIDMnger_a7ecd528167e56a9c7e90dfe70cf45c0d}{on\+\_\+db\+\_\+subscribe} (\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client}, userdata, mid, granted\+\_\+qos)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{namespaceflexIDMnger_a7921a1547a604812b8598511ec7510b1}{broker} = \char`\"{}iot.\+eclipse.\+org\char`\"{}
+\item 
+dictionary \hyperlink{namespaceflexIDMnger_a410887fb1e5741855597352a40e77a16}{device\+I\+D\+\_\+cache} = \{\}
+\item 
+dictionary \hyperlink{namespaceflexIDMnger_a5cbd9153a4dcde4ba9c238730f139570}{db\+Query\+\_\+cache} = \{\}
+\item 
+int \hyperlink{namespaceflexIDMnger_a5f94c1426e81cb817d657b1ae5837d8c}{collision\+\_\+inc} = 4
+\item 
+string \hyperlink{namespaceflexIDMnger_a9dab00781c88df93251321044fd86d63}{manager\+ID} = \textquotesingle{}\textquotesingle{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a1981fc00829b540f8d58471de23e3acd}{db\+\_\+insert} = \char`\"{}/dbqeury/insert/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a423e288f8377fcad63137ba3798070e3}{db\+\_\+select} = \char`\"{}/dbquery/select/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a386574d9419f6dfafb0b9110c8523bbd}{db\+\_\+delete} = \char`\"{}/dbquery/delete/\char`\"{}
+\item 
+string \hyperlink{namespaceflexIDMnger_a3cc825d50191d10077c31adec3a44cbe}{db\+\_\+update} = \char`\"{}/dbquery/\hyperlink{namespaceflexIDMnger_aba39b4b12e83409d89e6557292a69101}{update}/\char`\"{}
+\item 
+\hyperlink{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{client} = mqtt.\+Client()
+\item 
+\hyperlink{namespaceflexIDMnger_a6e31c5c83adf5a1635c60ecbc0eb7dd6}{db\+\_\+client} = mqtt.\+Client()
+\item 
+\hyperlink{namespaceflexIDMnger_aab705630161ba445dfd16818fee4fa7a}{on\+\_\+connect}
+\item 
+\hyperlink{namespaceflexIDMnger_aebb6d039352acac6b65f782692fec334}{on\+\_\+message}
+\item 
+\hyperlink{namespaceflexIDMnger_ad0afbb619c7964838188ee89009f7957}{on\+\_\+publish}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!gen\+\_\+flag@{gen\+\_\+flag}}
+\index{gen\+\_\+flag@{gen\+\_\+flag}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{gen\+\_\+flag(cache\+\_\+bit, segment\+\_\+bit, collision\+\_\+mngt)}{gen_flag(cache_bit, segment_bit, collision_mngt)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+gen\+\_\+flag (
+\begin{DoxyParamCaption}
+\item[{}]{cache\+\_\+bit, }
+\item[{}]{segment\+\_\+bit, }
+\item[{}]{collision\+\_\+mngt}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ab63851993ef0e716a311a266b148f40a}{}\label{namespaceflexIDMnger_ab63851993ef0e716a311a266b148f40a}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!init\+\_\+manager@{init\+\_\+manager}}
+\index{init\+\_\+manager@{init\+\_\+manager}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{init\+\_\+manager()}{init_manager()}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+init\+\_\+manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a652a7bbc0ce6a1a608f6161092ccaf0b}{}\label{namespaceflexIDMnger_a652a7bbc0ce6a1a608f6161092ccaf0b}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!join@{join}}
+\index{join@{join}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{join(temp\+I\+D, payload)}{join(tempID, payload)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+join (
+\begin{DoxyParamCaption}
+\item[{}]{temp\+ID, }
+\item[{}]{payload}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a254360eeaead4225f59b589292545e92}{}\label{namespaceflexIDMnger_a254360eeaead4225f59b589292545e92}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!join\+\_\+gen\+ID@{join\+\_\+gen\+ID}}
+\index{join\+\_\+gen\+ID@{join\+\_\+gen\+ID}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{join\+\_\+gen\+I\+D(device\+I\+D, flag)}{join_genID(deviceID, flag)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+join\+\_\+gen\+ID (
+\begin{DoxyParamCaption}
+\item[{}]{device\+ID, }
+\item[{}]{flag}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a7bf5319f433d75d5f7a3d29ea46c61b0}{}\label{namespaceflexIDMnger_a7bf5319f433d75d5f7a3d29ea46c61b0}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!leave@{leave}}
+\index{leave@{leave}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{leave(device\+I\+D, payload)}{leave(deviceID, payload)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+leave (
+\begin{DoxyParamCaption}
+\item[{}]{device\+ID, }
+\item[{}]{payload}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ad8bef091b94d947a722b85cc02983b3b}{}\label{namespaceflexIDMnger_ad8bef091b94d947a722b85cc02983b3b}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+connect@{on\+\_\+connect}}
+\index{on\+\_\+connect@{on\+\_\+connect}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+connect(client, userdata, flags, rc)}{on_connect(client, userdata, flags, rc)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{flags, }
+\item[{}]{rc}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a54f6e56e90d3f6fdb1c031397e385256}{}\label{namespaceflexIDMnger_a54f6e56e90d3f6fdb1c031397e385256}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+db\+\_\+connect@{on\+\_\+db\+\_\+connect}}
+\index{on\+\_\+db\+\_\+connect@{on\+\_\+db\+\_\+connect}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+db\+\_\+connect(client, userdata, flags, rc)}{on_db_connect(client, userdata, flags, rc)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{flags, }
+\item[{}]{rc}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_aa83a4c45a3078be5a5538e4c0ee7e688}{}\label{namespaceflexIDMnger_aa83a4c45a3078be5a5538e4c0ee7e688}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+db\+\_\+message@{on\+\_\+db\+\_\+message}}
+\index{on\+\_\+db\+\_\+message@{on\+\_\+db\+\_\+message}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+db\+\_\+message(client, userdata, msg)}{on_db_message(client, userdata, msg)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_afe56cc6ed0dfca7472d466474520a4ca}{}\label{namespaceflexIDMnger_afe56cc6ed0dfca7472d466474520a4ca}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+db\+\_\+publish@{on\+\_\+db\+\_\+publish}}
+\index{on\+\_\+db\+\_\+publish@{on\+\_\+db\+\_\+publish}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+db\+\_\+publish(client, userdata, mid)}{on_db_publish(client, userdata, mid)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+publish (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{mid}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a649fcecdc02f23be2733fac4616acfae}{}\label{namespaceflexIDMnger_a649fcecdc02f23be2733fac4616acfae}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+db\+\_\+subscribe@{on\+\_\+db\+\_\+subscribe}}
+\index{on\+\_\+db\+\_\+subscribe@{on\+\_\+db\+\_\+subscribe}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+db\+\_\+subscribe(client, userdata, mid, granted\+\_\+qos)}{on_db_subscribe(client, userdata, mid, granted_qos)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+db\+\_\+subscribe (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{mid, }
+\item[{}]{granted\+\_\+qos}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a7ecd528167e56a9c7e90dfe70cf45c0d}{}\label{namespaceflexIDMnger_a7ecd528167e56a9c7e90dfe70cf45c0d}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+message@{on\+\_\+message}}
+\index{on\+\_\+message@{on\+\_\+message}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+message(client, userdata, msg)}{on_message(client, userdata, msg)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ab4402465dd325fa7090293b438150f64}{}\label{namespaceflexIDMnger_ab4402465dd325fa7090293b438150f64}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+publish@{on\+\_\+publish}}
+\index{on\+\_\+publish@{on\+\_\+publish}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+publish(client, userdata, mid)}{on_publish(client, userdata, mid)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+publish (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{mid}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ac3b53feda9816f03d96d73ec08657a94}{}\label{namespaceflexIDMnger_ac3b53feda9816f03d96d73ec08657a94}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+subscribe@{on\+\_\+subscribe}}
+\index{on\+\_\+subscribe@{on\+\_\+subscribe}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+subscribe(client, userdata, mid, granted\+\_\+qos)}{on_subscribe(client, userdata, mid, granted_qos)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+on\+\_\+subscribe (
+\begin{DoxyParamCaption}
+\item[{}]{client, }
+\item[{}]{userdata, }
+\item[{}]{mid, }
+\item[{}]{granted\+\_\+qos}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_aa440eb79190d2e914d460ae1f99e6418}{}\label{namespaceflexIDMnger_aa440eb79190d2e914d460ae1f99e6418}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!query@{query}}
+\index{query@{query}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{query(device\+I\+D, payload)}{query(deviceID, payload)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+query (
+\begin{DoxyParamCaption}
+\item[{}]{device\+ID, }
+\item[{}]{payload}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a45402acfbbc4327962abde9dd6fec0f4}{}\label{namespaceflexIDMnger_a45402acfbbc4327962abde9dd6fec0f4}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!register@{register}}
+\index{register@{register}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{register(device\+I\+D, payload)}{register(deviceID, payload)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+register (
+\begin{DoxyParamCaption}
+\item[{}]{device\+ID, }
+\item[{}]{payload}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ac5207b0e188d32e0f6fbc53be7c1a4c7}{}\label{namespaceflexIDMnger_ac5207b0e188d32e0f6fbc53be7c1a4c7}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!register\+\_\+gen\+ID@{register\+\_\+gen\+ID}}
+\index{register\+\_\+gen\+ID@{register\+\_\+gen\+ID}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{register\+\_\+gen\+I\+D(hash\+\_\+val, flag)}{register_genID(hash_val, flag)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+register\+\_\+gen\+ID (
+\begin{DoxyParamCaption}
+\item[{}]{hash\+\_\+val, }
+\item[{}]{flag}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_a08a046d2b95cf1363e51486565e8e484}{}\label{namespaceflexIDMnger_a08a046d2b95cf1363e51486565e8e484}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!send\+\_\+\+D\+Bquery@{send\+\_\+\+D\+Bquery}}
+\index{send\+\_\+\+D\+Bquery@{send\+\_\+\+D\+Bquery}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{send\+\_\+\+D\+Bquery(msg, topic, wait)}{send_DBquery(msg, topic, wait)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+send\+\_\+\+D\+Bquery (
+\begin{DoxyParamCaption}
+\item[{}]{msg, }
+\item[{}]{topic, }
+\item[{}]{wait}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_ab0d711eb10db1022c77f0b2b8dbddf0a}{}\label{namespaceflexIDMnger_ab0d711eb10db1022c77f0b2b8dbddf0a}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!update@{update}}
+\index{update@{update}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{update(device\+I\+D, payload)}{update(deviceID, payload)}}]{\setlength{\rightskip}{0pt plus 5cm}def flex\+I\+D\+Mnger.\+update (
+\begin{DoxyParamCaption}
+\item[{}]{device\+ID, }
+\item[{}]{payload}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceflexIDMnger_aba39b4b12e83409d89e6557292a69101}{}\label{namespaceflexIDMnger_aba39b4b12e83409d89e6557292a69101}
+
+
+\subsection{Variable Documentation}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!broker@{broker}}
+\index{broker@{broker}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{broker}{broker}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+broker = \char`\"{}iot.\+eclipse.\+org\char`\"{}}\hypertarget{namespaceflexIDMnger_a7921a1547a604812b8598511ec7510b1}{}\label{namespaceflexIDMnger_a7921a1547a604812b8598511ec7510b1}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!client@{client}}
+\index{client@{client}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{client}{client}}]{\setlength{\rightskip}{0pt plus 5cm}flex\+I\+D\+Mnger.\+client = mqtt.\+Client()}\hypertarget{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}{}\label{namespaceflexIDMnger_a14d9378e3d8a87b7ff6a7dad2fd1b6c6}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!collision\+\_\+inc@{collision\+\_\+inc}}
+\index{collision\+\_\+inc@{collision\+\_\+inc}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{collision\+\_\+inc}{collision_inc}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+I\+D\+Mnger.\+collision\+\_\+inc = 4}\hypertarget{namespaceflexIDMnger_a5f94c1426e81cb817d657b1ae5837d8c}{}\label{namespaceflexIDMnger_a5f94c1426e81cb817d657b1ae5837d8c}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+\_\+client@{db\+\_\+client}}
+\index{db\+\_\+client@{db\+\_\+client}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+\_\+client}{db_client}}]{\setlength{\rightskip}{0pt plus 5cm}flex\+I\+D\+Mnger.\+db\+\_\+client = mqtt.\+Client()}\hypertarget{namespaceflexIDMnger_a6e31c5c83adf5a1635c60ecbc0eb7dd6}{}\label{namespaceflexIDMnger_a6e31c5c83adf5a1635c60ecbc0eb7dd6}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+\_\+delete@{db\+\_\+delete}}
+\index{db\+\_\+delete@{db\+\_\+delete}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+\_\+delete}{db_delete}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+db\+\_\+delete = \char`\"{}/dbquery/delete/\char`\"{}}\hypertarget{namespaceflexIDMnger_a386574d9419f6dfafb0b9110c8523bbd}{}\label{namespaceflexIDMnger_a386574d9419f6dfafb0b9110c8523bbd}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+\_\+insert@{db\+\_\+insert}}
+\index{db\+\_\+insert@{db\+\_\+insert}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+\_\+insert}{db_insert}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+db\+\_\+insert = \char`\"{}/dbqeury/insert/\char`\"{}}\hypertarget{namespaceflexIDMnger_a1981fc00829b540f8d58471de23e3acd}{}\label{namespaceflexIDMnger_a1981fc00829b540f8d58471de23e3acd}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+\_\+select@{db\+\_\+select}}
+\index{db\+\_\+select@{db\+\_\+select}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+\_\+select}{db_select}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+db\+\_\+select = \char`\"{}/dbquery/select/\char`\"{}}\hypertarget{namespaceflexIDMnger_a423e288f8377fcad63137ba3798070e3}{}\label{namespaceflexIDMnger_a423e288f8377fcad63137ba3798070e3}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+\_\+update@{db\+\_\+update}}
+\index{db\+\_\+update@{db\+\_\+update}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+\_\+update}{db_update}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+db\+\_\+update = \char`\"{}/dbquery/{\bf update}/\char`\"{}}\hypertarget{namespaceflexIDMnger_a3cc825d50191d10077c31adec3a44cbe}{}\label{namespaceflexIDMnger_a3cc825d50191d10077c31adec3a44cbe}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!db\+Query\+\_\+cache@{db\+Query\+\_\+cache}}
+\index{db\+Query\+\_\+cache@{db\+Query\+\_\+cache}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{db\+Query\+\_\+cache}{dbQuery_cache}}]{\setlength{\rightskip}{0pt plus 5cm}dictionary flex\+I\+D\+Mnger.\+db\+Query\+\_\+cache = \{\}}\hypertarget{namespaceflexIDMnger_a5cbd9153a4dcde4ba9c238730f139570}{}\label{namespaceflexIDMnger_a5cbd9153a4dcde4ba9c238730f139570}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!device\+I\+D\+\_\+cache@{device\+I\+D\+\_\+cache}}
+\index{device\+I\+D\+\_\+cache@{device\+I\+D\+\_\+cache}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{device\+I\+D\+\_\+cache}{deviceID_cache}}]{\setlength{\rightskip}{0pt plus 5cm}dictionary flex\+I\+D\+Mnger.\+device\+I\+D\+\_\+cache = \{\}}\hypertarget{namespaceflexIDMnger_a410887fb1e5741855597352a40e77a16}{}\label{namespaceflexIDMnger_a410887fb1e5741855597352a40e77a16}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!manager\+ID@{manager\+ID}}
+\index{manager\+ID@{manager\+ID}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{manager\+ID}{managerID}}]{\setlength{\rightskip}{0pt plus 5cm}string flex\+I\+D\+Mnger.\+manager\+ID = \textquotesingle{}\textquotesingle{}}\hypertarget{namespaceflexIDMnger_a9dab00781c88df93251321044fd86d63}{}\label{namespaceflexIDMnger_a9dab00781c88df93251321044fd86d63}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+connect@{on\+\_\+connect}}
+\index{on\+\_\+connect@{on\+\_\+connect}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+connect}{on_connect}}]{\setlength{\rightskip}{0pt plus 5cm}flex\+I\+D\+Mnger.\+on\+\_\+connect}\hypertarget{namespaceflexIDMnger_aab705630161ba445dfd16818fee4fa7a}{}\label{namespaceflexIDMnger_aab705630161ba445dfd16818fee4fa7a}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+message@{on\+\_\+message}}
+\index{on\+\_\+message@{on\+\_\+message}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+message}{on_message}}]{\setlength{\rightskip}{0pt plus 5cm}flex\+I\+D\+Mnger.\+on\+\_\+message}\hypertarget{namespaceflexIDMnger_aebb6d039352acac6b65f782692fec334}{}\label{namespaceflexIDMnger_aebb6d039352acac6b65f782692fec334}
+\index{flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}!on\+\_\+publish@{on\+\_\+publish}}
+\index{on\+\_\+publish@{on\+\_\+publish}!flex\+I\+D\+Mnger@{flex\+I\+D\+Mnger}}
+\subsubsection[{\texorpdfstring{on\+\_\+publish}{on_publish}}]{\setlength{\rightskip}{0pt plus 5cm}flex\+I\+D\+Mnger.\+on\+\_\+publish}\hypertarget{namespaceflexIDMnger_ad0afbb619c7964838188ee89009f7957}{}\label{namespaceflexIDMnger_ad0afbb619c7964838188ee89009f7957}

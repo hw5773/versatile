@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sk',['sk',['../structflex__sock.html#a1ffc5042c0d6dd6b651ecb6a8e9b1096',1,'flex_sock']]],
-  ['src',['src',['../structflex__sock.html#a132b613c5f785e07196306bff98ef85d',1,'flex_sock']]]
+  ['error',['error',['../structresponse.html#ae098504ec8fd2c1eafd3b8487a783575',1,'response']]]
 ];

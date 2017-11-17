@@ -1,0 +1,121 @@
+\hypertarget{flex__common_8c}{}\section{socket/flex\+\_\+common.c File Reference}
+\label{flex__common_8c}\index{socket/flex\+\_\+common.\+c@{socket/flex\+\_\+common.\+c}}
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$linux/poll.\+h$>$}\\*
+{\ttfamily \#include $<$linux/init.\+h$>$}\\*
+{\ttfamily \#include $<$linux/fs.\+h$>$}\\*
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/scatterlist.\+h$>$}\\*
+{\ttfamily \#include $<$linux/splice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/net.\+h$>$}\\*
+{\ttfamily \#include $<$linux/socket.\+h$>$}\\*
+{\ttfamily \#include $<$linux/random.\+h$>$}\\*
+{\ttfamily \#include $<$linux/bootmem.\+h$>$}\\*
+{\ttfamily \#include $<$linux/highmem.\+h$>$}\\*
+{\ttfamily \#include $<$linux/swap.\+h$>$}\\*
+{\ttfamily \#include $<$linux/cache.\+h$>$}\\*
+{\ttfamily \#include $<$linux/err.\+h$>$}\\*
+{\ttfamily \#include $<$linux/crypto.\+h$>$}\\*
+{\ttfamily \#include $<$linux/time.\+h$>$}\\*
+{\ttfamily \#include $<$linux/slab.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}flex\+\_\+sock.\+h\char`\"{}}\\*
+Include dependency graph for flex\+\_\+common.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{flex__common_8c_a289115174efd77eaedb69a7813550fb3}{flex\+\_\+release\+\_\+sock} (struct sock $\ast$sk, int embrion)
+\item 
+int \hyperlink{flex__common_8c_abd60b8d0c20128f1058b1c772a39be65}{flex\+\_\+release} (struct socket $\ast$sock)
+\item 
+int \hyperlink{flex__common_8c_a50d1f947a5170f593fcf5950f524bc8b}{flex\+\_\+bind} (struct socket $\ast$sock, struct sockaddr $\ast$addr, int addr\+\_\+len)
+\item 
+int \hyperlink{flex__common_8c_aaf7ad60d883030db5fe173eb9c8544b9}{flex\+\_\+getname} (struct socket $\ast$sock, struct sockaddr $\ast$addr, int $\ast$addr\+\_\+len, int peer)
+\item 
+int \hyperlink{flex__common_8c_a37c8b7d9142df985ae18ef1797125f5f}{flex\+\_\+ioctl} (struct socket $\ast$sock, unsigned int cmd, unsigned long arg)
+\item 
+int \hyperlink{flex__common_8c_aeb0a3771218100bf3dfeb3996837fbcc}{flex\+\_\+shutdown} (struct socket $\ast$sock, int how)
+\item 
+int \hyperlink{flex__common_8c_a3d54ad7b810d0715987b0a97346d4ec0}{flex\+\_\+setsockopt} (struct socket $\ast$sock, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, unsigned int optlen)
+\item 
+int \hyperlink{flex__common_8c_a512eb9e0d3cdadd65358618ec43c5402}{flex\+\_\+getsockopt} (struct socket $\ast$sock, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, int \+\_\+\+\_\+user $\ast$optlen)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+bind@{flex\+\_\+bind}}
+\index{flex\+\_\+bind@{flex\+\_\+bind}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+bind(struct socket $\ast$sock, struct sockaddr $\ast$addr, int addr\+\_\+len)}{flex_bind(struct socket *sock, struct sockaddr *addr, int addr_len)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{struct sockaddr $\ast$}]{addr, }
+\item[{int}]{addr\+\_\+len}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_a50d1f947a5170f593fcf5950f524bc8b}{}\label{flex__common_8c_a50d1f947a5170f593fcf5950f524bc8b}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+getname@{flex\+\_\+getname}}
+\index{flex\+\_\+getname@{flex\+\_\+getname}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+getname(struct socket $\ast$sock, struct sockaddr $\ast$addr, int $\ast$addr\+\_\+len, int peer)}{flex_getname(struct socket *sock, struct sockaddr *addr, int *addr_len, int peer)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+getname (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{struct sockaddr $\ast$}]{addr, }
+\item[{int $\ast$}]{addr\+\_\+len, }
+\item[{int}]{peer}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_aaf7ad60d883030db5fe173eb9c8544b9}{}\label{flex__common_8c_aaf7ad60d883030db5fe173eb9c8544b9}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+getsockopt@{flex\+\_\+getsockopt}}
+\index{flex\+\_\+getsockopt@{flex\+\_\+getsockopt}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+getsockopt(struct socket $\ast$sock, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, int \+\_\+\+\_\+user $\ast$optlen)}{flex_getsockopt(struct socket *sock, int level, int optname, char __user *optval, int __user *optlen)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+getsockopt (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{int}]{level, }
+\item[{int}]{optname, }
+\item[{char \+\_\+\+\_\+user $\ast$}]{optval, }
+\item[{int \+\_\+\+\_\+user $\ast$}]{optlen}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_a512eb9e0d3cdadd65358618ec43c5402}{}\label{flex__common_8c_a512eb9e0d3cdadd65358618ec43c5402}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+ioctl@{flex\+\_\+ioctl}}
+\index{flex\+\_\+ioctl@{flex\+\_\+ioctl}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+ioctl(struct socket $\ast$sock, unsigned int cmd, unsigned long arg)}{flex_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+ioctl (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{unsigned int}]{cmd, }
+\item[{unsigned long}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_a37c8b7d9142df985ae18ef1797125f5f}{}\label{flex__common_8c_a37c8b7d9142df985ae18ef1797125f5f}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+release@{flex\+\_\+release}}
+\index{flex\+\_\+release@{flex\+\_\+release}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+release(struct socket $\ast$sock)}{flex_release(struct socket *sock)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+release (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_abd60b8d0c20128f1058b1c772a39be65}{}\label{flex__common_8c_abd60b8d0c20128f1058b1c772a39be65}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+release\+\_\+sock@{flex\+\_\+release\+\_\+sock}}
+\index{flex\+\_\+release\+\_\+sock@{flex\+\_\+release\+\_\+sock}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+release\+\_\+sock(struct sock $\ast$sk, int embrion)}{flex_release_sock(struct sock *sk, int embrion)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+release\+\_\+sock (
+\begin{DoxyParamCaption}
+\item[{struct sock $\ast$}]{sk, }
+\item[{int}]{embrion}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_a289115174efd77eaedb69a7813550fb3}{}\label{flex__common_8c_a289115174efd77eaedb69a7813550fb3}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+setsockopt@{flex\+\_\+setsockopt}}
+\index{flex\+\_\+setsockopt@{flex\+\_\+setsockopt}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+setsockopt(struct socket $\ast$sock, int level, int optname, char \+\_\+\+\_\+user $\ast$optval, unsigned int optlen)}{flex_setsockopt(struct socket *sock, int level, int optname, char __user *optval, unsigned int optlen)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+setsockopt (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{int}]{level, }
+\item[{int}]{optname, }
+\item[{char \+\_\+\+\_\+user $\ast$}]{optval, }
+\item[{unsigned int}]{optlen}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_a3d54ad7b810d0715987b0a97346d4ec0}{}\label{flex__common_8c_a3d54ad7b810d0715987b0a97346d4ec0}
+\index{flex\+\_\+common.\+c@{flex\+\_\+common.\+c}!flex\+\_\+shutdown@{flex\+\_\+shutdown}}
+\index{flex\+\_\+shutdown@{flex\+\_\+shutdown}!flex\+\_\+common.\+c@{flex\+\_\+common.\+c}}
+\subsubsection[{\texorpdfstring{flex\+\_\+shutdown(struct socket $\ast$sock, int how)}{flex_shutdown(struct socket *sock, int how)}}]{\setlength{\rightskip}{0pt plus 5cm}int flex\+\_\+shutdown (
+\begin{DoxyParamCaption}
+\item[{struct socket $\ast$}]{sock, }
+\item[{int}]{how}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__common_8c_aeb0a3771218100bf3dfeb3996837fbcc}{}\label{flex__common_8c_aeb0a3771218100bf3dfeb3996837fbcc}

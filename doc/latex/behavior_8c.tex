@@ -1,0 +1,136 @@
+\hypertarget{behavior_8c}{}\section{src/behavior.c File Reference}
+\label{behavior_8c}\index{src/behavior.\+c@{src/behavior.\+c}}
+
+
+This file is to define the interface for the application layer.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+const.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+log.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+socket.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+err.\+h$>$}\\*
+{\ttfamily \#include $<$flex/flex\+\_\+request.\+h$>$}\\*
+Include dependency graph for behavior.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{behavior_8c_a49e0a208b0aa6593defb5b8522783bcc}{get} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} $\ast$id, char $\ast$buf, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em Getting the content by Flex ID of the content. \end{DoxyCompactList}\item 
+int \hyperlink{behavior_8c_a021ae2af43656158a7ffe614d67aca0b}{put} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} $\ast$id, char $\ast$resp, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em Sending the data to the entity with the Flex ID. \end{DoxyCompactList}\item 
+int \hyperlink{behavior_8c_a91b1d3bb5730a75ad63c8cdcf893c17a}{pub} (unsigned char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Publishing the content with the name. \end{DoxyCompactList}\item 
+int \hyperlink{behavior_8c_aa6a92981765045cf15ff3550cc3e4dbc}{serv} (unsigned char $\ast$crt, unsigned char $\ast$key)
+\begin{DoxyCompactList}\small\item\em Serving the dynamic content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file is to define the interface for the application layer. 
+
+\begin{DoxyAuthor}{Author}
+Hyunwoo Lee 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+17 Nov 2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{behavior.\+c@{behavior.\+c}!get@{get}}
+\index{get@{get}!behavior.\+c@{behavior.\+c}}
+\subsubsection[{\texorpdfstring{get(flexid\+\_\+t $\ast$id, char $\ast$buf, int $\ast$len)}{get(flexid_t *id, char *buf, int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}int get (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$}]{id, }
+\item[{char $\ast$}]{buf, }
+\item[{int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{behavior_8c_a49e0a208b0aa6593defb5b8522783bcc}{}\label{behavior_8c_a49e0a208b0aa6593defb5b8522783bcc}
+
+
+Getting the content by Flex ID of the content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Flex ID of the content \\
+\hline
+{\em buf} & Buffer for the response \\
+\hline
+{\em len} & Length of the buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{behavior.\+c@{behavior.\+c}!pub@{pub}}
+\index{pub@{pub}!behavior.\+c@{behavior.\+c}}
+\subsubsection[{\texorpdfstring{pub(unsigned char $\ast$name)}{pub(unsigned char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}int pub (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{behavior_8c_a91b1d3bb5730a75ad63c8cdcf893c17a}{}\label{behavior_8c_a91b1d3bb5730a75ad63c8cdcf893c17a}
+
+
+Publishing the content with the name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the file name of the content \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{behavior.\+c@{behavior.\+c}!put@{put}}
+\index{put@{put}!behavior.\+c@{behavior.\+c}}
+\subsubsection[{\texorpdfstring{put(flexid\+\_\+t $\ast$id, char $\ast$resp, int $\ast$len)}{put(flexid_t *id, char *resp, int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}int put (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t} $\ast$}]{id, }
+\item[{char $\ast$}]{resp, }
+\item[{int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{behavior_8c_a021ae2af43656158a7ffe614d67aca0b}{}\label{behavior_8c_a021ae2af43656158a7ffe614d67aca0b}
+
+
+Sending the data to the entity with the Flex ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The Flex ID of the target \\
+\hline
+{\em resp} & Buffer for the response \\
+\hline
+{\em len} & Length of the buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}
+\index{behavior.\+c@{behavior.\+c}!serv@{serv}}
+\index{serv@{serv}!behavior.\+c@{behavior.\+c}}
+\subsubsection[{\texorpdfstring{serv(unsigned char $\ast$crt, unsigned char $\ast$key)}{serv(unsigned char *crt, unsigned char *key)}}]{\setlength{\rightskip}{0pt plus 5cm}int serv (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{crt, }
+\item[{unsigned char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{behavior_8c_aa6a92981765045cf15ff3550cc3e4dbc}{}\label{behavior_8c_aa6a92981765045cf15ff3550cc3e4dbc}
+
+
+Serving the dynamic content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em crt} & Certificate of the entity \\
+\hline
+{\em key} & Private key corresponding to the Certificate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code 
+\end{DoxyReturn}

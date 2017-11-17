@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -90,40 +91,117 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">hash_table Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="include_2flex_2hash__table_8h_source.html">hash_table.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for hash_table:</div>
 <div class="dyncontent">
 <div class="center"><img src="structhash__table__coll__graph.png" border="0" usemap="#hash__table_coll__map" alt="Collaboration graph"/></div>
-<map name="hash__table_coll__map" id="hash__table_coll__map">
-<area shape="rect" id="node2" href="structlist__head.html" title="list_head" alt="" coords="23,7,97,33"/>
-<area shape="rect" id="node3" href="structhash__entry.html" title="hash_entry" alt="" coords="77,97,163,124"/>
-</map>
+<!-- MAP 0 -->
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a04cd18d2fc0ace3527670ceca050492b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04cd18d2fc0ace3527670ceca050492b"></a>
-struct <a class="el" href="structhash__entry.html">hash_entry</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>table</b></td></tr>
+<tr class="memitem:a04cd18d2fc0ace3527670ceca050492b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhash__entry.html">hash_entry</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#a04cd18d2fc0ace3527670ceca050492b">table</a></td></tr>
 <tr class="separator:a04cd18d2fc0ace3527670ceca050492b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4678419b52c36e8b949b17eb4843a420"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4678419b52c36e8b949b17eb4843a420"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buckets</b></td></tr>
+<tr class="memitem:a4678419b52c36e8b949b17eb4843a420"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#a4678419b52c36e8b949b17eb4843a420">buckets</a></td></tr>
 <tr class="separator:a4678419b52c36e8b949b17eb4843a420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4148c7a0d18b24d1c2961564dc0e7e7a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4148c7a0d18b24d1c2961564dc0e7e7a"></a>
-pthread_mutex_t *&#160;</td><td class="memItemRight" valign="bottom"><b>bucket_locks</b></td></tr>
+<tr class="memitem:a4148c7a0d18b24d1c2961564dc0e7e7a"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#a4148c7a0d18b24d1c2961564dc0e7e7a">bucket_locks</a></td></tr>
 <tr class="separator:a4148c7a0d18b24d1c2961564dc0e7e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4cefababf047c699eca5f45f8d4284e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4cefababf047c699eca5f45f8d4284e"></a>
-pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><b>lock</b></td></tr>
+<tr class="memitem:af4cefababf047c699eca5f45f8d4284e"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#af4cefababf047c699eca5f45f8d4284e">lock</a></td></tr>
 <tr class="separator:af4cefababf047c699eca5f45f8d4284e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9465a319f391f0a50a4a84362c40fe48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9465a319f391f0a50a4a84362c40fe48"></a>
-keycmp_ptr&#160;</td><td class="memItemRight" valign="bottom"><b>keycmp</b></td></tr>
+<tr class="memitem:a9465a319f391f0a50a4a84362c40fe48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="util_2hash__table_8h.html#a9b0a83bb52986ea61f0e4351b66d41ef">keycmp_ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#a9465a319f391f0a50a4a84362c40fe48">keycmp</a></td></tr>
 <tr class="separator:a9465a319f391f0a50a4a84362c40fe48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77da69e21124ac1097627ae23ae72ef5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a77da69e21124ac1097627ae23ae72ef5"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>__ht_i</b></td></tr>
+<tr class="memitem:a77da69e21124ac1097627ae23ae72ef5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#a77da69e21124ac1097627ae23ae72ef5">__ht_i</a></td></tr>
 <tr class="separator:a77da69e21124ac1097627ae23ae72ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9bcc20e562a8a4f6dd37aaa543a3883"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9bcc20e562a8a4f6dd37aaa543a3883"></a>
-struct <a class="el" href="structlist__head.html">list_head</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>pos</b></td></tr>
+<tr class="memitem:af9bcc20e562a8a4f6dd37aaa543a3883"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structlist__head.html">list_head</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhash__table.html#af9bcc20e562a8a4f6dd37aaa543a3883">pos</a></td></tr>
 <tr class="separator:af9bcc20e562a8a4f6dd37aaa543a3883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a77da69e21124ac1097627ae23ae72ef5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_table::__ht_i</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4148c7a0d18b24d1c2961564dc0e7e7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t * hash_table::bucket_locks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4678419b52c36e8b949b17eb4843a420"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_table::buckets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9465a319f391f0a50a4a84362c40fe48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="util_2hash__table_8h.html#a9b0a83bb52986ea61f0e4351b66d41ef">keycmp_ptr</a> hash_table::keycmp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af4cefababf047c699eca5f45f8d4284e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t hash_table::lock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af9bcc20e562a8a4f6dd37aaa543a3883"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structlist__head.html">list_head</a> * hash_table::pos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a04cd18d2fc0ace3527670ceca050492b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structhash__entry.html">hash_entry</a> * hash_table::table</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/flex/<a class="el" href="include_2flex_2hash__table_8h_source.html">hash_table.h</a></li>
 </ul>

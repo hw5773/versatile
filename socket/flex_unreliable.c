@@ -237,7 +237,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-  flexh->common.hash_type = SHA1;
+  flexh->common.hash_type = FLEX_SHA1;
   flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
   flexh->common.check = htons(0x1234);
@@ -272,6 +272,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
 
 int flex_unreliable_release(struct socket *sock)
 {
+  int err;
   struct sock *sk;
   struct flex_sock *flex;
   struct u_table *table;
@@ -292,6 +293,11 @@ int flex_unreliable_release(struct socket *sock)
     slot = hash_fn(flex->dst, table->mask);
   else if (flex->message == FLEX_DATA)
     slot = hash_fn(flex->src, table->mask);
+  else
+  {
+    err = -ERROR_MISTYPE;
+    goto out;
+  }
   hslot = &table->hash[slot];
 
   spin_lock_bh(&hslot->lock);
@@ -312,4 +318,7 @@ int flex_unreliable_release(struct socket *sock)
   sock->sk = NULL;
 
 	return 0;
+
+out:
+  return err;
 }

@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['readme',['README',['../md_socket_README.html',1,'']]],
+  ['readme_2emd',['README.md',['../socket_2README_8md.html',1,'']]],
+  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
+  ['reg',['reg',['../structid__manage__ops.html#a1f5dd93a784407384a1cb31e34f212e2',1,'id_manage_ops']]],
+  ['register',['register',['../namespaceflexIDMnger.html#ac5207b0e188d32e0f6fbc53be7c1a4c7',1,'flexIDMnger']]],
+  ['register_5fgenid',['register_genID',['../namespaceflexIDMnger.html#a08a046d2b95cf1363e51486565e8e484',1,'flexIDMnger']]],
+  ['reliable_5fext_5fheader_5flen',['RELIABLE_EXT_HEADER_LEN',['../flex__const_8h.html#ad0085f21712cfff3eab585523f63cd46',1,'flex_const.h']]],
+  ['reliable_5fheader_5flen',['RELIABLE_HEADER_LEN',['../flex__const_8h.html#a8e018ecb72cac696a033f09223cc7bf2',1,'flex_const.h']]],
+  ['reply_5flist',['reply_list',['../structreply__list.html',1,'']]],
+  ['reply_5ft',['reply_t',['../flex__types_8h.html#a6ccd5b8e1178a6d0819583c3818828ba',1,'flex_types.h']]],
+  ['repo',['repo',['../structrepo.html',1,'']]],
+  ['request',['request',['../structid__manage__ops.html#abd048ab844f857df4ffe671e6075770d',1,'id_manage_ops::request()'],['../flex__request_8h.html#ad65686bac5f6a9aeacc84f5bc439e481',1,'request():&#160;flex_request.h'],['../namespaceresolver.html#ab5959a2deb7f2a47b7989869f51cc195',1,'resolver.Request()'],['../namespaceresolver__per.html#a29c3ee72f27193ecacec7671427e8367',1,'resolver_per.Request()']]],
+  ['request_2ec',['request.c',['../request_8c.html',1,'']]],
+  ['reserved',['reserved',['../structflexidhdr.html#a79659668b865b2f14a1e5ac5e6ee63d5',1,'flexidhdr']]],
+  ['resolver',['resolver',['../namespaceresolver.html',1,'']]],
+  ['resolver_2epy',['resolver.py',['../resolver_8py.html',1,'']]],
+  ['resolver_5fper',['resolver_per',['../namespaceresolver__per.html',1,'']]],
+  ['resolver_5fper_2epy',['resolver_per.py',['../resolver__per_8py.html',1,'']]],
+  ['response',['response',['../structresponse.html',1,'']]],
+  ['response_5ft',['response_t',['../flex__types_8h.html#ae28817caa5cb8b1eef6c0d3e00529692',1,'flex_types.h']]],
+  ['rflexhdr',['rflexhdr',['../structrflexhdr.html',1,'']]],
+  ['rflexhdr_5fext',['rflexhdr_ext',['../structrflexhdr__ext.html',1,'']]],
+  ['rflexhdr_5fext_5ft',['rflexhdr_ext_t',['../flex__types_8h.html#a7495fdcf5f200c019e1e30f141b6271a',1,'flex_types.h']]],
+  ['rflexhdr_5ft',['rflexhdr_t',['../flex__types_8h.html#ac0aa131f5ac548f93f7201bdf04fb8f6',1,'flex_types.h']]]
+];

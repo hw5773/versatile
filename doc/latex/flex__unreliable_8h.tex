@@ -1,0 +1,100 @@
+\hypertarget{flex__unreliable_8h}{}\section{socket/flex\+\_\+unreliable.h File Reference}
+\label{flex__unreliable_8h}\index{socket/flex\+\_\+unreliable.\+h@{socket/flex\+\_\+unreliable.\+h}}
+{\ttfamily \#include $<$linux/list.\+h$>$}\\*
+Include dependency graph for flex\+\_\+unreliable.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structu__hslot}{u\+\_\+hslot}
+\item 
+struct \hyperlink{structu__table}{u\+\_\+table}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{flex__unreliable_8h_a87c1bd5e68de2077b28de2d41ba1488f}{M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE}~4
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structu__hslot}{u\+\_\+hslot} \hyperlink{flex__unreliable_8h_af4608219c5d2a44b1088a5fdbb8412f9}{\+\_\+\+\_\+attribute\+\_\+\+\_\+} ((aligned(2 $\ast$sizeof(long))))
+\item 
+void \hyperlink{flex__unreliable_8h_ac8ebf786de358f5ee9841c242d8d00c6}{u\+\_\+table\+\_\+init} (struct \hyperlink{structu__table}{u\+\_\+table} $\ast$, const char $\ast$name)
+\item 
+void \hyperlink{flex__unreliable_8h_a8873b62b314282107bcae2f9bb946130}{u\+\_\+table\+\_\+exit} (struct \hyperlink{structu__table}{u\+\_\+table} $\ast$)
+\item 
+struct sock $\ast$ \hyperlink{flex__unreliable_8h_a32ca63632a51dfc9b5bc5e9b53bb7d7e}{u\+\_\+table\+\_\+lookup\+\_\+skb} (\hyperlink{flex__types_8h_a4a41eecaf4b5cfed7ff1cb8d36be8c3a}{flexid\+\_\+t} id, struct \hyperlink{structu__table}{u\+\_\+table} $\ast$table)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct hlist\+\_\+nulls\+\_\+head \hyperlink{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{head}
+\item 
+int \hyperlink{flex__unreliable_8h_ad43c3812e6d13e0518d9f8b8f463ffcf}{count}
+\item 
+spinlock\+\_\+t \hyperlink{flex__unreliable_8h_a79cda015c79ff2b4c1444e3070f0bb5d}{lock}
+\item 
+struct \hyperlink{structu__table}{u\+\_\+table} \hyperlink{flex__unreliable_8h_a154199fda0fc58823f5e993815b9bb56}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}
+\item 
+struct \hyperlink{structu__table}{u\+\_\+table} \hyperlink{flex__unreliable_8h_a7ecb62f148508a5a75c322cab89b4f1c}{u\+\_\+table}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE@{M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE}}
+\index{M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE@{M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE}{MIN_UTABLE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+N\+\_\+\+U\+T\+A\+B\+L\+E\+\_\+\+S\+I\+ZE~4}\hypertarget{flex__unreliable_8h_a87c1bd5e68de2077b28de2d41ba1488f}{}\label{flex__unreliable_8h_a87c1bd5e68de2077b28de2d41ba1488f}
+
+
+\subsection{Function Documentation}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+attribute\+\_\+\+\_\+((aligned(2 $\ast$sizeof(long))))}{__attribute__((aligned(2 *sizeof(long))))}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf u\+\_\+hslot} \+\_\+\+\_\+attribute\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{(aligned(2 $\ast$sizeof(long)))}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8h_af4608219c5d2a44b1088a5fdbb8412f9}{}\label{flex__unreliable_8h_af4608219c5d2a44b1088a5fdbb8412f9}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!u\+\_\+table\+\_\+exit@{u\+\_\+table\+\_\+exit}}
+\index{u\+\_\+table\+\_\+exit@{u\+\_\+table\+\_\+exit}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+exit(struct u\+\_\+table $\ast$)}{u_table_exit(struct u_table *)}}]{\setlength{\rightskip}{0pt plus 5cm}void u\+\_\+table\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf u\+\_\+table} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8h_a8873b62b314282107bcae2f9bb946130}{}\label{flex__unreliable_8h_a8873b62b314282107bcae2f9bb946130}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!u\+\_\+table\+\_\+init@{u\+\_\+table\+\_\+init}}
+\index{u\+\_\+table\+\_\+init@{u\+\_\+table\+\_\+init}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+init(struct u\+\_\+table $\ast$, const char $\ast$name)}{u_table_init(struct u_table *, const char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}void u\+\_\+table\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf u\+\_\+table} $\ast$}]{, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8h_ac8ebf786de358f5ee9841c242d8d00c6}{}\label{flex__unreliable_8h_ac8ebf786de358f5ee9841c242d8d00c6}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!u\+\_\+table\+\_\+lookup\+\_\+skb@{u\+\_\+table\+\_\+lookup\+\_\+skb}}
+\index{u\+\_\+table\+\_\+lookup\+\_\+skb@{u\+\_\+table\+\_\+lookup\+\_\+skb}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{u\+\_\+table\+\_\+lookup\+\_\+skb(flexid\+\_\+t id, struct u\+\_\+table $\ast$table)}{u_table_lookup_skb(flexid_t id, struct u_table *table)}}]{\setlength{\rightskip}{0pt plus 5cm}struct sock$\ast$ u\+\_\+table\+\_\+lookup\+\_\+skb (
+\begin{DoxyParamCaption}
+\item[{{\bf flexid\+\_\+t}}]{id, }
+\item[{struct {\bf u\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\hypertarget{flex__unreliable_8h_a32ca63632a51dfc9b5bc5e9b53bb7d7e}{}\label{flex__unreliable_8h_a32ca63632a51dfc9b5bc5e9b53bb7d7e}
+
+
+\subsection{Variable Documentation}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+attribute\+\_\+\+\_\+}{__attribute__}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf u\+\_\+table}  \+\_\+\+\_\+attribute\+\_\+\+\_\+}\hypertarget{flex__unreliable_8h_a154199fda0fc58823f5e993815b9bb56}{}\label{flex__unreliable_8h_a154199fda0fc58823f5e993815b9bb56}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!count@{count}}
+\index{count@{count}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{count}{count}}]{\setlength{\rightskip}{0pt plus 5cm}int count}\hypertarget{flex__unreliable_8h_ad43c3812e6d13e0518d9f8b8f463ffcf}{}\label{flex__unreliable_8h_ad43c3812e6d13e0518d9f8b8f463ffcf}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!head@{head}}
+\index{head@{head}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{head}{head}}]{\setlength{\rightskip}{0pt plus 5cm}struct hlist\+\_\+nulls\+\_\+head head}\hypertarget{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}{}\label{flex__unreliable_8h_a3f69ae900e4c2cbe9e971e515e99d6e4}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!lock@{lock}}
+\index{lock@{lock}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{lock}{lock}}]{\setlength{\rightskip}{0pt plus 5cm}spinlock\+\_\+t lock}\hypertarget{flex__unreliable_8h_a79cda015c79ff2b4c1444e3070f0bb5d}{}\label{flex__unreliable_8h_a79cda015c79ff2b4c1444e3070f0bb5d}
+\index{flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}!u\+\_\+table@{u\+\_\+table}}
+\index{u\+\_\+table@{u\+\_\+table}!flex\+\_\+unreliable.\+h@{flex\+\_\+unreliable.\+h}}
+\subsubsection[{\texorpdfstring{u\+\_\+table}{u_table}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf u\+\_\+table} {\bf u\+\_\+table}}\hypertarget{flex__unreliable_8h_a7ecb62f148508a5a75c322cab89b4f1c}{}\label{flex__unreliable_8h_a7ecb62f148508a5a75c322cab89b4f1c}

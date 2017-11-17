@@ -1,0 +1,43 @@
+digraph "socket/flex_sock.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="socket/flex_sock.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="linux/socket.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="linux/slab.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="net/sock.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="flex/flex_log.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__log_8h.html"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="flex/flex_const.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__const_8h.html"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="flex/flex_id.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$include_2flex_2flex__id_8h.html"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="linux/types.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="asm/byteorder.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="flex/flex_request.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__request_8h.html"];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="flex/flex_addr.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__addr_8h.html"];
+  Node10 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="flex/flex_hdr.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__hdr_8h.html"];
+  Node12 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="flex/flex_socket.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__socket_8h.html"];
+  Node13 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="flex/flex_err.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__err_8h.html"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="flex/flex_types.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$flex__types_8h.html"];
+  Node15 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+}

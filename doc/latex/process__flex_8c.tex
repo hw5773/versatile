@@ -1,0 +1,101 @@
+\hypertarget{process__flex_8c}{}\section{apps/ipv4/process\+\_\+flex.c File Reference}
+\label{process__flex_8c}\index{apps/ipv4/process\+\_\+flex.\+c@{apps/ipv4/process\+\_\+flex.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}proto\+\_\+flex.\+h\char`\"{}}\\*
+Include dependency graph for process\+\_\+flex.\+c\+:
+% FIG 0
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{process__flex_8c_a98999d1be29cd262930d7b7ed16a61d1}{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}~7
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{process__flex_8c_a786d6938fe8f025eb1df0c21ea10ad95}{init\+\_\+flex\+\_\+header} (struct \hyperlink{structflexhdr}{flexhdr} $\ast$$\ast$flex)
+\item 
+int \hyperlink{process__flex_8c_ac8f4918d8cd010ee27caf7c363ea6a58}{free\+\_\+flex\+\_\+header} (struct \hyperlink{structflexhdr}{flexhdr} $\ast$flex)
+\item 
+int \hyperlink{process__flex_8c_ad4bb2bda729a16662a38e24e0af32d80}{parse\+\_\+flex\+\_\+header} (char $\ast$hdr, int hdr\+\_\+len, struct \hyperlink{structflexhdr}{flexhdr} $\ast$$\ast$flex)
+\item 
+void \hyperlink{process__flex_8c_aec020ead214d76fe85f150b2658e4017}{print\+\_\+flex\+\_\+header} (struct \hyperlink{structflexhdr}{flexhdr} $\ast$flex)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{process__flex_8c_ae7ab0acb0b692f9a643c36ab07abb091}{message} \mbox{[}3\mbox{]}\mbox{[}\hyperlink{process__flex_8c_a98999d1be29cd262930d7b7ed16a61d1}{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL@{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}}
+\index{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL@{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}{NUM_OF_CONTROL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL~7}\hypertarget{process__flex_8c_a98999d1be29cd262930d7b7ed16a61d1}{}\label{process__flex_8c_a98999d1be29cd262930d7b7ed16a61d1}
+
+
+\subsection{Function Documentation}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!free\+\_\+flex\+\_\+header@{free\+\_\+flex\+\_\+header}}
+\index{free\+\_\+flex\+\_\+header@{free\+\_\+flex\+\_\+header}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{free\+\_\+flex\+\_\+header(struct flexhdr $\ast$flex)}{free_flex_header(struct flexhdr *flex)}}]{\setlength{\rightskip}{0pt plus 5cm}int free\+\_\+flex\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexhdr} $\ast$}]{flex}
+\end{DoxyParamCaption}
+)}\hypertarget{process__flex_8c_ac8f4918d8cd010ee27caf7c363ea6a58}{}\label{process__flex_8c_ac8f4918d8cd010ee27caf7c363ea6a58}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!init\+\_\+flex\+\_\+header@{init\+\_\+flex\+\_\+header}}
+\index{init\+\_\+flex\+\_\+header@{init\+\_\+flex\+\_\+header}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+flex\+\_\+header(struct flexhdr $\ast$$\ast$flex)}{init_flex_header(struct flexhdr **flex)}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+flex\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexhdr} $\ast$$\ast$}]{flex}
+\end{DoxyParamCaption}
+)}\hypertarget{process__flex_8c_a786d6938fe8f025eb1df0c21ea10ad95}{}\label{process__flex_8c_a786d6938fe8f025eb1df0c21ea10ad95}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!parse\+\_\+flex\+\_\+header@{parse\+\_\+flex\+\_\+header}}
+\index{parse\+\_\+flex\+\_\+header@{parse\+\_\+flex\+\_\+header}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+flex\+\_\+header(char $\ast$hdr, int hdr\+\_\+len, struct flexhdr $\ast$$\ast$flex)}{parse_flex_header(char *hdr, int hdr_len, struct flexhdr **flex)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+\_\+flex\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{hdr, }
+\item[{int}]{hdr\+\_\+len, }
+\item[{struct {\bf flexhdr} $\ast$$\ast$}]{flex}
+\end{DoxyParamCaption}
+)}\hypertarget{process__flex_8c_ad4bb2bda729a16662a38e24e0af32d80}{}\label{process__flex_8c_ad4bb2bda729a16662a38e24e0af32d80}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!print\+\_\+flex\+\_\+header@{print\+\_\+flex\+\_\+header}}
+\index{print\+\_\+flex\+\_\+header@{print\+\_\+flex\+\_\+header}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+flex\+\_\+header(struct flexhdr $\ast$flex)}{print_flex_header(struct flexhdr *flex)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+flex\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flexhdr} $\ast$}]{flex}
+\end{DoxyParamCaption}
+)}\hypertarget{process__flex_8c_aec020ead214d76fe85f150b2658e4017}{}\label{process__flex_8c_aec020ead214d76fe85f150b2658e4017}
+
+
+\subsection{Variable Documentation}
+\index{process\+\_\+flex.\+c@{process\+\_\+flex.\+c}!message@{message}}
+\index{message@{message}!process\+\_\+flex.\+c@{process\+\_\+flex.\+c}}
+\subsubsection[{\texorpdfstring{message}{message}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ message\mbox{[}3\mbox{]}\mbox{[}{\bf N\+U\+M\+\_\+\+O\+F\+\_\+\+C\+O\+N\+T\+R\+OL}\mbox{]}}\hypertarget{process__flex_8c_ae7ab0acb0b692f9a643c36ab07abb091}{}\label{process__flex_8c_ae7ab0acb0b692f9a643c36ab07abb091}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= 
+\{
+    \{   \textcolor{stringliteral}{"Join"},
+        \textcolor{stringliteral}{"Status"},
+        \textcolor{stringliteral}{"Leave"},
+        \textcolor{stringliteral}{"Register"},
+        \textcolor{stringliteral}{"Update"},
+        \textcolor{stringliteral}{"Query"},
+        \textcolor{stringliteral}{"Request"}
+    \},
+    \{   \textcolor{stringliteral}{"Join ACK"},
+        \textcolor{stringliteral}{"Status ACK"},
+        \textcolor{stringliteral}{"Leave ACK"},
+        \textcolor{stringliteral}{"Register ACK"},
+        \textcolor{stringliteral}{"Update ACK"},
+        \textcolor{stringliteral}{"Reply"},
+        \textcolor{stringliteral}{"Response"}
+    \},
+    \{   \textcolor{stringliteral}{"Interest"},
+        \textcolor{stringliteral}{"Data"},
+        \textcolor{stringliteral}{"Data ACK"}
+    \}
+\}
+\end{DoxyCode}

@@ -14,12 +14,13 @@ INSTALLTOP=/usr/local
 INSTALL_LIBS=libflex.a
 LIBDIR=lib
 
+APPDIR=apps/flex
 PROGRAMS=apps/flex/publisher apps/flex/subscriber
 LIBRPATH=$(INSTALLTOP)/$(LIBDIR)
 
 CC= cc
 CFLAGS=-O -DDEBUG -I/usr/local/include
-LDFLAGS= -L/usr/local/lib -lssl -lcrypto
+LDFLAGS= -L/usr/local/lib -lssl -lcrypto -ldl
 
 ARFLAGS=
 AR=ar $(ARFLAGS) r
@@ -41,7 +42,9 @@ OBJ=src/behavior.o src/flex_id.o src/error.o src/test_func.o src/request.o
 
 all: libflex.a libflex.pc flex.pc
 
-install: all
+install: all install_lib install_socket install_apps
+
+install_lib:
 	@[ -n "$(INSTALLTOP)" ] || (echo INSTALLTOP should not be empty; exit 1)
 	@echo "*** Installing development files"
 	@$(SRCDIR)/util/mkdir-p.pl $(INSTALLTOP)/include/flex
@@ -70,14 +73,20 @@ install: all
 	@echo "install flex.pc -> $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc"
 	@cp flex.pc $(INSTALLTOP)/$(LIBDIR)/pkgconfig
 	@chmod 644 $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
-	@ :
+
+install_socket:
 	@echo "Make Flex Network Socket"
 	(cd $(SOCKDIR); make; cd $(SRCDIR))
 	@echo "Insert Flex Network Socket"
 	@insmod $(SRCDIR)/$(SOCKDIR)/$(SOCK_MODULE)
 
+install_apps:
+	@echo "Make Flex Test Application"
+	(cd $(SRCDIR)/$(APPDIR); make; cp publisher /usr/local/bin/publisher; cp subscriber /usr/local/bin/subscriber; cd $(SRCDIR))
 
-uninstall:
+uninstall: uninstall_lib uninstall_socket uninstall_apps
+
+uninstall_lib:
 	@echo "*** Uninstalling development files"
 	@ :
 	@set -e; for i in $(SRCDIR)/include/flex/*.h; do \
@@ -94,10 +103,15 @@ uninstall:
 	@ :
 	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/libflex.pc
 	$(RM) $(INSTALLTOP)/$(LIBDIR)/pkgconfig/flex.pc
-	@ :
+
+uninstall_socket:
 	@echo "Remove Flex Network Socket"
 	@rmmod $(SRCDIR)/$(SOCKDIR)/$(SOCK_MODULE)
 	(cd $(SOCKDIR);make clean; cd $(SRCDIR))
+
+uninstall_apps:
+	@echo "Remove Flex Test Applications"
+	@rm /usr/local/bin/publisher /usr/local/bin/subscriber
 
 libclean:
 	@set -e; for s in $(SHLIB_INFO); do\
@@ -114,7 +128,7 @@ libclean:
 	$(RM) *.map
 
 clean: libclean
-	$(RM) $(OBJ) $(PCS)
+	$(RM) $(OBJ) $(PCS) $(PROGRAMS)
 	-$(RM) `find . -name '*.o' -a \! -path "./.git*"`
 
 libflex.pc:

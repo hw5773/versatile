@@ -1,5 +1,5 @@
 CFLAGS=-DDEBUG -I/usr/local/include
-LDFLAGS=-L/usr/local/lib -lflex -lssl -lcrypto
+LDFLAGS=-L/usr/local/lib -lflex -lssl -lcrypto -ldl
 BIN=publisher subscriber
 
 all:

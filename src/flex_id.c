@@ -84,7 +84,7 @@ int content_identity(unsigned char **identity, unsigned char *name)
   if (!(fp = fopen(name, "r"))) goto out;
 
   err = -ERROR_INIT_MD_CTX;
-  if (!(ctx = EVP_MD_CTX_new())) goto out;
+  if (!(ctx = EVP_MD_CTX_create())) goto out;
   
   err = -ERROR_INIT_MD;
   if (!EVP_DigestInit_ex(ctx, EVP_sha1(), NULL)) goto out;

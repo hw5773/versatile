@@ -4,24 +4,6 @@
 struct u_table u_table __read_mostly;
 
 /**
- * @brief Initialize the Flex ID network
- */
-void __init flex_unreliable_init(void)
-{
-  FLEX_LOG("Start to initialize the unreliable one");
-  u_table_init(&u_table, "Unreliable");
-}
-
-/**
- * @brief Destruct the Flex ID network
- */
-void __exit flex_unreliable_exit(void)
-{
-  FLEX_LOG("Start to exit the unreliable one");
-  u_table_exit(&u_table);
-}
-
-/**
  * @brief Initialize the unreliable socket table
  * @param table The unreliable socket table
  * @param name The name of the table

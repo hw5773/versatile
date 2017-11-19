@@ -34,13 +34,13 @@ int main(int argc, char *argv[])
   memcpy(file + len + 1 + strlen(fn), &term, sizeof(term));
   APP_LOG1s("Path", file);
 
-  if ((err = init_repo()) < 0) goto out;
+  if ((err = init_flex()) < 0) goto out;
 
-  APP_LOG1d("repo sock", repo_sock);
+  APP_LOG1d("urepo_sock", urepo_sock);
 
   if ((err = pub(file)) < 0) goto out;
 
-  free_repo();
+  free_flex();
 
 	return SUCCESS;
 

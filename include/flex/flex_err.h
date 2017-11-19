@@ -21,6 +21,7 @@
 #define ERROR_PROCESS_MD    309
 #define ERROR_FINAL_MD      310
 #define ERROR_MISTYPE       311
+#define ERROR_BIND          312
 
 void error_handling(char *);
 

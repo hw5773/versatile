@@ -21,6 +21,7 @@
 #include <linux/slab.h>
 
 #include "flex_sock.h"
+#include "flex_idtable.h"
 
 int flex_release_sock(struct sock *sk, int embrion)
 {
@@ -59,8 +60,21 @@ int flex_release(struct socket *sock)
 
 int flex_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 {
+  int err;
+  flexid_t *id;
+  struct sock *sk;
+  struct sockaddr_flex *id_info;
 	FLEX_LOG("Bind for Flex");
-	return -1;
+
+  id_info = target_info(addr);
+  id = &(id_info->sid);
+  sk = sock->sk;
+
+  if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
+	return SUCCESS;
+
+out:
+  return err;
 }
 
 int flex_getname(struct socket *sock, struct sockaddr *addr, int *addr_len, int peer)

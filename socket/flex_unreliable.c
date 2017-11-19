@@ -20,10 +20,31 @@
 #include <linux/time.h>
 #include <linux/slab.h>
 #include <linux/netdevice.h>
+#include <linux/list.h>
 
 #include "flex_sock.h"
 #include "flex_dev_types.h"
-#include "flex_utable.h"
+#include "flex_idtable.h"
+
+int urepo_sock;
+
+/**
+ * @brief Initialize the Flex ID network
+ */
+void __init flex_unreliable_init(void)
+{
+  FLEX_LOG("Start to initialize the unreliable one");
+  id_table_init(&id_table, "Unreliable");
+}
+
+/**
+ * @brief Destruct the Flex ID network
+ */
+void __exit flex_unreliable_exit(void)
+{
+  FLEX_LOG("Start to exit the unreliable one");
+  id_table_exit(&id_table);
+}
 
 /**
  * @brief Connect funtion set the source Flex ID, the destination Flex ID, the message type, and the next hop to the socket
@@ -39,9 +60,10 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   struct sock *sk;
   struct flex_sock *flex;
   struct sockaddr_flex *tinfo;
-  struct u_hslot *hslot;
+  struct id_hslot *hslot;
   unsigned int slot;
-  struct u_table *table;
+  struct id_table *table;
+  struct flexid_entity *entity;
 
 	FLEX_LOG("Unreliable Connect");
 
@@ -62,11 +84,13 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   for (i=0; i<tinfo->addr_len; i++)
     flex->next_hop[i] = tinfo->next_hop[i];
 
-  table = &u_table;
+  table = &id_table;
 
   slot = hash_fn(flex->dst, table->mask);
   hslot = &table->hash[slot];
-  sk_nulls_add_node_rcu(sk, &hslot->head);
+  entity->id = &(flex->dst);
+  entity->sk = sk;
+  hlist_add_head_rcu(entity->flex_node, &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the Socket Complete");
@@ -205,11 +229,12 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
  */
 int flex_unreliable_release(struct socket *sock)
 {
-  int err;
   struct sock *sk;
   struct flex_sock *flex;
-  struct u_table *table;
-  struct u_hslot *hslot;
+  struct flex_entity *entity;
+  struct id_table *table;
+  struct id_hslot *hslot;
+  struct hlist_node *node;
   unsigned int slot;
 
 	FLEX_LOG("Release the socket internally");
@@ -220,7 +245,7 @@ int flex_unreliable_release(struct socket *sock)
     return 0;
 
   flex = flex_sk(sk);
-  table = &u_table;
+  table = &id_table;
 
   if (flex->message == FLEX_INTEREST)
     slot = hash_fn(flex->dst, table->mask);
@@ -233,8 +258,13 @@ int flex_unreliable_release(struct socket *sock)
   hslot = &table->hash[slot];
 
   spin_lock_bh(&hslot->lock);
-  if (sk_nulls_del_node_init_rcu(sk))
-    hslot->count--;
+  hlist_for_each_entry_rcu(entity, node, &hslot->head, flex_node)
+  {
+    if (entity->sk == sk)
+    {
+      hlist_del(node);
+      hslot->count--;
+    }
   spin_unlock_bh(&hslot->lock);
 
 no_slot:
@@ -251,7 +281,4 @@ no_slot:
   sock->sk = NULL;
 
 	return 0;
-
-out:
-  return err;
 }

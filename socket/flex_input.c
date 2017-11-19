@@ -5,22 +5,38 @@
 #include <net/sock.h>
 
 #include "flex_sock.h"
+#include "flex_idtable.h"
 
 int flex_rcv(struct sk_buff *skb, struct net_device *dev, 
 			struct packet_type *ptype, struct net_device *orig_dev)
 {
   flexhdr_t *flex;
-  flex = (flexhdr_t *)skb->data;
+  struct sock *sk;
+  flexid_t *fid;
 
 	FLEX_LOG("Enter Flex Receive Routine");
+
+  flex = (flexhdr_t *)skb->data;
+  fid = (flexid_t *)kmalloc(sizeof(flexid_t), GFP_ATOMIC);
 
   if (GET_FLEX_PTC(flex->frag_off))
     FLEX_LOG("Received Packet uses Reliable Communication");
   else
   {
+    uflexhdr_t *uflex;
     FLEX_LOG("Received Packet uses Unreliable Communication");
-  	test_output(skb);
+    uflex = (uflexhdr_t *)flex;
+    memcpy(fid, uflex->dflex_id, FLEX_ID_LENGTH);
+    fid->length = FLEX_ID_LENGTH;
+  	sk = get_sock_by_id(fid, &id_table);
+
+    if (!sk)
+      FLEX_LOG("Cannot find the appropriate socket");
+    else
+      FLEX_LOG("Find the appropriate socket");
   }
+
+  kfree(fid);
 
 	return SUCCESS;
 }

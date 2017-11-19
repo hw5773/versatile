@@ -79,6 +79,7 @@
 #define RELIABLE_EXT_HEADER_LEN   80
 #define UNRELIABLE_HEADER_LEN     56
 #define UNRELIABLE_EXT_HEADER_LEN 72
+#define IDENTITY_LENGTH           20
 
 /* Flex Header Field Index */
 #define VERSION_IDX			0

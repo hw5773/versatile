@@ -14,14 +14,17 @@
 #include <flex/flex_log.h>
 
 // Behaviors for the Applications
+int init_flex(void);
+void free_flex(void);
 int init_repo(void);
+void free_repo(void);
 int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
 int pub(unsigned char *fn);
 int serv(unsigned char *crt, unsigned char *key);
 void error_handling(char *buf);
 
-static int repo_sock = 0;
+extern int urepo_sock;
 
 // For the test reason
 #define FIRST   0x00

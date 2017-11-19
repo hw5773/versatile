@@ -25,16 +25,38 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 
+int urepo_sock;
+
+/**
+ * @brief Initialize the Flex ID networking application
+ */
+int init_flex()
+{
+  int err;
+  if ((err = init_repo()) < 0) goto out;
+  return SUCCESS;
+
+out:
+  return err;
+}
+
+/**
+ * @brief Destruct the Flex ID networking application
+ */
+void free_flex()
+{
+  free_repo();
+}
+
 /**
  * @brief Initialize the socket for the repository
- * @return Error code
  */
 int init_repo()
 {
   int err;
 
   err = -NO_SOCK;
-  if ((repo_sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
+  if ((urepo_sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
 
   return SUCCESS;
 
@@ -43,12 +65,11 @@ out:
 }
 
 /**
- * @brief Destruct the repository
+ * @brief Destruct the socket for the repository
  */
 void free_repo()
 {
-  close(repo_sock);
-  return SUCCESS;
+  close(urepo_sock);
 }
 
 /**
@@ -134,17 +155,20 @@ int put(flexid_t *id, char *resp, int *len)
  */
 int pub(unsigned char *name)
 {
-  int sock, err;
+  int err;
   struct sockaddr_flex insert_id;
   flexid_t *id;
 
   if ((err = init_flexid(&id, name, FLEX_TYPE_CONTENT)) < 0) goto out;
   APP_LOG("Make the Flex ID succeed");
 
-  // bind: Insert Flex ID into the repository
+  insert_id.sid = *id;
+  insert_id.message = FLEX_DATA;
 
-  // add_id_name_map: Insert the map between ID and name
-  // if ((err = add_id_name_map(&id, name)) < 0) goto out;
+  err = -ERROR_BIND;
+  if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
+
+  //if ((err = add_id_name_map(&id, name)) < 0) goto out;
 
   return SUCCESS;
 

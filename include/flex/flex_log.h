@@ -25,6 +25,8 @@
 	printf("[Flex] %s: %s\n", __func__, msg)
 #define APP_LOG1d(msg, arg1) \
   printf("[Flex] %s: %s: %d\n", __func__, msg, arg1)
+#define APP_LOG1s(msg, arg1) \
+  printf("[Flex] %s: %s: %s\n", __func__, msg, arg1)
 #else
 #define APP_LOG(msg)
 #define APP_LOG1d(msg, arg1)

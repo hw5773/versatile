@@ -26,6 +26,32 @@
 #include <openssl/sha.h>
 
 /**
+ * @brief Initialize the socket for the repository
+ * @return Error code
+ */
+int init_repo()
+{
+  int err;
+
+  err = -NO_SOCK;
+  if ((repo_sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
+
+  return SUCCESS;
+
+out:
+  return err;
+}
+
+/**
+ * @brief Destruct the repository
+ */
+void free_repo()
+{
+  close(repo_sock);
+  return SUCCESS;
+}
+
+/**
  * @brief Getting the content by Flex ID of the content
  * @param id Flex ID of the content
  * @param buf Buffer for the response
@@ -41,20 +67,12 @@ int get(flexid_t *id, char *buf, int *len)
 
   APP_LOG("Unreliable Get message");
 
-  err = test_request(id, &resp);
+  if ((err = test_request(id, &resp)) < 0) goto out;
 
   APP_LOG("Get Test Request");
 
-  if (err < 0)
-  {
-    APP_LOG("Error in request()");
-    err = -NO_RESP;
-    goto out;
-  }
-
-  sock = socket(PF_FLEX, SOCK_DGRAM, 0);
-  if (sock == -1)
-    error_handling("socket() error");
+  err = -NO_SOCK;
+  if ((sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
 
   APP_LOG("Socket Generation Succeed");
   
@@ -116,15 +134,22 @@ int put(flexid_t *id, char *resp, int *len)
  */
 int pub(unsigned char *name)
 {
-  int err, bytes, len;
+  int sock, err;
+  struct sockaddr_flex insert_id;
   flexid_t *id;
 
   if ((err = init_flexid(&id, name, FLEX_TYPE_CONTENT)) < 0) goto out;
-  printf("Make the Flex ID succeed\n");
+  APP_LOG("Make the Flex ID succeed");
+
+  // bind: Insert Flex ID into the repository
+
+  // add_id_name_map: Insert the map between ID and name
+  // if ((err = add_id_name_map(&id, name)) < 0) goto out;
 
   return SUCCESS;
 
 out:
+  APP_LOG1d("Error", err);
   return err;
 }
 

@@ -25,6 +25,8 @@ int init_flexid(flexid_t **id, unsigned char *name, int type)
   FILE *fp;
   unsigned char *identity;
 
+  APP_LOG("Make the Flex ID");
+
   err = -ERROR_INIT_ID;
   if (!((*id) = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
@@ -35,7 +37,7 @@ int init_flexid(flexid_t **id, unsigned char *name, int type)
       set_cache_bit(*id, TRUE);
       set_segment_bit(*id, FALSE);
       set_collision_avoidance_bit(*id, FALSE);
-      content_identity(&identity, name);
+      if ((err = content_identity(&identity, name)) < 0) goto out;
       memcpy((*id)->identity, identity, SHA_DIGEST_LENGTH);
       (*id)->length = FLEX_ID_LENGTH;
       break;
@@ -58,6 +60,8 @@ int init_flexid(flexid_t **id, unsigned char *name, int type)
       goto out;
   }
 
+  APP_LOG("Flex ID is made");
+
   return SUCCESS;
 
 out:
@@ -77,10 +81,13 @@ int content_identity(unsigned char **identity, unsigned char *name)
   unsigned char data[2];
   EVP_MD_CTX *ctx;
 
+  APP_LOG("Make the Content Identity");
+
   err = -ERROR_MALLOC;
   if (!((*identity) = (unsigned char *)malloc(SHA_DIGEST_LENGTH))) goto out;
 
   err = -ERROR_READ_FILE;
+  APP_LOG1s("File to be read", name);
   if (!(fp = fopen(name, "r"))) goto out;
 
   err = -ERROR_INIT_MD_CTX;
@@ -98,17 +105,12 @@ int content_identity(unsigned char **identity, unsigned char *name)
   err = -ERROR_FINAL_MD;
   if (!EVP_DigestFinal_ex(ctx, (*identity), &len)) goto out;
 
-  int i;
-  printf("Generated ID\n");
-  printf("  len: %d\n", len);
-  printf("  ");
-  for (i=0; i<len; i++)
-    printf("%02X ", (*identity)[i]);
-  printf("\n");
+  APP_LOG1d("Length of Content Identity", len);
 
   return SUCCESS;
 
 out:
+  APP_LOG1d("Error", err);
   return err;
 }
 

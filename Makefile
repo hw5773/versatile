@@ -159,16 +159,16 @@ libflex.a: $(OBJ)
 	$(RANLIB) $@
 
 src/behavior.o: src/behavior.c
-	$(CC) -Iinclude -o $@ -c $<
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
 
 src/flex_id.o: src/flex_id.c
-	$(CC) -Iinclude -o $@ -c $<
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
 
 src/error.o: src/error.c
-	$(CC) -Iinclude -o $@ -c $<
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
 
 src/request.o: src/request.c
-	$(CC) -Iinclude -o $@ -c $<
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
 
 src/test_func.o: src/test_func.c
-	$(CC) -Iinclude -o $@ -c $<
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<

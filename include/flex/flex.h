@@ -14,6 +14,7 @@
 #include <flex/flex_log.h>
 
 // Behaviors for the Applications
+int init_repo(void);
 int get(struct flexid *id, char *resp, int *len);
 int put(struct flexid *id, char *resp, int *len);
 int pub(unsigned char *fn);

@@ -50,86 +50,38 @@ void __exit flex_unreliable_exit(void)
  */
 int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int addr_len, int flags)
 {
-  int i;
+  int i, err;
+  flexid_t *id;
   struct sock *sk;
   struct flex_sock *flex;
-  struct sockaddr_flex *tinfo;
-  struct id_hslot *hslot;
-  unsigned int slot;
-  struct id_table *table;
-  struct flexid_entity *entity;
-
+  struct sockaddr_flex *id_info;
   FLEX_LOG("Unreliable Connect");
 
   FLEX_LOG("Bind the Socket with the Target ID");
 
+  tinfo = target_info(taddr);
+  id = &(id_info->tid);
   sk = sock->sk;
   flex = flex_sk(sk);
-  tinfo = target_info(taddr);
 
-  memcpy(&(flex->src), &(tinfo->sid), sizeof(flexid_t));
-  memcpy(&(flex->dst), &(tinfo->tid), sizeof(flexid_t));
-  flex->message = tinfo->message;
+  memcpy(&(flex->src), &(id_info->sid), sizeof(flexid_t));
+  memcpy(&(flex->dst), &(id_info->tid), sizeof(flexid_t));
+  flex->message = id_info->message;
 
   FLEX_LOG("Set the next hop to the Socket");
 
-  flex->addr_type = tinfo->addr_type;
+  flex->addr_type = id_info->addr_type;
 
-  for (i=0; i<tinfo->addr_len; i++)
-    flex->next_hop[i] = tinfo->next_hop[i];
+  for (i=0; i<id_info->addr_len; i++)
+    flex->next_hop[i] = id_info->next_hop[i];
 
-  table = &id_table;
-
-  FLEX_LOG1p("id_table", &id_table);
-
-  if (!(&id_table))
-  {
-    FLEX_LOG("NULL pointer error");
-    goto out;
-  }
-
-  FLEX_LOG("After id_table");
-
-  slot = hash_fn(flex->dst, table->mask);
-  hslot = &table->hash[slot];
-
-  if (!hslot)
-  {
-    FLEX_LOG("hslot NULL");
-    goto out;
-  }
-
-  FLEX_LOG("After hslot");
-
-  entity = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
-
-  if (!entity)
-  {
-    FLEX_LOG("entity NULL");
-    goto out;
-  }
-
-  FLEX_LOG("After entity");
-
-  //memcpy(entity->id, &(flex->dst), sizeof(flexid_t));
-  entity->id = &(flex->dst);
-
-  FLEX_LOG("After id copy");
-
-  //memcpy(entity->sk, sk, sizeof(struct sock));
-  entity->sk = sk;
-
-  FLEX_LOG("After sk copy");
-
-  //hlist_add_head_rcu(&(entity->flex_node), &hslot->head);
-  hslot->count++;
-
-  FLEX_LOG("Add the Socket Complete");
+  if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
+  FLEX_LOG("Add ID to socket map succeed");
 
   return SUCCESS;
 
 out:
-  return FAILURE;
+  return err;
 }
 
 unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)
@@ -252,7 +204,6 @@ out:
 
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
-	FLEX_LOG("Receive the unreliable message");
 	return -1;
 }
 

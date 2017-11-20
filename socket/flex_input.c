@@ -31,12 +31,19 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
   	sk = get_sock_by_id(fid, &id_table);
 
     if (!sk)
+    {
       FLEX_LOG("Cannot find the appropriate socket");
-    else
-      FLEX_LOG("Find the appropriate socket");
+      goto out;
+    }
+
+    FLEX_LOG("Find the appropriate socket");
+    sock_queue_rcv_skb(sk, skb);
   }
 
   kfree(fid);
 
 	return SUCCESS;
+
+out:
+  return FAILURE;
 }

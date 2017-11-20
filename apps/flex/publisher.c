@@ -10,8 +10,7 @@
 int main(int argc, char *argv[])
 {
 	int len, err;
-  unsigned char *fn, *slash, term;
-  unsigned char file[1024];
+  unsigned char *fn;
 
   if (argc != 2)
   {
@@ -23,22 +22,12 @@ int main(int argc, char *argv[])
 	APP_LOG("Start Flex ID Test Publisher Application");
 
   fn = argv[1];
-  slash = "/";
-  term = 0;
-  getcwd(file, sizeof(file));
-  APP_LOG1s("Current Working Directory", file);
-  len = strlen(file);
-  APP_LOG1d("Length of cwd", len);
-  memcpy(file + len, slash, strlen(slash));
-  memcpy(file + len + 1, fn, strlen(fn));
-  memcpy(file + len + 1 + strlen(fn), &term, sizeof(term));
-  APP_LOG1s("Path", file);
 
   if ((err = init_flex()) < 0) goto out;
 
   APP_LOG1d("urepo_sock", urepo_sock);
 
-  if ((err = pub(file)) < 0) goto out;
+  if ((err = pub(fn)) < 0) goto out;
 
   free_flex();
 

@@ -157,9 +157,12 @@ int pub(unsigned char *name)
 {
   int err;
   struct sockaddr_flex insert_id;
+  unsigned char *path;
   flexid_t *id;
 
-  if ((err = init_flexid(&id, name, FLEX_TYPE_CONTENT)) < 0) goto out;
+  if ((err = get_full_path(name, &path)) < 0) goto out;
+
+  if ((err = init_flexid(&id, path, FLEX_TYPE_CONTENT)) < 0) goto out;
   APP_LOG("Make the Flex ID succeed");
 
   insert_id.sid = *id;

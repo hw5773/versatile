@@ -28,6 +28,7 @@ void __init flex_unreliable_init(void)
 {
   FLEX_LOG("Start to initialize the unreliable one");
   id_table_init(&id_table, "Unreliable");
+  FLEX_LOG1p("id_table", &id_table);
 }
 
 /**
@@ -58,7 +59,7 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   struct id_table *table;
   struct flexid_entity *entity;
 
-	FLEX_LOG("Unreliable Connect");
+  FLEX_LOG("Unreliable Connect");
 
   FLEX_LOG("Bind the Socket with the Target ID");
 
@@ -79,18 +80,56 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
 
   table = &id_table;
 
+  FLEX_LOG1p("id_table", &id_table);
+
+  if (!(&id_table))
+  {
+    FLEX_LOG("NULL pointer error");
+    goto out;
+  }
+
+  FLEX_LOG("After id_table");
+
   slot = hash_fn(flex->dst, table->mask);
   hslot = &table->hash[slot];
+
+  if (!hslot)
+  {
+    FLEX_LOG("hslot NULL");
+    goto out;
+  }
+
+  FLEX_LOG("After hslot");
+
   entity = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
-  memcpy(entity->id, &(flex->dst), sizeof(flexid_t));
-  memcpy(entity->sk, sk, sizeof(struct sock));
+
+  if (!entity)
+  {
+    FLEX_LOG("entity NULL");
+    goto out;
+  }
+
+  FLEX_LOG("After entity");
+
+  //memcpy(entity->id, &(flex->dst), sizeof(flexid_t));
+  entity->id = &(flex->dst);
+
+  FLEX_LOG("After id copy");
+
+  //memcpy(entity->sk, sk, sizeof(struct sock));
+  entity->sk = sk;
+
+  FLEX_LOG("After sk copy");
 
   //hlist_add_head_rcu(&(entity->flex_node), &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the Socket Complete");
 
-	return SUCCESS;
+  return SUCCESS;
+
+out:
+  return FAILURE;
 }
 
 unsigned int flex_unreliable_poll(struct file *file, struct socket *sock, poll_table *wait)

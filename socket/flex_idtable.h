@@ -1,7 +1,7 @@
 #ifndef __FLEX_UNRELIABLE__
 #define __FLEX_UNRELIABLE__
 
-#define MIN_IDTABLE_SIZE 4
+#define MIN_IDTABLE_SIZE 2
 
 struct flexid_entity {
   flexid_t *id;

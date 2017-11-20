@@ -19,9 +19,11 @@ int main(int argc, char *argv[])
 
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
+  if ((err = init_flex()) < 0) goto out;
+  APP_LOG("Initialize the Flex network");
+
   // query message should be trasferred to the below layer. (in the get/put)
-  if ((err = test_query(&tid)) < 0)
-    goto out;
+  if ((err = test_query(&tid)) < 0) goto out;
 
   APP_LOG("Set the test Flex ID Complete");
 
@@ -34,6 +36,8 @@ int main(int argc, char *argv[])
 
   APP_LOG("Invoke get() success");
   APP_LOG1lu("Estimated Time", end - start);
+
+  free_flex();
 
 	return SUCCESS;
 

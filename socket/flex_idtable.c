@@ -18,7 +18,7 @@ void id_table_init(struct id_table *table, const char *name)
   int i;
 
   FLEX_LOG("Start to initialize the Unreliable Table");
-  table->hash = kmalloc(MIN_IDTABLE_SIZE * 2 * sizeof(struct id_hslot), GFP_KERNEL);
+  table->hash = kmalloc(MIN_IDTABLE_SIZE * 2 * sizeof(struct id_hslot), GFP_ATOMIC);
   if (!(table->hash))
   {
     FLEX_LOG("Initialize Unreliable Socket Hash Table Failure");

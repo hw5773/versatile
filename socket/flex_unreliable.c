@@ -82,9 +82,10 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   slot = hash_fn(flex->dst, table->mask);
   hslot = &table->hash[slot];
   entity = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
-  entity->id = &(flex->dst);
-  entity->sk = sk;
-  hlist_add_head_rcu(&entity->flex_node, &hslot->head);
+  memcpy(entity->id, &(flex->dst), sizeof(flexid_t));
+  memcpy(entity->sk, sk, sizeof(struct sock));
+
+  //hlist_add_head_rcu(&(entity->flex_node), &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the Socket Complete");

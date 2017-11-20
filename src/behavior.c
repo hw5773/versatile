@@ -19,6 +19,8 @@
 #include <flex/flex_err.h>
 #include <flex/flex_const.h>
 #include <flex/flex_request.h>
+#include <flex/flex_repo.h>
+#include <flex/flex_tools.h>
 
 /* OpenSSL Related Headers */
 #include <openssl/bio.h>
@@ -26,6 +28,7 @@
 #include <openssl/sha.h>
 
 int urepo_sock;
+struct hash_table repo_table;
 
 /**
  * @brief Initialize the Flex ID networking application
@@ -33,7 +36,8 @@ int urepo_sock;
 int init_flex()
 {
   int err;
-  if ((err = init_repo()) < 0) goto out;
+  if ((err = init_repo_sock()) < 0) goto out;
+  if ((err = init_repo_table()) < 0) goto out;
   return SUCCESS;
 
 out:
@@ -48,28 +52,20 @@ void free_flex()
   free_repo();
 }
 
-/**
- * @brief Initialize the socket for the repository
- */
-int init_repo()
+int start_repo()
 {
-  int err;
+  int rcvd;
+  unsigned char buf[BUF_SIZE];
 
-  err = -NO_SOCK;
-  if ((urepo_sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
+  while (1)
+  {
+    if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) > 0)
+    {
+      APP_LOG1d("Read bytes", rcvd);
+    }
+  }
 
   return SUCCESS;
-
-out:
-  return err;
-}
-
-/**
- * @brief Destruct the socket for the repository
- */
-void free_repo()
-{
-  close(urepo_sock);
 }
 
 /**
@@ -171,7 +167,7 @@ int pub(unsigned char *name)
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
 
-  //if ((err = add_id_name_map(&id, name)) < 0) goto out;
+  if ((err = add_id_name_map(id, name)) < 0) goto out;
 
   return SUCCESS;
 

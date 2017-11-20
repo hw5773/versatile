@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-	int len, err;
+	int len, err, rcvd;
   unsigned char *fn;
 
   if (argc != 2)
@@ -27,7 +27,11 @@ int main(int argc, char *argv[])
 
   APP_LOG1d("urepo_sock", urepo_sock);
 
+  if ((err = test_pub()) < 0) goto out;
+
   if ((err = pub(fn)) < 0) goto out;
+
+  if ((err = start_repo()) < 0) goto out;
 
   free_flex();
 

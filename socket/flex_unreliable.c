@@ -256,7 +256,7 @@ int flex_unreliable_release(struct socket *sock)
   }
   hslot = &table->hash[slot];
   FLEX_LOG("Find the hash slot");
-/*
+
   spin_lock_bh(&hslot->lock);
   hlist_for_each_entry_rcu(entity, &hslot->head, flex_node)
   {
@@ -267,7 +267,7 @@ int flex_unreliable_release(struct socket *sock)
     }
   }
   spin_unlock_bh(&hslot->lock);
-*/
+
 no_slot:
   FLEX_LOG("Come to no slot");
 	sock_set_flag(sk, SOCK_DEAD);

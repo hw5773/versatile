@@ -38,7 +38,7 @@ SOCK_MODULE=flex.ko
 
 PCS=libflex.pc flex.pc
 
-OBJ=src/behavior.o src/flex_id.o src/error.o src/test_func.o src/request.o src/supplement.o
+OBJ=src/behavior.o src/flex_id.o src/error.o src/test_func.o src/request.o src/supplement.o src/repo.o src/hash_table.o src/hash_function.o
 
 all: libflex.a libflex.pc flex.pc
 
@@ -174,4 +174,13 @@ src/test_func.o: src/test_func.c
 	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
 
 src/supplement.o: src/supplement.c
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
+
+src/repo.o: src/repo.c
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
+
+src/hash_table.o: src/hash_table.c
+	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<
+
+src/hash_function.o: src/hash_function.c
 	$(CC) $(CFLAGS) -Iinclude -o $@ -c $<

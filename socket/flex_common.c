@@ -71,6 +71,7 @@ int flex_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
   sk = sock->sk;
 
   if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
+  FLEX_LOG("Add ID to socket map succeed");
 	return SUCCESS;
 
 out:

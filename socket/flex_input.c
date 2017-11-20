@@ -7,6 +7,14 @@
 #include "flex_sock.h"
 #include "flex_idtable.h"
 
+/**
+ * @brief Handler for the Flex Network Packet in the network layer
+ * @param skb Socket Buffer (Flex Network Packet)
+ * @param dev Hardware Device for send/receive
+ * @param ptype Not used
+ * @param orig_dev Not used
+ * @return Error code
+ */
 int flex_rcv(struct sk_buff *skb, struct net_device *dev, 
 			struct packet_type *ptype, struct net_device *orig_dev)
 {
@@ -29,6 +37,7 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     memcpy(fid, uflex->dflex_id, FLEX_ID_LENGTH);
     fid->length = FLEX_ID_LENGTH;
   	sk = get_sock_by_id(fid, &id_table);
+    kfree(fid);
 
     if (!sk)
     {
@@ -39,8 +48,6 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     FLEX_LOG("Find the appropriate socket");
     sock_queue_rcv_skb(sk, skb);
   }
-
-  kfree(fid);
 
 	return SUCCESS;
 

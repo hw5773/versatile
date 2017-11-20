@@ -10,6 +10,10 @@
 #include <flex/flex_addr.h>
 #include <flex/flex_err.h>
 #include <flex/flex.h>
+#include <flex/flex_repo.h>
+
+#include <sys/socket.h>
+#include <sys/types.h>
 
 unsigned long get_current_microseconds()
 {
@@ -17,6 +21,40 @@ unsigned long get_current_microseconds()
   gettimeofday(&curr, NULL);
 
   return curr.tv_sec * 1000000 + curr.tv_usec;
+}
+
+int test_pub()
+{
+  int i, err;
+  struct sockaddr_flex insert_id;
+  flexid_t *tid;
+
+  tid = (flexid_t *)malloc(sizeof(flexid_t));
+
+  set_cache_bit(tid, TRUE);
+  set_segment_bit(tid, FALSE);
+  set_collision_avoidance_bit(tid, FALSE);
+
+  for (i=0; i<10; i++)
+    tid->identity[i] = 0x41;
+
+  for (i=10; i<20; i++)
+    tid->identity[i] = 0x42;
+
+  tid->length = FLEX_ID_LENGTH;
+
+  insert_id.sid = *tid;
+  insert_id.message = FLEX_DATA;
+
+  err = -ERROR_BIND;
+  if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
+
+  if ((err = add_id_name_map(tid, TEST_FILE_PATH)) < 0) goto out;
+
+  return SUCCESS;
+
+out:
+  return err;
 }
 
 int test_sid(flexid_t **id)

@@ -10,8 +10,10 @@
 
 #include <pthread.h>
 
-#include "list.h"
-#include "hash_function.h"
+#include <string.h>
+#include <stdlib.h>
+#include <flex/list.h>
+#include <flex/hash_function.h>
 
 #define BUCKET_BITLEN	32
 
@@ -163,104 +165,21 @@ static inline void hash_table_finit(struct hash_table *h)
 	h->buckets = 0;
 }
 
-/* insert_hash_table()
- * @h: &struct hash_table hash table to insert hash_entry into
- * @e: &struct hash_entry
- * Description: inserts @e into @h using @e->key as key. not thread-safe.
- */
 void hash_table_insert(struct hash_table *h,
 		       struct hash_entry *e,
-		       const unsigned char *key, unsigned int len)
-{
-	unsigned int n;
+		       const unsigned char *key, unsigned int len);
 
-	hash_entry_init(e, key, len);
-	n = hash_table_hash_code(h, key, len);
-	list_add(&(e->list), &(h->table[n].list));
-}
-
-/* insert_hash_table_safe()
- * @h: &struct hash_table hash table to insert hash_entry into
- * @e: &struct hash_entry
- * @key: use key to insert the hash_entry
- * @len: length of the key
- * Description: inserts @e into @h using @e->key as key. thread-safe.
- */
 void hash_table_insert_safe(struct hash_table *h,
 			    struct hash_entry *e,
-			    const unsigned char *key, unsigned int len)
-{
-	unsigned int n;
+			    const unsigned char *key, unsigned int len);
 
-	hash_entry_init(e, key, len);
-	n = hash_table_hash_code_safe(h, key, len);
-
-	hash_table_bucket_lock(h, n);
-	list_add(&(e->list), &(h->table[n].list));
-	hash_table_bucket_unlock(h, n);
-}
-
-/* hash_table_lookup_key()
- * @h: hash table to look into
- * @str: the key to look for
- * @len: length of the key
- * Description: looks up the hash table for the presence of key. 
- * Returns: returns a pointer to the hash_entry that matches the key. otherise returns NULL.
- * Notes: in the presence of duplicate keys the function returns the first hash_entry found.
- * 		  function is not safe from delections. 
- * 		  function is not thread safe. 
- */
 struct hash_entry *hash_table_lookup_key(const struct hash_table *h,
 					 const unsigned char *str,
-					 unsigned int len)
-{
-	unsigned int key = hash_table_hash_code(h, str, len);
-	struct hash_entry *tmp;
-	struct list_head *pos;
+					 unsigned int len);
 
-	list_for_each(pos, &(h->table[key].list)) {
-		tmp = list_entry(pos, struct hash_entry, list);
-
-		if ((tmp->keylen == len)
-		    && (h->keycmp(tmp->key, str, tmp->keylen) == 0))
-			return tmp;
-	}
-	return NULL;
-}
-
-/* hash_table_lookup_key_safe()
- * @h: hash table to look into
- * @str: the key to look for
- * @len: length of the key
- * Description: looks up the hash table for the presence of key. 
- * Returns: returns a pointer to the hash_entry that matches the key. otherise returns NULL.
- * Notes: in the presence of duplicate keys the function returns the first hash_entry found.
- * 		  function is not safe from delections. 
- * 		  function is not thread safe. 
- */
 struct hash_entry *hash_table_lookup_key_safe(struct hash_table *h,
 					      const unsigned char *str,
-					      unsigned int len)
-{
-
-	unsigned int key = hash_table_hash_code_safe(h, str, len);
-	struct hash_entry *tmp;
-	struct list_head *pos;
-
-	hash_table_bucket_lock(h, key);
-
-	list_for_each(pos, &(h->table[key].list)) {
-		tmp = list_entry(pos, struct hash_entry, list);
-
-		if (memcmp(tmp->key, str, tmp->keylen) == 0) {
-			hash_table_bucket_unlock(h, key);
-			return tmp;
-		}
-	}
-
-	hash_table_bucket_unlock(h, key);
-	return NULL;
-}
+					      unsigned int len);
 
 /* same as hash_table_lookup_key() but this function takes a valid hash_entry as input.
  * a valid hash_entry is the one that has key, len set appropriately. in other words, a
@@ -286,33 +205,10 @@ static inline struct hash_entry *hash_table_lookup_hash_entry_safe(struct hash_t
 }
 
 struct hash_entry *hash_table_del_key(struct hash_table *h, const char *str,
-				      unsigned int len)
-{
-	struct hash_entry *e;
-
-	if ((e = hash_table_lookup_key(h, str, len)) == NULL)
-		return NULL;
-
-	list_del_init(&(e->list));
-	return e;
-}
+				      unsigned int len);
 
 struct hash_entry *hash_table_del_key_safe(struct hash_table *h,
-					   const char *str, unsigned int len)
-{
-	struct hash_entry *e;
-	unsigned int n = hash_table_hash_code(h, str, len);
-
-	hash_table_bucket_lock(h, n);
-	if ((e = hash_table_lookup_key(h, str, len)) != NULL) {
-		list_del_init(&(e->list));
-		hash_table_bucket_unlock(h, n);
-		return e;
-	}
-
-	hash_table_bucket_unlock(h, n);
-	return NULL;
-}
+					   const char *str, unsigned int len);
 
 static inline struct hash_entry *hash_table_del_hash_entry(struct hash_table *h,
 							   struct hash_entry *e)

@@ -6,20 +6,18 @@
 #include <flex/flex.h>
 #include <flex/flex_tools.h>
 
-#define path_PATH_SIZE 1024
-
 int get_full_path(unsigned char *fn, unsigned char **path)
 {
   int err, len;
   unsigned char *slash, term;
 
   err = -ERROR_MALLOC;
-  (*path) = (unsigned char *)malloc(path_PATH_SIZE);
+  (*path) = (unsigned char *)malloc(MAX_FILE_PATH_SIZE);
   if (!(*path)) goto out;
 
   slash = "/";
   term = 0;
-  getcwd((*path), path_PATH_SIZE);
+  getcwd((*path), MAX_FILE_PATH_SIZE);
   APP_LOG1s("Current Working Directory", *path);
   len = strlen(*path);
   memcpy(*path + len, slash, strlen(slash));

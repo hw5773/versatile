@@ -8,7 +8,7 @@
 struct id_entry
 {
   flexid_t *id;             /**< Flex ID */
-  unsigned char fn[256];    /**< The file name corresponding to the Flex ID */
+  unsigned char fn[MAX_FILE_PATH_SIZE];    /**< The file name corresponding to the Flex ID */
   struct hash_entry entry;  /**< The pointer to the next entry */
 };
 

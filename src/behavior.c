@@ -167,7 +167,11 @@ int pub(unsigned char *name)
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
 
+  APP_LOG("Bind the socket with the Flex ID(s)");
+
   if ((err = add_id_name_map(id, name)) < 0) goto out;
+
+  APP_LOG("Add the ID with the name complete");
 
   return SUCCESS;
 

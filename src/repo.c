@@ -59,20 +59,30 @@ void free_repo()
 
 int add_id_name_map(flexid_t *id, unsigned char *name)
 {
+  int err;
   struct id_entry *tmp;
 
   APP_LOG("Add the Flex ID into the ID Table");
+  APP_LOG1s("File name", name);
 
-  tmp = (struct id_entry *)malloc(sizeof(struct id_entry));
-  memset(tmp, 0, sizeof(struct id_entry));
-  memcpy(tmp->id, id, sizeof(flexid_t));
+  err = -ERROR_MALLOC;
+  if (!(tmp = (struct id_entry *)malloc(sizeof(struct id_entry)))) goto out;
+  if (!(tmp->id = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
+
+  APP_LOG1d("ID length", id->length);
+  memcpy(tmp->id, id, id->length);
+  APP_LOG("Copy id into tmp");
   memcpy(tmp->fn, name, strlen(name));
+  APP_LOG("Copy file name into the hash entry");
 
-  hash_table_insert(&urepo_table, &tmp->entry, (unsigned char *)id, sizeof(flexid_t));
+  hash_table_insert(&urepo_table, &tmp->entry, (unsigned char *)id, id->length);
 
   APP_LOG("Add the Flex ID into the ID Table complete");
 
   return SUCCESS;
+
+out:
+  return err;
 }
 
 unsigned char *get_filename_by_id(flexid_t *id)

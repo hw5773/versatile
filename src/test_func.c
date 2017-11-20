@@ -29,7 +29,8 @@ int test_pub()
   struct sockaddr_flex insert_id;
   flexid_t *tid;
 
-  tid = (flexid_t *)malloc(sizeof(flexid_t));
+  err = -ERROR_MALLOC;
+  if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
@@ -48,6 +49,8 @@ int test_pub()
 
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
+
+  APP_LOG1d("ID Length", tid->length);
 
   if ((err = add_id_name_map(tid, TEST_FILE_PATH)) < 0) goto out;
 

@@ -32,6 +32,8 @@ int test_pub()
   err = -ERROR_MALLOC;
   if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
+  APP_LOG("Initialize the data structures");
+
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
   set_collision_avoidance_bit(tid, FALSE);
@@ -44,8 +46,12 @@ int test_pub()
 
   tid->length = FLEX_ID_LENGTH;
 
+  APP_LOG("Set the Test Flex ID");
+
   insert_id.sid = *tid;
   insert_id.message = FLEX_DATA;
+
+  APP_LOG("Set the ID and Message Type");
 
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;

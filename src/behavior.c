@@ -163,6 +163,7 @@ int pub(unsigned char *name)
 
   insert_id.sid = *id;
   insert_id.message = FLEX_DATA;
+  APP_LOG1p("id", id);
 
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;

@@ -67,8 +67,35 @@ int flex_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 	FLEX_LOG("Bind for Flex");
 
   id_info = target_info(addr);
-  id = &(id_info->sid);
+  id = &id_info->sid;
   sk = sock->sk;
+
+  if (!id_info)
+  {
+    FLEX_LOG("id_info null");
+    goto out;
+  }
+  FLEX_LOG("id_info");
+
+  if (!id)
+  {
+    FLEX_LOG("id null");
+    goto out;
+  }
+  FLEX_LOG1p("id", id);
+
+  if (!sk)
+  {
+    FLEX_LOG("sk null");
+    goto out;
+  }
+  FLEX_LOG("sk");
+
+  if (!(&id_table))
+  {
+    FLEX_LOG("id_table null");
+    goto out;
+  }
 
   if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
   FLEX_LOG("Add ID to socket map succeed");

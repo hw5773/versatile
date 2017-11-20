@@ -102,15 +102,18 @@ int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
   flex->id = id;
   flex->sk = sk;
 
-  table = &id_table;
   slot = hash_fn(*id, table->mask);
   hslot = &table->hash[slot];
+
   hlist_add_head_rcu(&flex->flex_node, &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the ID complete");
 
   return SUCCESS;
+
+out:
+  return FAILURE;
 }
 
 struct sock *get_sock_by_id(flexid_t *id, struct id_table *table)

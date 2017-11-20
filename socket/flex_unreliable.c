@@ -59,20 +59,20 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
 
   FLEX_LOG("Bind the Socket with the Target ID");
 
-  tinfo = target_info(taddr);
-  id = &(id_info->tid);
+  id_info = target_info(taddr);
+  id = &id_info->tid;
   sk = sock->sk;
   flex = flex_sk(sk);
 
-  memcpy(&(flex->src), &(id_info->sid), sizeof(flexid_t));
-  memcpy(&(flex->dst), &(id_info->tid), sizeof(flexid_t));
+  flex->src = id_info->sid;
+  flex->dst = id_info->tid;
   flex->message = id_info->message;
 
   FLEX_LOG("Set the next hop to the Socket");
 
   flex->addr_type = id_info->addr_type;
 
-  for (i=0; i<id_info->addr_len; i++)
+  for (i=0; i<(id_info->addr_len); i++)
     flex->next_hop[i] = id_info->next_hop[i];
 
   if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
@@ -182,7 +182,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->common.packet_id = htons(0x7777);
   flexh->common.frag_off = htons(FLEX_PTC_UNRELIABLE | FLEX_DF | 0x365);
   memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
-  memcpy(flexh->dflex_id, &(flex->dst), flex->dst.length);
+  memcpy(flexh->dflex_id, &flex->dst, flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)

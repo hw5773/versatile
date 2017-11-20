@@ -99,10 +99,14 @@ int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
   struct flexid_entity *flex;
 
   flex = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
-  flex->id = id;
-  flex->sk = sk;
+  flex->id = (flexid_t *)kmalloc(sizeof(flexid_t), GFP_ATOMIC);
+  flex->sk = (struct sock *)kmalloc(sizeof(struct sock), GFP_ATOMIC);
+  FLEX_LOG("initialize flex id entity");
+  memcpy(flex->id, id, sizeof(flexid_t));
+  memcpy(flex->sk, sk, sizeof(struct sock));
 
   slot = hash_fn(*id, table->mask);
+
   hslot = &table->hash[slot];
 
   hlist_add_head_rcu(&flex->flex_node, &hslot->head);

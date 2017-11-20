@@ -6,25 +6,18 @@
 #include <linux/init.h>
 #include <linux/fs.h>
 #include <linux/skbuff.h>
-#include <linux/scatterlist.h>
-#include <linux/splice.h>
 #include <linux/net.h>
 #include <linux/socket.h>
-#include <linux/random.h>
-#include <linux/bootmem.h>
-#include <linux/highmem.h>
-#include <linux/swap.h>
-#include <linux/cache.h>
 #include <linux/err.h>
-#include <linux/crypto.h>
 #include <linux/time.h>
-#include <linux/slab.h>
 #include <linux/netdevice.h>
-#include <linux/list.h>
 
 #include "flex_sock.h"
 #include "flex_dev_types.h"
 #include "flex_idtable.h"
+
+#include <linux/list.h>
+#include <linux/rculist.h>
 
 int urepo_sock;
 
@@ -88,9 +81,10 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
 
   slot = hash_fn(flex->dst, table->mask);
   hslot = &table->hash[slot];
+  entity = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
   entity->id = &(flex->dst);
   entity->sk = sk;
-  hlist_add_head_rcu(entity->flex_node, &hslot->head);
+  hlist_add_head_rcu(&entity->flex_node, &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the Socket Complete");
@@ -231,10 +225,9 @@ int flex_unreliable_release(struct socket *sock)
 {
   struct sock *sk;
   struct flex_sock *flex;
-  struct flex_entity *entity;
+  struct flexid_entity *entity;
   struct id_table *table;
   struct id_hslot *hslot;
-  struct hlist_node *node;
   unsigned int slot;
 
 	FLEX_LOG("Release the socket internally");
@@ -248,26 +241,35 @@ int flex_unreliable_release(struct socket *sock)
   table = &id_table;
 
   if (flex->message == FLEX_INTEREST)
+  {
+    FLEX_LOG("This is INTEREST socket");
     slot = hash_fn(flex->dst, table->mask);
+  }
   else if (flex->message == FLEX_DATA)
+  {
+    FLEX_LOG("This is DATA socket");
     slot = hash_fn(flex->src, table->mask);
+  }
   else
   {
     goto no_slot;
   }
   hslot = &table->hash[slot];
-
+  FLEX_LOG("Find the hash slot");
+/*
   spin_lock_bh(&hslot->lock);
-  hlist_for_each_entry_rcu(entity, node, &hslot->head, flex_node)
+  hlist_for_each_entry_rcu(entity, &hslot->head, flex_node)
   {
     if (entity->sk == sk)
     {
-      hlist_del(node);
+      hlist_del(&entity->flex_node);
       hslot->count--;
     }
+  }
   spin_unlock_bh(&hslot->lock);
-
+*/
 no_slot:
+  FLEX_LOG("Come to no slot");
 	sock_set_flag(sk, SOCK_DEAD);
 	sock_set_flag(sk, SOCK_DESTROY);
 

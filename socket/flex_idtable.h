@@ -1,14 +1,12 @@
 #ifndef __FLEX_UNRELIABLE__
 #define __FLEX_UNRELIABLE__
 
-#include <linux/list.h>
-
 #define MIN_IDTABLE_SIZE 4
 
 struct flexid_entity {
   flexid_t *id;
   struct sock *sk;
-  struct hlist_node *flex_node;
+  struct hlist_node flex_node;
 };
 
 struct id_hslot {

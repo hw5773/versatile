@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 
 #include <flex/flex.h>
+#include <flex/flex_log.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
 	struct sockaddr_flex target_id;
 	char buf[256];
 	int rc, len;
+  unsigned long start, end;
 
 	APP_LOG("Start Flex ID Test Subscriber Application");
 
@@ -25,10 +27,13 @@ int main(int argc, char *argv[])
 
   APP_LOG("Invoke get()");
 
+  start = get_current_microseconds();
   if ((err = get(tid, buf, &len)) < 0)
     goto out;
+  end = get_current_microseconds();
 
   APP_LOG("Invoke get() success");
+  APP_LOG1lu("Estimated Time", end - start);
 
 	return SUCCESS;
 

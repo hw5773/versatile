@@ -1,11 +1,10 @@
-#include <flex/flex_log.h>
 #include <flex/flex_err.h>
 #include <flex/flex_const.h>
-#include <flex/flex.h>
 #include <flex/flex_types.h>
 
 #include "flex_sock.h"
 #include "flex_idtable.h"
+#include "flex_klog.h"
 
 struct id_table id_table __read_mostly;
 
@@ -30,7 +29,7 @@ void id_table_init(struct id_table *table, const char *name)
 
   for (i=0; i<= table->mask; i++)
   {
-    INIT_HLIST_HEAD(&table->hash[i].head, i);
+    INIT_HLIST_HEAD(&table->hash[i].head);
     table->hash[i].count = 0;
     spin_lock_init(&table->hash[i].lock);
   }
@@ -46,16 +45,15 @@ void id_table_exit(struct id_table *table)
   int i;
   struct flexid_entity *flex;
   struct id_hslot *hslot;
-  struct hlist_node *node;
 
-  for (i=0; i<MAX_IDTABLE_SIZE; i++)
+  for (i=0; i<MIN_IDTABLE_SIZE; i++)
   {
     hslot = &table->hash[i];
 
     spin_lock_bh(&hslot->lock);
-    hlist_for_each_entry_rcu(flex, node, &hslot->head, flex_node) 
+    hlist_for_each_entry_rcu(flex, &hslot->head, flex_node) 
     {
-      hlist_del_init_rcu(flex);
+      hlist_del_init_rcu(&flex->flex_node);
     }
     spin_unlock_bh(&hslot->lock);
   }
@@ -73,7 +71,6 @@ int id_exist(flexid_t *id, struct id_table *table)
   int result;
   struct flexid_entity *flex;
   struct id_hslot *hslot;
-  struct hlist_node *node;
   unsigned int slot;
 
   slot = hash_fn(*id, table->mask);
@@ -81,7 +78,7 @@ int id_exist(flexid_t *id, struct id_table *table)
 
   result = FALSE;
   rcu_read_lock();
-  hlist_for_each_entry_rcu(flex, node, &hslot->head, flex_node)
+  hlist_for_each_entry_rcu(flex, &hslot->head, flex_node)
   {
     if (strncmp(flex->id->identity, id->identity, sizeof(IDENTITY_LENGTH)) == 0)
       result = TRUE;
@@ -97,6 +94,7 @@ int id_exist(flexid_t *id, struct id_table *table)
  */
 int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
 {
+  unsigned int slot;
   struct id_hslot *hslot;
   struct flexid_entity *flex;
 
@@ -107,7 +105,7 @@ int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
   table = &id_table;
   slot = hash_fn(*id, table->mask);
   hslot = &table->hash[slot];
-  hlist_add_head_rcu(flex, &hslot->head);
+  hlist_add_head_rcu(&flex->flex_node, &hslot->head);
   hslot->count++;
 
   FLEX_LOG("Add the ID complete");
@@ -120,7 +118,6 @@ struct sock *get_sock_by_id(flexid_t *id, struct id_table *table)
   struct sock *result;
   struct flexid_entity *flex;
   struct id_hslot *hslot;
-  struct hlist_node *node;
   unsigned int slot;
 
   slot = hash_fn(*id, table->mask);
@@ -128,7 +125,7 @@ struct sock *get_sock_by_id(flexid_t *id, struct id_table *table)
 
   result = NULL;
   rcu_read_lock();
-  hlist_for_each_entry_rcu(flex, node, &hslot->head, flex_node)
+  hlist_for_each_entry_rcu(flex, &hslot->head, flex_node)
   {
     if (strncmp(flex->id->identity, id->identity, sizeof(IDENTITY_LENGTH)) == 0)
       result = flex->sk;

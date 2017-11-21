@@ -59,7 +59,7 @@ int start_repo()
 
   while (1)
   {
-    if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) > 0)
+    if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
     }

@@ -204,7 +204,20 @@ out:
 
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
-	return -1;
+  int err, peeked, len, copied;
+  struct sock *sk = sock->sk;
+  struct flex_sock *flex = flex_sk(sk);
+  struct sockaddr_flex *faddr = (struct sockaddr_flex *)msg->msg_name;
+  struct sk_buff *skb;
+
+  skb = __skb_recv_datagram(sk, flags);
+
+  if (!skb) goto out;
+
+	return SUCCESS;
+
+out:
+  return FAILURE;
 }
 
 /**

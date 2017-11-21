@@ -23,6 +23,7 @@
 #define ERROR_FINAL_MD      310
 #define ERROR_MISTYPE       311
 #define ERROR_BIND          312
+#define ERROR_SIZE          313
 
 void error_handling(char *);
 

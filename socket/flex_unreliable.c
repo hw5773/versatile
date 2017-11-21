@@ -245,7 +245,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   switch(ptype)
   {
     case FLEX_INTEREST:
-      bytes = copy_to_iter(fhdr + DFLEX_ID_IDX, FLEX_ID_LENGTH, &msg->msg_iter);
+      bytes = copy_to_iter(fhdr->dflex_id, FLEX_ID_LENGTH, &msg->msg_iter);
       FLEX_LOG1d("Bytes to application", bytes);
       break;
     case FLEX_DATA:

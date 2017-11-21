@@ -65,6 +65,7 @@ int start_repo()
     {
       APP_LOG1d("Read bytes", rcvd);
       memcpy(&id, buf, rcvd);
+      APP_LOG2s("identity received", buf, rcvd);
       id.length = rcvd;
       fn = get_filename_by_id(&id);
       APP_LOG1s("File name", fn);
@@ -106,7 +107,7 @@ int get(flexid_t *id, char *buf, int *len)
   target_id.message = FLEX_INTEREST;
 
   APP_LOG("Set the Message Info to Target ID");
-  APP_LOG2s("id identity", id->identity, id->length);
+  APP_LOG2s("id identity", id->identity, id->length - 1);
 
   target_id.addr_type = resp->addr_type;
   target_id.addr_len = resp->addr_len;

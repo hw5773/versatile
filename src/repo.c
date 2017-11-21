@@ -69,16 +69,14 @@ int add_id_name_map(flexid_t *id, unsigned char *name)
   if (!(tmp = (struct id_entry *)malloc(sizeof(struct id_entry)))) goto out;
   if (!(tmp->id = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
-  APP_LOG1d("ID length", id->length);
   memcpy(tmp->id, id, id->length);
   APP_LOG("Copy id into tmp");
   memcpy(tmp->fn, name, strlen(name));
   APP_LOG("Copy file name into the hash entry");
   APP_LOG1s("File name", tmp->fn);
 
-  hash_table_insert(&urepo_table, &tmp->entry, id->identity, id->length);
-  APP_LOG2s("identity", id->identity, id->length);
-  APP_LOG1d("id length", id->length);
+  hash_table_insert(&urepo_table, &tmp->entry, id->identity, id->length-1);
+  APP_LOG2s("identity", id->identity, id->length - 1);
 
   APP_LOG("Add the Flex ID into the ID Table complete");
 
@@ -99,11 +97,10 @@ unsigned char *get_filename_by_id(flexid_t *id)
 
   APP_LOG("Get the filename by Flex ID");
 
-  APP_LOG2s("identity", id->identity, id->length);
-  APP_LOG1d("id length", id->length);
+  APP_LOG2s("identity", id->identity, id->length - 1);
 
   err = -NO_ENTRY;
-  if (!(hentry = hash_table_lookup_key(&urepo_table, id->identity, id->length))) goto out;
+  if (!(hentry = hash_table_lookup_key(&urepo_table, id->identity, id->length - 1))) goto out;
   
   tmp = hash_entry(hentry, struct id_entry, entry);
   APP_LOG1s("File name", tmp->fn);

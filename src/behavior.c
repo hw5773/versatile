@@ -54,21 +54,35 @@ void free_flex()
 
 int start_repo()
 {
-  int rcvd;
+  int rcvd, len;
+  unsigned long fsize;
   unsigned char buf[BUF_SIZE];
   unsigned char *fn;
-  flexid_t id;
+  unsigned char *content;
+  flexid_t id1, id2;
+  FILE *fp;
 
   while (1)
   {
     if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
-      memcpy(&id, buf, rcvd);
+      memcpy(&id1, buf, rcvd / 2);
+      memcpy(&id2, buf + rcvd / 2, rcvd / 2);
       APP_LOG2s("identity received", buf, rcvd);
-      id.length = rcvd;
-      fn = get_filename_by_id(&id);
+      id1.length = rcvd / 2;
+      id2.length = rcvd / 2;
+      fn = get_filename_by_id(&id2);
       APP_LOG1s("File name", fn);
+      fp = fopen(fn, "rb");
+      fsize = ftell(fp);
+
+      APP_LOG1d("File length", fsize);
+
+      content = (unsigned char *)malloc(fsize + 1);
+      fread(content, fsize, 1, fp);
+
+      put(&id1, &id2, content, &len);
     }
   }
 
@@ -84,7 +98,8 @@ int start_repo()
  */
 int get(flexid_t *id, char *buf, int *len)
 {
-  int sock, i, err;
+  // TODO: Need to reflect buf
+  int sock, i, err, rcvd;
   struct sockaddr_flex target_id;
   flexid_t *sid;    // TODO: Need to change this to be automated.
   response_t *resp;
@@ -124,11 +139,19 @@ int get(flexid_t *id, char *buf, int *len)
 
   APP_LOG("Send the INTEREST Success");
 
-  // TODO: Read
+  while (1)
+  {
+    if ((bytes = read(sock, buf, BUF_SIZE)) >= 0)
+    {
+      APP_LOG1d("Read bytes", rcvd);
+      APP_LOG1s("Result", buf);
+      break;
+    }
+  }
 
   free_response(resp);
   close(sock);
-  return SUCCESS;
+  return rcvd;
 
 out_write:
   close(sock);

@@ -7,6 +7,7 @@
 #include <sys/time.h>
 
 #ifdef DEBUG
+int idx;
 #define APP_LOG(msg) \
 	printf("[Flex] %s: %s\n", __func__, msg)
 #define APP_LOG1d(msg, arg1) \
@@ -18,7 +19,7 @@
 #define APP_LOG1p(msg, arg1) \
   printf("[Flex] %s: %s: %p\n", __func__, msg, arg1)
 #define APP_LOG2s(msg, arg1, arg2) \
-  int idx;printf("[Flex] %s: ", __func__); for(idx=0;idx<arg2;idx++) printf("%02X ", arg1[idx]);printf("\n");
+  printf("[Flex] %s: ", __func__); for(idx=0;idx<arg2;idx++) printf("%02X ", arg1[idx]);printf("\n");
 #else
 #define APP_LOG(msg)
 #define APP_LOG1d(msg, arg1)

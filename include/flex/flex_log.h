@@ -17,11 +17,14 @@
   printf("[Flex] %s: %s: %lu\n", __func__, msg, arg1)
 #define APP_LOG1p(msg, arg1) \
   printf("[Flex] %s: %s: %p\n", __func__, msg, arg1)
+#define APP_LOG2s(msg, arg1, arg2) \
+  int idx;for(idx=0;idx<arg2;idx++) printf("%02X ", arg1[idx]);printf("\n");
 #else
 #define APP_LOG(msg)
 #define APP_LOG1d(msg, arg1)
 #define APP_LOG1lu(msg, arg1)
 #define APP_LOG1p(msg, arg1)
+#define APP_LOG2s(msg, arg1, arg2)
 #endif /* DEBUG */
 
 unsigned long get_current_microseconds();

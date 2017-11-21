@@ -210,7 +210,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   struct sockaddr_flex *faddr = (struct sockaddr_flex *)msg->msg_name;
   struct sk_buff *skb;
 
-  skb = __skb_recv_datagram(sk, flags);
+  skb = __skb_recv_datagram(sk, flags, &peeked, &err);
 
   if (!skb) goto out;
 

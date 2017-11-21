@@ -18,6 +18,7 @@
 int flex_rcv(struct sk_buff *skb, struct net_device *dev, 
 			struct packet_type *ptype, struct net_device *orig_dev)
 {
+  int ret;
   flexhdr_t *flex;
   struct sock *sk;
   flexid_t *fid;
@@ -46,7 +47,8 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     }
 
     FLEX_LOG("Find the appropriate socket");
-    sock_queue_rcv_skb(sk, skb);
+    ret = sock_queue_rcv_skb(sk, skb);
+    FLEX_LOG1d("Invoke sock_queue_rcv_skb complete", ret);
   }
 
 	return SUCCESS;

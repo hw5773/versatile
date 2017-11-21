@@ -17,8 +17,8 @@
 int init_flex(void);
 void free_flex(void);
 int start_repo(void);
-int get(struct flexid *id, char *resp, int *len);
-int put(struct flexid *id, char *resp, int *len);
+int get(flexid_t *id, char *resp, int *len);
+int put(flexid_t *tid, flexid_t *sid, char *buf, int *len);
 int pub(unsigned char *fn);
 int serv(unsigned char *crt, unsigned char *key);
 void error_handling(char *buf);
@@ -27,12 +27,19 @@ extern int urepo_sock;
 extern struct hash_table urepo_table;
 
 /* For the test definitions and functions */
-#define FIRST   0x00
-#define SECOND  0x0c
-#define THIRD   0x29
-#define FOURTH  0xcb
-#define FIFTH   0x8d
-#define SIXTH   0x25
+#define FIRST1   0x00
+#define SECOND1  0x0c
+#define THIRD1   0x29
+#define FOURTH1  0xcb
+#define FIFTH1   0x8d
+#define SIXTH1   0x25
+
+#define FIRST2   0x00
+#define SECOND2  0x0c
+#define THIRD2   0x29
+#define FOURTH2  0x32
+#define FIFTH2   0x2a
+#define SIXTH2   0xfc
 
 #define TEST_FILE_PATH "~/versatile/apps/flex/test.txt"
 #define MAX_FILE_PATH_SIZE 256
@@ -41,6 +48,7 @@ extern struct hash_table urepo_table;
 int test_pub(void);
 int test_sid(flexid_t **id);
 int test_query(flexid_t **id);
-int test_request(flexid_t *id, response_t **resp);
+int test_request1(flexid_t *id, response_t **resp);
+int test_request2(flexid_t *id, response_t **resp);
 
 #endif /* __FLEX__ */

@@ -112,7 +112,7 @@ out:
   return err;
 }
 
-int test_request(flexid_t *id, response_t **ret)
+int test_request1(flexid_t *id, response_t **ret)
 {
   int i, err;
   (*ret) = (response_t *)malloc(sizeof(response_t));
@@ -128,12 +128,41 @@ int test_request(flexid_t *id, response_t **ret)
   (*ret)->addr_type = AT_MAC;
   (*ret)->addr_len = AT_MAC_LEN;
   
-  (*ret)->next_hop[0] = FIRST;
-  (*ret)->next_hop[1] = SECOND;
-  (*ret)->next_hop[2] = THIRD;
-  (*ret)->next_hop[3] = FOURTH;
-  (*ret)->next_hop[4] = FIFTH;
-  (*ret)->next_hop[5] = SIXTH;
+  (*ret)->next_hop[0] = FIRST1;
+  (*ret)->next_hop[1] = SECOND1;
+  (*ret)->next_hop[2] = THIRD1;
+  (*ret)->next_hop[3] = FOURTH1;
+  (*ret)->next_hop[4] = FIFTH1;
+  (*ret)->next_hop[5] = SIXTH1;
+
+  return SUCCESS;
+
+out:
+  return err;
+}
+
+int test_request2(flexid_t *id, response_t **ret)
+{
+  int i, err;
+  (*ret) = (response_t *)malloc(sizeof(response_t));
+
+  if (!(*ret))
+  {
+    APP_LOG("Error in malloc");
+    err = -ERROR_MALLOC;
+    goto out;
+  }
+
+  (*ret)->error = TRUE;
+  (*ret)->addr_type = AT_MAC;
+  (*ret)->addr_len = AT_MAC_LEN;
+  
+  (*ret)->next_hop[0] = FIRST2;
+  (*ret)->next_hop[1] = SECOND2;
+  (*ret)->next_hop[2] = THIRD2;
+  (*ret)->next_hop[3] = FOURTH2;
+  (*ret)->next_hop[4] = FIFTH2;
+  (*ret)->next_hop[5] = SIXTH2;
 
   return SUCCESS;
 

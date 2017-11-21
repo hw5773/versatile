@@ -91,7 +91,7 @@ int get(flexid_t *id, char *buf, int *len)
 
   APP_LOG("Unreliable Get message");
 
-  if ((err = test_request(id, &resp)) < 0) goto out;
+  if ((err = test_request1(id, &resp)) < 0) goto out;
 
   APP_LOG("Get Test Request");
 
@@ -114,18 +114,13 @@ int get(flexid_t *id, char *buf, int *len)
   for (i=0; i<resp->addr_len; i++)
     target_id.next_hop[i] = resp->next_hop[i];
 
-  if (connect(sock, (struct sockaddr *)&target_id, sizeof(target_id)) == FAILURE)
-    error_handling("connect() error");
+  if ((err = connect(sock, (struct sockaddr *)&target_id, sizeof(target_id))) < 0) goto out;
 
   APP_LOG("Connect the Socket with the Target ID");
 
   APP_LOG("Send the INTEREST Message");
 
-  if ((err = write(sock, NULL, 0)) < 0)
-  {
-    close(sock);
-    goto out;
-  }
+  if ((err = write(sock, NULL, 0)) < 0) goto out;
 
   APP_LOG("Send the INTEREST Success");
 
@@ -135,6 +130,8 @@ int get(flexid_t *id, char *buf, int *len)
   close(sock);
   return SUCCESS;
 
+out_write:
+  close(sock);
 out:
   APP_LOG1d("Error", err);
   return err;
@@ -143,13 +140,54 @@ out:
 /**
  * @brief Sending the data to the entity with the Flex ID
  * @param id The Flex ID of the target
- * @param resp Buffer for the response
- * @param len Length of the buffer
+ * @param resp Buffer to be sent
+ * @param len Length of message sent
  * @return Error code
  */
-int put(flexid_t *id, char *resp, int *len)
+int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
 {
+  int sock, i, err;
+  struct sockaddr_flex target_id;
+  response_t *resp;
+
+  APP_LOG("Unreliable Put message");
+
+  if ((err = test_request2(tid, &resp)) < 0) goto out;
+
+  err = -NO_SOCK;
+  if ((sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
+
+  APP_LOG("Socket Generation Succeed");
+
+  target_id.sin_family = AF_FLEX;
+  target_id.sid = *sid;
+  target_id.tid = *tid;
+  target_id.message = FLEX_DATA;
+
+  APP_LOG("Set the Message Info to Target ID");
+  APP_LOG2s("sid identity", sid->identity, sid->length - 1);
+  APP_LOG2s("tid identity", tid->identity, tid->length - 1);
+
+  target_id.addr_type = resp->addr_type;
+  target_id.addr_len = resp->addr_len;
+  for (i=0; i<resp->addr_len; i++)
+    target_id.next_hop[i] = resp->next_hop[i];
+
+  if ((err = connect(sock, (struct sockaddr *)&target_id, sizeof(target_id))) < 0) goto out;
+
+  APP_LOG("Connect the Socket with the Target ID");
+
+  APP_LOG("Send the DATA Message");
+
+  if ((err = write(sock, NULL, 0)) < 0) goto out_write;
+
   return SUCCESS;
+
+out_write:
+  close(sock);
+out:
+  APP_LOG1d("Error", err);
+  return err;
 }
 
 /**

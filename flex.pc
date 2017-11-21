@@ -1,9 +1,0 @@
-prefix=/usr/local
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: Flex
-Description: Flex ID based networking library
-Version: 1.0
-Requires: libflex

@@ -224,39 +224,15 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   if (!skb) goto out;
 
-  FLEX_LOG1d("off", off);
   FLEX_LOG("Get skb");
-
-  for (i=0; i<MAX_DEV_TYPES; i++)
-  {
-    dev = dev_getfirstbyhwtype(&init_net, dev_type[i]);
-
-    if (dev)
-      break;
-  }
-
-  if (!dev)
-  {
-    FLEX_LOG("Error: No device");
-    err = -NO_DEV;
-    goto out;
-  }
-
-  FLEX_LOG("Get dev");
-  reserve = LL_RESERVED_SPACE(dev);
-  FLEX_LOG1d("Reserve", reserve);
-
   FLEX_LOG1d("Length of skb", skb->len);
 
-  if (!(skb->head))
-  {
-    FLEX_LOG("No head set");
+  if (skb->len == 0)
     goto out;
-  }
 
-  fhdr = (struct uflexhdr *)(skb->head + reserve);
+  fhdr = (struct uflexhdr *)(skb->head + skb->network_header);
   FLEX_LOG1x("Hash Type", fhdr->common.hash_type);
-  FLEX_LOG1x("Message Type", fhdr->common.packet_type);
+  FLEX_LOG1x("Packet Type", fhdr->common.packet_type);
   FLEX_LOG1d("Packet Length", fhdr->packet_len);
 
 	return SUCCESS;
@@ -267,12 +243,7 @@ out:
 
 void flex_skb_destructor(struct sock *sk, struct sk_buff *skb)
 {
-  int size;
   FLEX_LOG("Destructor");
-
-  size = skb->dev_scratch;
-  FLEX_LOG1d("skb->dev_scratch", skb->dev_scratch);
-
 }
 
 /**

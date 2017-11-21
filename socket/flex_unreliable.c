@@ -19,6 +19,8 @@
 #include <linux/list.h>
 #include <linux/rculist.h>
 
+#include <flex/flex_const.h>
+
 int urepo_sock;
 
 /**
@@ -212,20 +214,18 @@ out:
  */
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
-  int i, err, off, peeked, len, copied, reserve;
+  int i, err, off, peeked, len, copied, reserve, hlen, plen, bytes;
   struct sock *sk = sock->sk;
   struct flex_sock *flex = flex_sk(sk);
   struct sockaddr_flex *faddr = (struct sockaddr_flex *)msg->msg_name;
   struct sk_buff *skb;
   struct uflexhdr *fhdr;
   struct net_device *dev;
+  unsigned char ptype;
 
   skb = __skb_recv_datagram(sk, flags, flex_skb_destructor, &peeked, &off, &err);
 
   if (!skb) goto out;
-
-  FLEX_LOG("Get skb");
-  FLEX_LOG1d("Length of skb", skb->len);
 
   if (skb->len == 0)
     goto out;
@@ -239,12 +239,38 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   FLEX_LOG1x("Packet Type", fhdr->common.packet_type);
   FLEX_LOG1d("Packet Length", ntohs(fhdr->packet_len));
 
+  ptype = fhdr->common.packet_type;       // Packet Type
+  hlen = ntohs(fhdr->common.header_len);  // Header Length
+  plen = ntohs(fhdr->packet_len);         // Packet Length (Header Length + Data)
+
+  switch(ptype)
+  {
+    case FLEX_INTEREST:
+      bytes = copy_to_iter(fhdr + DFLEX_ID_IDX, FLEX_ID_LENGTH, &msg->msg_iter);
+      FLEX_LOG1d("Bytes to application", bytes);
+      break;
+    case FLEX_DATA:
+      bytes = copy_to_iter(fhdr + hlen, plen - hlen, &msg->msg_iter);
+      FLEX_LOG1d("Bytes to application", bytes);
+      break;
+    case FLEX_DATA_ACK:
+      break;
+    default:
+      err = -NO_SUPPORT;
+      goto out;
+  }
+
 	return SUCCESS;
 
 out:
   return err;
 }
 
+/**
+ * @brief Destructor for Socket Buffer from the Socket
+ * @param sk Socket Structure
+ * @param skb Socket Buffer
+ */
 void flex_skb_destructor(struct sock *sk, struct sk_buff *skb)
 {
   FLEX_LOG("Destructor");

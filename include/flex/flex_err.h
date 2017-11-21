@@ -6,6 +6,7 @@
 #define NO_RESP             101
 #define NO_SOCK             102
 #define NO_ENTRY            103
+#define NO_SUPPORT          104
 
 #define WRONG_MESSAGE_TYPE  200
 #define WRONG_HEADER        201

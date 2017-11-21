@@ -65,8 +65,9 @@ int start_repo()
     {
       APP_LOG1d("Read bytes", rcvd);
       memcpy(&id, buf, rcvd);
+      id.length = rcvd;
       fn = get_filename_by_id(&id);
-      APP_LOG1s("Filename", fn);
+      APP_LOG1s("File name", fn);
     }
   }
 

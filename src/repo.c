@@ -75,7 +75,7 @@ int add_id_name_map(flexid_t *id, unsigned char *name)
   memcpy(tmp->fn, name, strlen(name));
   APP_LOG("Copy file name into the hash entry");
 
-  hash_table_insert(&urepo_table, &tmp->entry, (unsigned char *)id, id->length);
+  hash_table_insert(&urepo_table, &tmp->entry, id->identity, id->length);
 
   APP_LOG("Add the Flex ID into the ID Table complete");
 
@@ -97,7 +97,7 @@ unsigned char *get_filename_by_id(flexid_t *id)
   APP_LOG("Get the filename by Flex ID");
 
   err = -NO_ENTRY;
-  if (!(hentry = hash_table_lookup_key(&urepo_table, (unsigned char *)id, sizeof(flexid_t)))) goto out;
+  if (!(hentry = hash_table_lookup_key(&urepo_table, id->identity, id->length))) goto out;
   
   tmp = hash_entry(hentry, struct id_entry, entry);
   APP_LOG1s("File name", tmp->fn);

@@ -74,8 +74,11 @@ int add_id_name_map(flexid_t *id, unsigned char *name)
   APP_LOG("Copy id into tmp");
   memcpy(tmp->fn, name, strlen(name));
   APP_LOG("Copy file name into the hash entry");
+  APP_LOG1s("File name", tmp->fn);
 
   hash_table_insert(&urepo_table, &tmp->entry, id->identity, id->length);
+  APP_LOG1x("identity", id->identity[3]);
+  APP_LOG1d("id length", id->length);
 
   APP_LOG("Add the Flex ID into the ID Table complete");
 
@@ -95,6 +98,9 @@ unsigned char *get_filename_by_id(flexid_t *id)
   result = (unsigned char *)malloc(MAX_FILE_PATH_SIZE);
 
   APP_LOG("Get the filename by Flex ID");
+
+  APP_LOG1x("identity", id->identity[3]);
+  APP_LOG1d("id length", id->length);
 
   err = -NO_ENTRY;
   if (!(hentry = hash_table_lookup_key(&urepo_table, id->identity, id->length))) goto out;

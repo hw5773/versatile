@@ -84,6 +84,9 @@ extern int flex_unreliable_sendmsg_test(struct socket *, struct msghdr *, size_t
 extern int flex_unreliable_recvmsg(struct socket *, struct msghdr *, size_t, int);
 extern int flex_unreliable_release(struct socket *);
 
+/* Destructor */
+extern void flex_skb_destructor(struct sock *sk, struct sk_buff *skb);
+
 /* test output */
 extern int test_output(struct sk_buff *);
 

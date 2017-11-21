@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
   if ((err = test_pub()) < 0) goto out;
 
-  if ((err = pub(fn)) < 0) goto out;
+//  if ((err = pub(fn)) < 0) goto out;
 
   if ((err = start_repo()) < 0) goto out;
 

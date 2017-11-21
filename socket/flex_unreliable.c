@@ -232,8 +232,12 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   fhdr = (struct uflexhdr *)(skb->head + skb->network_header);
   FLEX_LOG1x("Hash Type", fhdr->common.hash_type);
+  FLEX_LOG1d("Hop Limit", fhdr->common.hop_limit);
+  FLEX_LOG1d("Header Length", ntohs(fhdr->common.header_len));
+  FLEX_LOG1x("Checksum", ntohs(fhdr->common.check));
+  FLEX_LOG1x("Packet ID", ntohs(fhdr->common.frag_off));
   FLEX_LOG1x("Packet Type", fhdr->common.packet_type);
-  FLEX_LOG1d("Packet Length", fhdr->packet_len);
+  FLEX_LOG1d("Packet Length", ntohs(fhdr->packet_len));
 
 	return SUCCESS;
 

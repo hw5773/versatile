@@ -214,13 +214,11 @@ out:
  */
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
-  int i, err, off, peeked, len, copied, reserve, hlen, plen, bytes;
+  int err, off, peeked, hlen, plen, bytes;
   struct sock *sk = sock->sk;
-  struct flex_sock *flex = flex_sk(sk);
   struct sockaddr_flex *faddr = (struct sockaddr_flex *)msg->msg_name;
   struct sk_buff *skb;
   struct uflexhdr *fhdr;
-  struct net_device *dev;
   unsigned char ptype;
 
   skb = __skb_recv_datagram(sk, flags, flex_skb_destructor, &peeked, &off, &err);
@@ -242,6 +240,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   ptype = fhdr->common.packet_type;       // Packet Type
   hlen = ntohs(fhdr->common.header_len);  // Header Length
   plen = ntohs(fhdr->packet_len);         // Packet Length (Header Length + Data)
+  bytes = 0;
 
   switch(ptype)
   {
@@ -260,7 +259,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-	return SUCCESS;
+	return bytes;
 
 out:
   return err;

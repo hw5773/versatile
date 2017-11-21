@@ -56,12 +56,17 @@ int start_repo()
 {
   int rcvd;
   unsigned char buf[BUF_SIZE];
+  unsigned char *fn;
+  flexid_t id;
 
   while (1)
   {
     if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
+      memcpy(&id, buf, rcvd);
+      fn = get_filename_by_id(&id);
+      APP_LOG1s("Filename", fn);
     }
   }
 

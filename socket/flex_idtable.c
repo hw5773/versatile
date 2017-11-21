@@ -94,13 +94,15 @@ int id_exist(flexid_t *id, struct id_table *table)
  */
 int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
 {
+  int err;
   unsigned int slot;
   struct id_hslot *hslot;
   struct flexid_entity *flex;
 
-  flex = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC);
-  flex->id = (flexid_t *)kmalloc(sizeof(flexid_t), GFP_ATOMIC);
-  flex->sk = (struct sock *)kmalloc(sizeof(struct sock), GFP_ATOMIC);
+  err = -ERROR_MALLOC;
+  if (!(flex = (struct flexid_entity *)kmalloc(sizeof(struct flexid_entity), GFP_ATOMIC))) goto out;
+  if (!(flex->id = (flexid_t *)kmalloc(sizeof(flexid_t), GFP_ATOMIC))) goto out;
+  if (!(flex->sk = (struct sock *)kmalloc(sizeof(struct sock), GFP_ATOMIC))) goto out;
   FLEX_LOG("initialize flex id entity");
   memcpy(flex->id, id, sizeof(flexid_t));
   memcpy(flex->sk, sk, sizeof(struct sock));

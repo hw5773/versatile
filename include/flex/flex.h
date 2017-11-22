@@ -41,7 +41,7 @@ extern struct hash_table urepo_table;
 #define FIFTH2   0x2a
 #define SIXTH2   0xfc
 
-#define TEST_FILE_PATH "~/versatile/apps/flex/test.txt"
+#define TEST_FILE_PATH "/home/ubuntu/versatile/apps/flex/test.txt"
 #define MAX_FILE_PATH_SIZE 256
 #define BUF_SIZE 1024
 

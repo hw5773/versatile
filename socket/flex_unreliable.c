@@ -195,6 +195,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   {
     FLEX_LOG1s("Message", content);
     memcpy(flexh + sizeof(uflexhdr_t), content, size);
+    kfree(content);
   }
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
@@ -231,7 +232,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   struct uflexhdr *fhdr;
   unsigned char ptype;
 
-#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,5,0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,5,0)
   skb = __skb_recv_datagram(sk, flags, flex_skb_destructor, &peeked, &off, &err);
 #else
   skb = __skb_recv_datagram(sk, flags, &peeked, &off, &err);

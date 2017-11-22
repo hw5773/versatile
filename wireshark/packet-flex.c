@@ -104,10 +104,10 @@ dissect_flex(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree _U_, void *data
 	offset += FLEX_ID_LENGTH; 
 	proto_tree_add_item(flex_tree, hf_flex_packet_len, tvb, offset, 2, ENC_BIG_ENDIAN);
 	offset += 2;
-	proto_tree_add_item(flex_tree, hf_flex_seq, tvb, offset, 4, ENC_BIG_ENDIAN);
-	offset += 4;
-	proto_tree_add_item(flex_tree, hf_flex_ack, tvb, offset, 4, ENC_BIG_ENDIAN);
-	offset += 4;
+//	proto_tree_add_item(flex_tree, hf_flex_seq, tvb, offset, 4, ENC_BIG_ENDIAN);
+//	offset += 4;
+//	proto_tree_add_item(flex_tree, hf_flex_ack, tvb, offset, 4, ENC_BIG_ENDIAN);
+//	offset += 4;
 
 	return tvb_captured_length(tvb);
 }

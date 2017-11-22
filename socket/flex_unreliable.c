@@ -11,6 +11,7 @@
 #include <linux/err.h>
 #include <linux/time.h>
 #include <linux/netdevice.h>
+#include <linux/version.h>
 
 #include "flex_sock.h"
 #include "flex_dev_types.h"
@@ -114,6 +115,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   sk = sock->sk;
   flex = flex_sk(sk);
+  content = NULL;
 
   FLEX_LOG("Find the device to send");
   for (i=0; i<MAX_DEV_TYPES; i++)
@@ -190,7 +192,10 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN + size);
 
   if (content)
+  {
+    FLEX_LOG1s("Message", content);
     memcpy(flexh + sizeof(uflexhdr_t), content, size);
+  }
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
   {
@@ -226,7 +231,11 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   struct uflexhdr *fhdr;
   unsigned char ptype;
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,5,0)
   skb = __skb_recv_datagram(sk, flags, flex_skb_destructor, &peeked, &off, &err);
+#else
+  skb = __skb_recv_datagram(sk, flags, &peeked, &off, &err);
+#endif
 
   if (!skb) goto out;
 

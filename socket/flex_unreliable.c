@@ -177,13 +177,16 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
+  FLEX_LOG2s("Source Flex ID", &flex->src, flex->src.length);
+  FLEX_LOG2s("Destination Flex ID", &flex->dst, flex->dst.length);
+
   flexh->common.hash_type = htons(FLEX_SHA1);
   flexh->common.hop_limit = htons(DEFAULT_HOP_LIMIT);
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
   flexh->common.check = htons(0x1234);
   flexh->common.packet_id = htons(0x7777);
   flexh->common.frag_off = htons(FLEX_PTC_UNRELIABLE | FLEX_DF | 0x365);
-  memset(flexh->sflex_id, '1', FLEX_ID_LENGTH);
+  memcpy(flexh->sflex_id, &flex->src, flex->src.length);
   memcpy(flexh->dflex_id, &flex->dst, flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
 

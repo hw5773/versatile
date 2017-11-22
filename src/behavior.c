@@ -125,7 +125,8 @@ int get(flexid_t *id, char *buf, int *len)
   target_id.message = FLEX_INTEREST;
 
   APP_LOG("Set the Message Info to Target ID");
-  APP_LOG2s("id identity", id->identity, id->length - 1);
+  APP_LOG2s("sid identity", target_id.sid, sid->length - 1);
+  APP_LOG2s("tid identity", target_id.tid, id->length - 1);
 
   target_id.addr_type = resp->addr_type;
   target_id.addr_len = resp->addr_len;
@@ -178,6 +179,8 @@ int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
 
   APP_LOG("Unreliable Put message");
 
+  APP_LOG1s("Check the content", buf);
+
   if ((err = test_request2(tid, &resp)) < 0) goto out;
 
   err = -NO_SOCK;
@@ -206,6 +209,8 @@ int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
   APP_LOG("Send the DATA Message");
 
   if ((err = write(sock, buf, *len)) < 0) goto out_write;
+
+  APP_LOG("Send the DATA Success");
 
   return SUCCESS;
 

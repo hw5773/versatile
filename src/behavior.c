@@ -75,12 +75,15 @@ int start_repo()
       fn = get_filename_by_id(&id2);
       APP_LOG1s("File name", fn);
       fp = fopen(fn, "rb");
+      fseek(fp, 0L, SEEK_END);
       fsize = ftell(fp);
+      fseek(fp, 0L, SEEK_SET);
 
       APP_LOG1d("File length", fsize);
 
       content = (unsigned char *)malloc(fsize + 1);
       fread(content, fsize, 1, fp);
+      len = fsize;
 
       put(&id1, &id2, content, &len);
     }
@@ -202,7 +205,7 @@ int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
 
   APP_LOG("Send the DATA Message");
 
-  if ((err = write(sock, NULL, 0)) < 0) goto out_write;
+  if ((err = write(sock, buf, *len)) < 0) goto out_write;
 
   return SUCCESS;
 

@@ -135,7 +135,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   else
     FLEX_LOG1s("Device Name", netdev_name(dev));
 
-  skb = alloc_skb(sizeof(uflexhdr_t) + LL_RESERVED_SPACE(dev), GFP_ATOMIC);
+  skb = alloc_skb(sizeof(uflexhdr_t) + LL_RESERVED_SPACE(dev) + size, GFP_ATOMIC);
 
   if (!skb)
   {
@@ -273,6 +273,8 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
       err = -NO_SUPPORT;
       goto out;
   }
+
+  skb_free_datagram(sk, skb);
 
 	return bytes;
 

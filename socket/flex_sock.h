@@ -40,7 +40,6 @@ struct flex_sock
   short         addr_type;              /**< The address type of the next hop */
   unsigned char addr_len;               /**< The length of the address in the next hop */
   unsigned char next_hop[MAX_ADDR_LEN]; /**< The address of the next hop */
-  int forward_deficit;
 };
 
 /* Change the general sock into flex sock */

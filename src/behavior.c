@@ -101,7 +101,6 @@ int start_repo()
  */
 int get(flexid_t *id, char *buf, int *len)
 {
-  // TODO: Need to reflect buf
   int sock, i, err, rcvd;
   struct sockaddr_flex target_id;
   flexid_t *sid;    // TODO: Need to change this to be automated.
@@ -148,7 +147,7 @@ int get(flexid_t *id, char *buf, int *len)
     if ((rcvd = read(sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
-      APP_LOG1s("Result", buf);
+      APP_LOG2s("Result", buf, rcvd);
       break;
     }
   }

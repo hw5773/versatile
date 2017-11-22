@@ -277,28 +277,7 @@ out:
  */
 void flex_skb_destructor(struct sock *sk, struct sk_buff *skb)
 {
-  struct flex_sock *flex;
-  int amt, size;
   FLEX_LOG("Destructor");
-
-  flex = flex_sk(sk);
-  size = skb->dev_scratch;
-  
-  flex->forward_deficit += size;
-  size = flex->forward_deficit;
-
-  if (size < (sk->sk_rcvbuf >> 2) && !skb_queue_empty(&sk->sk_receive_queue))
-    return;
-
-  flex->forward_deficit = 0;
-  sk->sk_forward_alloc += size;
-  amt = (sk->sk_forward_alloc - 1) & ~(SK_MEM_QUANTUM - 1);
-  sk->sk_forward_alloc = amt;
-
-  if (amt)
-    __sk_mem_reduce_allocated(sk, amt >> SK_MEM_QUANTUM_SHIFT);
-
-  atomic_sub(size, &sk->sk_rmem_alloc);
 }
 
 /**

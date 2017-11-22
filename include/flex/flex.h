@@ -27,6 +27,7 @@ extern int urepo_sock;
 extern struct hash_table urepo_table;
 
 /* For the test definitions and functions */
+/* subscriber -> publisher */
 #define FIRST1   0x00
 #define SECOND1  0x0c
 #define THIRD1   0x29
@@ -34,6 +35,7 @@ extern struct hash_table urepo_table;
 #define FIFTH1   0x8d
 #define SIXTH1   0x25
 
+/* publisher -> subscriber */
 #define FIRST2   0x00
 #define SECOND2  0x0c
 #define THIRD2   0x29

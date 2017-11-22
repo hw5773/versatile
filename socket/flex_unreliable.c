@@ -62,7 +62,7 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   FLEX_LOG("Bind the Socket with the Target ID");
 
   id_info = target_info(taddr);
-  id = &id_info->tid;
+  id = &id_info->sid;
   sk = sock->sk;
   flex = flex_sk(sk);
 
@@ -176,6 +176,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       err = -WRONG_MESSAGE_TYPE;
       goto out;
   }
+
+  FLEX_LOG1d("Message Size", size);
 
   flexh->common.hash_type = FLEX_SHA1;
   flexh->common.hop_limit = DEFAULT_HOP_LIMIT;

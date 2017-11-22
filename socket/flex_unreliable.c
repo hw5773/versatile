@@ -177,8 +177,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-  flexh->common.hash_type = htons(FLEX_SHA1);
-  flexh->common.hop_limit = htons(DEFAULT_HOP_LIMIT);
+  flexh->common.hash_type = FLEX_SHA1;
+  flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
   flexh->common.check = htons(0x1234);
   flexh->common.packet_id = htons(0x7777);

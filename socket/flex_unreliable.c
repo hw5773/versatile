@@ -106,7 +106,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   struct sock *sk;
   struct flex_sock *flex;
   struct sk_buff *skb;
-  struct uflexhdr *flexh;
+  uflexhdr_t *flexh;
   unsigned char *content;
   DECLARE_SOCKADDR(struct sockaddr_flex *, usflex, msg->msg_name);
 
@@ -148,7 +148,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   skb->dev = dev;
   skb->protocol = htons(ETH_P_FLEX);
 
-  flexh = (struct uflexhdr *)skb_put(skb, sizeof(struct uflexhdr));
+  flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t) + size);
   flexh->common.version = FLEX_1_0;
 
   FLEX_LOG("Find the message type");
@@ -187,7 +187,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   flexh->common.frag_off = htons(FLEX_PTC_UNRELIABLE | FLEX_DF | 0x365);
   memcpy(flexh->sflex_id, &flex->src, flex->src.length);
   memcpy(flexh->dflex_id, &flex->dst, flex->dst.length);
-  flexh->packet_len = htons(UNRELIABLE_HEADER_LEN);
+  flexh->packet_len = htons(UNRELIABLE_HEADER_LEN + size);
+  memcpy(flexh + sizeof(uflexhdr_t), content, size);
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
   {

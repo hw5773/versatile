@@ -16,4 +16,5 @@ int init_repo_sock(void);
 int init_repo_table(void);
 void free_repo(void);
 int add_id_name_map(flexid_t *id, unsigned char *name);
+unsigned char *get_filename_by_id(flexid_t *id);
 #endif /* __FLEX_REPO__ */

@@ -141,7 +141,7 @@ int get(flexid_t *id, char *buf, int *len)
 
   while (1)
   {
-    if ((bytes = read(sock, buf, BUF_SIZE)) >= 0)
+    if ((rcvd = read(sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
       APP_LOG1s("Result", buf);

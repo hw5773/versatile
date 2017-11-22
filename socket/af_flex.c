@@ -142,6 +142,7 @@ static int flex_create(struct net *net, struct socket *sock, int protocol, int k
 	flex = flex_sk(sk);
 
 	sock_init_data(sock, sk);
+  flex->forward_deficit = 0;
 
 	FLEX_LOG("Initialize the socket data");
 

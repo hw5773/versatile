@@ -125,8 +125,8 @@ int get(flexid_t *id, char *buf, int *len)
   target_id.message = FLEX_INTEREST;
 
   APP_LOG("Set the Message Info to Target ID");
-  APP_LOG2s("sid identity", target_id.sid, sid->length - 1);
-  APP_LOG2s("tid identity", target_id.tid, id->length - 1);
+  APP_LOG2s("sid identity", sid, sid->length - 1);
+  APP_LOG2s("tid identity", id, id->length - 1);
 
   target_id.addr_type = resp->addr_type;
   target_id.addr_len = resp->addr_len;

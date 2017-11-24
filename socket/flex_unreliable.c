@@ -242,7 +242,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   if (size < copied)
   {
     msg->msg_flags |= MSG_TRUNC;
-    copied = len;
+    copied = size;
   }
 
   err = skb_copy_datagram_msg(skb, 0, msg, copied);

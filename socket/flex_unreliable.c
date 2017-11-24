@@ -208,8 +208,6 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   dev_queue_xmit(skb);
   FLEX_LOG("Send the Frame");
 
-  __kfree_skb(skb);
-
 	return SUCCESS;
 
 out:
@@ -226,23 +224,30 @@ out:
  */
 int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size, int flags)
 {
-  int err, off, peeked, hlen, plen, bytes;
+  int err, copied, hlen, plen, bytes;
   struct sock *sk = sock->sk;
   struct sockaddr_flex *faddr = (struct sockaddr_flex *)msg->msg_name;
   struct sk_buff *skb;
   struct uflexhdr *fhdr;
   unsigned char ptype;
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,5,0)
-  skb = __skb_recv_datagram(sk, flags, flex_skb_destructor, &peeked, &off, &err);
-#else
-  skb = __skb_recv_datagram(sk, flags, &peeked, &off, &err);
-#endif
+  skb = skb_recv_datagram(sk, flags, 1, &err);
 
   if (!skb) goto out;
 
   if (skb->len == 0)
-    goto out;
+    goto done;
+
+  copied = skb->len;
+  if (size < copied)
+  {
+    msg->msg_flags |= MSG_TRUNC;
+    copied = len;
+  }
+
+  err = skb_copy_datagram_msg(skb, 0, msg, copied);
+  if (err)
+    goto done;
 
   fhdr = (struct uflexhdr *)(skb->head + skb->network_header);
   FLEX_LOG1x("Hash Type", fhdr->common.hash_type);
@@ -275,12 +280,12 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-  __kfree_skb(skb);
-//  consume_skb(skb);
-//  skb_free_datagram(sk, skb);
+  skb_free_datagram(sk, skb);
 
 	return bytes;
 
+done:
+  skb_free_datagram(sk, skb);
 out:
   return err;
 }
@@ -352,12 +357,12 @@ no_slot:
 	sock_set_flag(sk, SOCK_DEAD);
 	sock_set_flag(sk, SOCK_DESTROY);
 
-	FLEX_LOG("Invoke sock_orphan()");
-	sock_orphan(sk);
-	FLEX_LOG("Invoke release_sock()");
-	release_sock(sk);
-	FLEX_LOG("Invoke sock_put()");
-	sock_put(sk);
+//	FLEX_LOG("Invoke sock_orphan()");
+//	sock_orphan(sk);
+//	FLEX_LOG("Invoke release_sock()");
+//	release_sock(sk);
+//	FLEX_LOG("Invoke sock_put()");
+//	sock_put(sk);
 
   sock->sk = NULL;
 

@@ -18,6 +18,17 @@ void id_table_init(struct id_table *table, const char *name)
   int i;
 
   FLEX_LOG("Start to initialize the Unreliable Table");
+/*
+  table->hash = alloc_large_system_hash(name, 2 * sizeof(struct id_hslot),
+                                        idhash_entries,
+                                        21,
+                                        0,
+                                        &table->log,
+                                        &table->mask,
+                                        MIN_IDTABLE_SIZE,
+                                        64 * 1024);
+*/
+  
   table->hash = kmalloc(MIN_IDTABLE_SIZE * 2 * sizeof(struct id_hslot), GFP_ATOMIC);
   if (!(table->hash))
   {
@@ -42,6 +53,7 @@ void id_table_init(struct id_table *table, const char *name)
  */
 void id_table_exit(struct id_table *table)
 {
+/**
   int i;
   struct flexid_entity *flex;
   struct id_hslot *hslot;
@@ -58,6 +70,7 @@ void id_table_exit(struct id_table *table)
     spin_unlock_bh(&hslot->lock);
   }
   kfree(table->hash);
+**/
 }
 
 /**

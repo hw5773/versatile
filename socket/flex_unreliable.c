@@ -150,7 +150,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   skb->dev = dev;
   skb->protocol = htons(ETH_P_FLEX);
 
-  flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t) + size);
+  flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t));
   flexh->common.version = FLEX_1_0;
 
   FLEX_LOG("Find the message type");
@@ -179,8 +179,6 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-  FLEX_LOG1d("Message Size", size);
-
   flexh->common.hash_type = FLEX_SHA1;
   flexh->common.hop_limit = DEFAULT_HOP_LIMIT;
   flexh->common.header_len = htons(UNRELIABLE_HEADER_LEN);
@@ -193,9 +191,10 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   if (content)
   {
-    FLEX_LOG1s("Message", content);
-    memcpy(flexh + sizeof(uflexhdr_t), content, size);
-    kfree(content);
+    content = skb_put(skb, size);
+    memcpy_from_msg(content, msg, size);
+    FLEX_LOG1s("Message Copy 1", flexh + sizeof(uflexhdr_t));
+    FLEX_LOG1s("Message Copy 2", content);
   }
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
@@ -208,6 +207,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   FLEX_LOG("Make Header Frame Success");
   dev_queue_xmit(skb);
   FLEX_LOG("Send the Frame");
+
+  __kfree_skb(skb);
 
 	return SUCCESS;
 
@@ -274,7 +275,9 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
       goto out;
   }
 
-  skb_free_datagram(sk, skb);
+  __kfree_skb(skb);
+//  consume_skb(skb);
+//  skb_free_datagram(sk, skb);
 
 	return bytes;
 

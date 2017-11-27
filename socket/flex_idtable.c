@@ -124,8 +124,10 @@ int add_id_to_table(flexid_t *id, struct sock *sk, struct id_table *table)
 
   hslot = &table->hash[slot];
 
+  spin_lock_bh(&hslot->lock);
   hlist_add_head_rcu(&flex->flex_node, &hslot->head);
   hslot->count++;
+  spin_unlock_bh(&hslot->lock);
 
   FLEX_LOG("Add the ID complete");
 

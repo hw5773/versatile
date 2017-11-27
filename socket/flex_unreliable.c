@@ -78,8 +78,10 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   for (i=0; i<(id_info->addr_len); i++)
     flex->next_hop[i] = id_info->next_hop[i];
 
+  /*
   if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
   FLEX_LOG("Add ID to socket map succeed");
+  */
 
   return SUCCESS;
 
@@ -245,9 +247,9 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
     copied = size;
   }
 
-  err = skb_copy_datagram_msg(skb, 0, msg, copied);
-  if (err)
-    goto done;
+//  err = skb_copy_datagram_msg(skb, 0, msg, copied);
+//  if (err)
+//    goto done;
 
   fhdr = (struct uflexhdr *)(skb->head + skb->network_header);
   FLEX_LOG1x("Hash Type", fhdr->common.hash_type);

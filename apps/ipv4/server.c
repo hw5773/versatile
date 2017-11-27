@@ -4,8 +4,12 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <flex/flex.h>
+#include <flex/flex_repo.h>
 
-#include "proto_flex.h"
+#define FLEX_PORT 3333
+
+//#include "proto_flex.h"
 
 void error_handling(char *message);
 
@@ -13,19 +17,23 @@ int main(int argc, char *argv[])
 {
 	int serv_sock;
 	int clnt_sock;
-	int rc, len, packet_len;
+	int i, rc, len, fsize;
+  int err;
+
+  unsigned char *fn, *content;
 
 	struct sockaddr_in serv_addr;
 	struct sockaddr_in clnt_addr;
-	struct flexhdr *flex;
-	struct flexhdr *resp;
+
 	socklen_t clnt_addr_size;
 
 	char buf[256];
-	char message[] = "{ \"error\" : \"0\"}";
-	int message_len = strlen(message);
 
 	int port;
+
+  flexid_t *tid;
+  flexid_t id;
+  FILE *fp;
 
 	if (argc == 1)
 	{
@@ -42,6 +50,28 @@ int main(int argc, char *argv[])
 	}
 
 	APP_LOG("Start Flex ID Test Server Application");
+
+  if ((err = init_repo_table()) < 0) goto out;
+
+  err = -ERROR_MALLOC;
+  if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
+
+  set_cache_bit(tid, TRUE);
+  set_segment_bit(tid, FALSE);
+  set_collision_avoidance_bit(tid, FALSE);
+
+  for (i=0; i<10; i++)
+    tid->identity[i] = 0x41;
+
+  for (i=10; i<20; i++)
+    tid->identity[i] = 0x42;
+
+  tid->length = FLEX_ID_LENGTH;
+
+  APP_LOG("Set the Test Flex ID");
+
+  err = -ERROR_ADD_ID;
+  if ((err = add_id_name_map(tid, TEST_FILE_PATH)) < 0) goto out;
 
 	serv_sock = socket(PF_INET, SOCK_STREAM, 0);
 	if (serv_sock == -1)
@@ -66,70 +96,50 @@ int main(int argc, char *argv[])
 	
 	APP_LOG("Start Listening on the Port");
 
-	clnt_addr_size = sizeof(clnt_addr);
-	clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_addr, &clnt_addr_size);
+  while (1)
+  {
+	  clnt_addr_size = sizeof(clnt_addr);
+	  clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_addr, &clnt_addr_size);
 
-	APP_LOG("Accept the Client");
+	  APP_LOG("Accept the Client");
 
-	if (clnt_sock == -1)
-		error_handling("accept() error");
+	  if (clnt_sock < -1)
+		  error_handling("accept() error");
 
-	APP_LOG("Receive the Join message");
-	len = read(clnt_sock, buf, sizeof(buf));
-	if (len == -1)
-		error_handling("read() error");
+	  len = read(clnt_sock, buf, sizeof(buf));
+	  if (len == -1)
+		  error_handling("read() error");
 	
-	printf("Recv Length: %d\n", len);
-	printf("Message: %s\n", (buf + DEFAULT_HEADER_LEN));
-	parse_flex_header(buf, len, &flex);
-	print_flex_header(flex);
+	  APP_LOG1d("Recv Length", len);
+    APP_LOG1s("Received", buf);
+    memcpy(&id, buf, len);
+    id.length = FLEX_ID_LENGTH;
+    APP_LOG2s("identity2", id.identity, id.length - 1);
 
-	APP_LOG("Generate the Join ACK message");
+    fn = get_filename_by_id(&id);
+    APP_LOG1s("File name", fn);
+    fp = fopen(fn, "rb");
+    fseek(fp, 0L, SEEK_END);
+    fsize = ftell(fp);
+    fseek(fp, 0L, SEEK_SET);
 
-	rc = init_flex_header(&resp);
+    APP_LOG1d("File length", fsize);
 
-	if (!rc)
-	{
-		APP_LOG("Initialize the Flex Header Success");
-	}
-	else
-	{
-		APP_LOG("Initialize the Flex Header Failure\n");
-		exit(1);
-	}
+    content = (unsigned char *)malloc(fsize + 1);
+    fread(content, fsize, 1, fp);
+    len = fsize;
 
-	resp->version = FLEX_1_0;
-	resp->packet_type = FLEX_JOIN_ACK;
-	resp->hash_type = SHA1;
-	resp->hop_limit = DEFAULT_HOP_LIMIT;
-	resp->header_len = htons(DEFAULT_HEADER_LEN);
-	resp->check = htons(0x1234);
-	resp->packet_id = htons(0x7777);
-	resp->frag_off = htons(0x8000 | 0x2000 | 0x365);
-	memset(resp->sflex_id, '7', FLEX_ID_LENGTH);
-	memset(resp->dflex_id, '1', FLEX_ID_LENGTH);
-	resp->packet_len = htons(DEFAULT_HEADER_LEN + message_len);
-	resp->seq = htonl(0x98765431);
-	resp->ack = htonl(0x12345678 + ntohs(flex->packet_len));
+	  write(clnt_sock, content, len);
+    close(clnt_sock);
+  }
 
-	print_flex_header(resp);
-
-	packet_len = ntohs(resp->packet_len);
-
-	memcpy(buf, resp, ntohs(resp->header_len));
-	memcpy(buf + ntohs(resp->header_len), message, message_len);
-
-	APP_LOG("Send the message");
-	len = write(clnt_sock, buf, packet_len);
-	printf("Sent Length: %d\n", len);
-
-	free_flex_header(flex);
-	free_flex_header(resp);
-
-	close(clnt_sock);
 	close(serv_sock);
 
 	return 0;
+
+out:
+  APP_LOG1d("Error", err);
+  return err;
 }
 
 void error_handling(char *message)

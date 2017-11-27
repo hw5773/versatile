@@ -4,22 +4,24 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <flex/flex.h>
 
-#include "proto_flex.h"
+#define FLEX_PORT 3333
+
+//#include "proto_flex.h"
 
 void error_handling(char *buf);
 
 int main(int argc, char *argv[])
 {
-	int sock;
+	int sock, err;
 	struct sockaddr_in serv_addr;
 	struct flexhdr *flex;
 	struct flexhdr *resp;
 	char buf[256];
-	int rc, len;
-
-	char message[] = "{ \"interface\" : \"wire\", \"bandwidth\" : \"10 Mbps\" }";
-	int message_len = strlen(message);
+	int i, rc, len;
+  flexid_t *id;
+  unsigned long start, end;
 
 	if (argc != 3)
 	{
@@ -46,61 +48,41 @@ int main(int argc, char *argv[])
 		error_handling("connect() error");
 	
 	APP_LOG("Connect to the Server");
+  
+  err = -ERROR_MALLOC;
+  if (!(id = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
-	APP_LOG("Send the JOIN message");
+  set_cache_bit(id, TRUE);
+  set_segment_bit(id, FALSE);
+  set_collision_avoidance_bit(id, FALSE);
 
-	rc = init_flex_header(&flex);
+  for (i=0; i<10; i++)
+    id->identity[i] = 0x41;
 
-	if (!rc)
-	{
-		APP_LOG("Initialize the Flex Header Success");
-	}
-	else
-	{
-		APP_LOG("Initialize the Flex Header Failure");
-		exit(1);
-	}
+  for (i=10; i<20; i++)
+    id->identity[i] = 0x42;
 
-    flex->version = FLEX_1_0;
-    flex->packet_type = FLEX_JOIN;
-    flex->hash_type = SHA1;
-    flex->hop_limit = DEFAULT_HOP_LIMIT;
-    flex->header_len = htons(DEFAULT_HEADER_LEN);
-    flex->check = htons(0x1234);
-    flex->packet_id = htons(0x7777);
-    flex->frag_off = htons(0x8000 | 0x2000 | 0x365);
-    memset(flex->sflex_id, '1', FLEX_ID_LENGTH);
-    memset(flex->dflex_id, '7', FLEX_ID_LENGTH);
-    flex->packet_len = htons(DEFAULT_HEADER_LEN + message_len);
-    flex->seq = htonl(0x12345678);
-    flex->ack = htonl(0x98765432);
+  id->length = FLEX_ID_LENGTH;
 
-	print_flex_header(flex);
+  APP_LOG("Set the Test Flex ID");
+  memcpy(buf, id, id->length);
 
-	int packet_len = ntohs(flex->packet_len);
-
-    memcpy(buf, flex, ntohs(flex->header_len));
-    memcpy(buf + ntohs(flex->header_len), message, message_len);
-
-    len = write(sock, buf, packet_len);
-    printf("Sent Length: %d\n", len);
-    APP_LOG("Send the message");
-
-	memset(buf, '\0', sizeof(buf));
+  start = get_current_microseconds();
+  len = write(sock, buf, id->length);
 	len = read(sock, buf, sizeof(buf));
+  end = get_current_microseconds();
+
 	if (len == -1)
 		error_handling("read() error");
 	
-	printf("Recv Length: %d\n", len);
-	printf("Message: %s\n", (buf + DEFAULT_HEADER_LEN));
-	parse_flex_header(buf, len, &resp);
-	print_flex_header(resp);
-
-	free_flex_header(flex);
-	free_flex_header(resp);
+  APP_LOG1s("Received", buf);
 
 	close(sock);
 	return 0;
+
+out:
+  APP_LOG1d("Error", err);
+  return err;
 }
 
 void error_handling(char *buf)

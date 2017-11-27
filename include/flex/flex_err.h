@@ -25,6 +25,7 @@
 #define ERROR_MISTYPE       311
 #define ERROR_BIND          312
 #define ERROR_SIZE          313
+#define ERROR_ADD_ID        314
 
 void error_handling(char *);
 

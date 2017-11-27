@@ -38,7 +38,6 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     memcpy(fid, uflex->dflex_id, FLEX_ID_LENGTH);
     fid->length = FLEX_ID_LENGTH;
   	sk = get_sock_by_id(fid, &id_table);
-    kfree(fid);
 
     if (!sk)
     {
@@ -51,6 +50,7 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     FLEX_LOG1d("Invoke sock_queue_rcv_skb complete", ret);
   }
 
+  kfree(fid);
 	return SUCCESS;
 
 out:

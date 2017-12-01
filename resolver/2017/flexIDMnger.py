@@ -13,7 +13,6 @@ import time
 broker = "202.30.19.96"
 db_broker = "202.30.19.96"
 
-# global 
 deviceID_cache = {}
 dbQuery_cache = {}
 collision_inc = 4
@@ -56,7 +55,7 @@ Send query to a DB (and wait a response if it is necessary).
 
 def gen_flag(cache_bit, segment_bit, collision_mngt):
 '''
-Generate flag for FlexID 
+Generate a flag for FlexID.
 
 @param cache_bit        Cache bit
 @param segment_bit      Segment bit
@@ -80,10 +79,10 @@ Generate flag for FlexID
 
 def join_genID(deviceID, flag):
 '''
-Generate new Device ID using given temporary ID
+Generate new Device ID using given temporary ID.
 
 @param deviceID Temporary device ID
-@param flag     If a given temporary ID exists, increase the management bit for 1
+@param flag     If a collision is detected, add the flag to the ID
 '''
     # deviceID's cache bit and segment flag are 0, thus only use 4 bit management number
     newID = deviceID + str(flag)
@@ -111,11 +110,15 @@ Generate new Device ID using given temporary ID
 
 
 def join(tempID, payload):
+'''
+Register a device.
 
+@param tempID   Temproray ID that a user sets
+#param payload  Message payload
+'''
     print ("\n\n ##Process - Join\n")
     relay = payload.get('relay')
  
-
     try:
         error = 0
         
@@ -181,7 +184,7 @@ def join(tempID, payload):
             if (neighborIface is None) or (neighborIface == "none"):
                 neighborIface = "NULL"
             if (neighborIpv4 is None) or (neighborIpv4 == "none"):
-                neighborIpv4 = "NULL"
+                neighborIpv4 = "NULLs"
             if (neighborHwAddress is None) or (neighborHwAddress == "none"):
                 neighborHwAddress = "NULL"
             if (neighborFlexID is None) or (neighborFlexID == "none"):
@@ -221,6 +224,12 @@ def join(tempID, payload):
 
 # Unjoin the target device
 def leave(tempID, payload):
+'''
+Remove a device from the network (also related information).
+
+@param tempID   Flex ID of a device who sent the leave message
+@param payload  Message payload
+'''
     print ("\n\n ##Process - Leave\n")
 
     relay = payload.get('relay')
@@ -262,7 +271,12 @@ def leave(tempID, payload):
  
 
 def register_genID(hash_val, flag):
+'''
+Generate a Flex ID of content or service for which needs collision avoidance.
 
+@param hash_val Hash value of a service/contnet
+@param flag     If a collision is detected, add the flag to the ID 
+'''
     newID = hash_val + str(flag)
    
     print ("\nCheck ID collision...\n")
@@ -282,6 +296,12 @@ def register_genID(hash_val, flag):
 
 
 def register(tempID, payload):
+'''
+Register a content or service to the network.
+
+@param tempID   Flex ID of a device who sent the register message
+@param payload  Message payload
+'''
     print ("\n\n ##Process - Register\n")     
     
     relay = payload.get('relay')
@@ -330,11 +350,14 @@ def register(tempID, payload):
 
             # generate service/content ID
             hash_val = item.get('hash')
+            # generate a flag for FlexID
             flag = gen_flag(cache, segment, 0)
             
             if collisionAvoid:
+                # usually Service
                 newID = register_genID(hash_val, flag)
             else:
+                # usually Content
                 newID = hash_val + str(flag)
             
             temp = {index:newID}
@@ -378,6 +401,12 @@ def register(tempID, payload):
 
 
 def update(tempID, payload):
+'''
+Update attributes of a content or service.
+
+@param tempID   Flex ID of a device who sent the update message
+@param payload  Message payload
+'''
     print ("\n\n ##Process - Update\n")     
     
     updateID = payload.get('updateID')
@@ -472,7 +501,13 @@ def update(tempID, payload):
 
 
 def query(tempID, payload):
-    #print ("\n ##Process - Query\n")     
+'''
+Process a query and send a reply which contains a list of Flex ID.
+
+@param tempID   Flex ID of a device who sent the query message
+@param payload  Message payload
+'''
+    print ("\n ##Process - Query\n")     
      
     queryID = payload.get('queryID')
     relay = payload.get('relay')
@@ -485,7 +520,7 @@ def query(tempID, payload):
         else:
             deviceID = relay[-1]
    
-        #print ("DeviceID: " + deviceID)
+        print ("DeviceID: " + deviceID)
    
         # Check whether the device exists 
         if deviceID in deviceID_cache:
@@ -515,7 +550,7 @@ def query(tempID, payload):
             metricValue = req.get('metricValue')
             metricOperator = req.get('metricOperator')
 
-        #print ("\nSearching " + queryType + "..")
+        print ("\nSearching " + queryType + "..")
         #TODO: Search content/service from DB
         db_query = {'table':'Device', 'data':[{'deviceId':deviceID}]}
         queryID = send_DBquery(db_query, db_select, True)
@@ -526,7 +561,6 @@ def query(tempID, payload):
         ids = ['TempId1', 'TempId2']
         reply = {"error:": error, "queryID": queryID, "desc": desc, "ids": ids, "relay": relay}
         reply = json.dumps(reply)
-        #print (reply)
         client.publish("/utilization/reply/" + tempID, reply)
         
         print ("\n ##Process Completed - Query\n")
@@ -543,6 +577,9 @@ def query(tempID, payload):
 
 
 def on_connect(client, userdata, flags, rc):
+'''
+Make a connection with the Message Bus. This connection is used to communicate with a client.
+'''
     print ("Connected with the Message Bus ")
     # communication with end-user
     client.subscribe("/configuration/join/#")
@@ -552,6 +589,9 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("/utilization/query/#")
 
 def on_db_connect(client, userdata, flags, rc):
+'''
+Make a connection with the Message Bus. This connection is used to communicate with the DB.
+'''
     print ("Connected with the Message Bus ")
     # communication with DB
     client.subscribe("/dbquery/iack/flexMnger/#")
@@ -562,6 +602,9 @@ def on_db_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
+'''
+Receive messages from a client. And pre-process messages.
+'''
     print ("Subscribe - Topic: " + msg.topic)
     topic = msg.topic.split('/')
     payload = json.loads(msg.payload.decode('utf-8'))
@@ -593,6 +636,9 @@ def on_message(client, userdata, msg):
 
 
 def on_db_message(client, userdata, msg):
+'''
+Receive messages from the DB. And pre-process messages.
+'''
     topic = msg.topic.split('/')
     payload = json.loads(msg.payload.decode('utf-8'))
     print ("DB Subscribe - Topic: " + msg.topic)
@@ -603,15 +649,27 @@ def on_db_message(client, userdata, msg):
 
 
 def on_publish(client, userdata, mid):
+'''
+Publish messages to a client.
+'''
     print ("\n>> Publish a message\n")
 
 def on_subscribe(client, userdata, mid, granted_qos):
+'''
+Subscribe messages from a client.
+'''
     print ("\n<< Subscribe a message\n")
 
 def on_db_publish(client, userdata, mid):
+'''
+Publish messages to the DB.
+'''
     print ("\n>> Publish a message to DB\n")
  
 def on_db_subscribe(client, userdata, mid, granted_qos):
+'''
+Subscribe messages from the DB.
+'''
     print ("\n<< Subscribe a message from DB\n")
 
 

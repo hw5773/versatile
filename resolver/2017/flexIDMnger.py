@@ -27,7 +27,7 @@ def send_DBquery(query, topic, wait):
 '''
 Send query to a DB (and wait a response if it is necessary).
 
-@param query    Payload of message
+@param query    Payload of a message
 @param topic    SQL statement ex) insert
 @param wait     If this param is set, should wait a response
 '''

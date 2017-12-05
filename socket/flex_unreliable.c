@@ -152,6 +152,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   skb_reserve(skb, LL_RESERVED_SPACE(dev));
   skb->dev = dev;
   skb->protocol = htons(ETH_P_FLEX);
+  skb_set_network_header(skb, skb->len);
+  skb->transport_header = skb->network_header;
 
   flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t) + size);
   flexh->common.version = FLEX_1_0;

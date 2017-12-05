@@ -357,6 +357,7 @@ int flex_unreliable_release(struct socket *sock)
 
 no_slot:
   FLEX_LOG("Come to no slot");
+  lock_sock(sk);
 	sock_set_flag(sk, SOCK_DEAD);
 	sock_set_flag(sk, SOCK_DESTROY);
 

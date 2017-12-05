@@ -135,6 +135,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   else
     FLEX_LOG1s("Device Name", netdev_name(dev));
 
+  FLEX_LOG1d("size", size);
   skb = alloc_skb(sizeof(uflexhdr_t) + LL_RESERVED_SPACE(dev) + size, GFP_ATOMIC);
 
   if (!skb)
@@ -149,6 +150,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   skb_reserve(skb, LL_RESERVED_SPACE(dev));
   skb->dev = dev;
   skb->protocol = htons(ETH_P_FLEX);
+  skb_set_network_header(skb, skb->len);
+  skb->transport_header = skb->network_header;
 
   flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t) + size);
   flexh->common.version = FLEX_1_0;
@@ -165,8 +168,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       break;
     case FLEX_DATA:
       flexh->common.packet_type = FLEX_DATA;
-      //content = (unsigned char *)kmalloc(size, GFP_ATOMIC);
-      //memcpy_from_msg(content, msg, size);
+//      content = (unsigned char *)kmalloc(size, GFP_ATOMIC);
+//      memcpy_from_msg(content, msg, size);
       FLEX_LOG("This is DATA message");
       break;
     case FLEX_DATA_ACK:
@@ -191,7 +194,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
 
   if (size > 0)
   {
-    content = (unsigned char *)(&(flexh->packet_len) + 2);
+    content = (unsigned char *) (&(flexh->packet_len) + 2);
     memcpy_from_msg(content, msg, size);
     FLEX_LOG1s("Message Copy", content);
   }

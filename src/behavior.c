@@ -55,7 +55,7 @@ void free_flex()
 int start_repo()
 {
   int rcvd, len;
-  unsigned long fsize;
+  unsigned long fsize, start, end;
   unsigned char buf[BUF_SIZE];
   unsigned char *fn;
   unsigned char *content;
@@ -72,20 +72,44 @@ int start_repo()
       APP_LOG2s("identity received", buf, rcvd);
       id1.length = rcvd / 2;
       id2.length = rcvd / 2;
+      start = get_current_microseconds();
       fn = get_filename_by_id(&id2);
+      end = get_current_microseconds();
+      APP_LOG1lu("get_filename_by_id", (end - start));
       APP_LOG1s("File name", fn);
+      start = get_current_microseconds();
       fp = fopen(fn, "rb");
+      end = get_current_microseconds();
+      APP_LOG1lu("fopen", (end - start));
+      start = get_current_microseconds();
       fseek(fp, 0L, SEEK_END);
+      end = get_current_microseconds();
+      APP_LOG1lu("fseek", (end - start));
+      start = get_current_microseconds();
       fsize = ftell(fp);
+      end = get_current_microseconds();
+      APP_LOG1lu("ftell", (end - start));
+      start = get_current_microseconds();
       fseek(fp, 0L, SEEK_SET);
+      end = get_current_microseconds();
+      APP_LOG1lu("fseek", (end - start));
 
       APP_LOG1d("File length", fsize);
 
       content = (unsigned char *)malloc(fsize + 1);
+
+      start = get_current_microseconds();
       fread(content, fsize, 1, fp);
+      end = get_current_microseconds();
+      APP_LOG1lu("fread time", (end - start));
+
       len = fsize;
 
+      start = get_current_microseconds();
       put(&id1, &id2, content, &len);
+      end = get_current_microseconds();
+
+      APP_LOG1lu("Put time", (end - start));
     }
   }
 

@@ -78,10 +78,8 @@ int flex_unreliable_connect(struct socket *sock, struct sockaddr *taddr, int add
   for (i=0; i<(id_info->addr_len); i++)
     flex->next_hop[i] = id_info->next_hop[i];
 
-  /*
   if ((err = add_id_to_table(id, sk, &id_table)) < 0) goto out;
   FLEX_LOG("Add ID to socket map succeed");
-  */
 
   return SUCCESS;
 
@@ -152,7 +150,7 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   skb->dev = dev;
   skb->protocol = htons(ETH_P_FLEX);
 
-  flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t));
+  flexh = (uflexhdr_t *)skb_put(skb, sizeof(uflexhdr_t) + size);
   flexh->common.version = FLEX_1_0;
 
   FLEX_LOG("Find the message type");
@@ -167,8 +165,8 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
       break;
     case FLEX_DATA:
       flexh->common.packet_type = FLEX_DATA;
-      content = (unsigned char *)kmalloc(size, GFP_ATOMIC);
-      memcpy_from_msg(content, msg, size);
+      //content = (unsigned char *)kmalloc(size, GFP_ATOMIC);
+      //memcpy_from_msg(content, msg, size);
       FLEX_LOG("This is DATA message");
       break;
     case FLEX_DATA_ACK:
@@ -191,12 +189,11 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   memcpy(flexh->dflex_id, &flex->dst, flex->dst.length);
   flexh->packet_len = htons(UNRELIABLE_HEADER_LEN + size);
 
-  if (content)
+  if (size > 0)
   {
-    content = skb_put(skb, size);
+    content = (unsigned char *)(&(flexh->packet_len) + 2);
     memcpy_from_msg(content, msg, size);
-    FLEX_LOG1s("Message Copy 1", flexh + sizeof(uflexhdr_t));
-    FLEX_LOG1s("Message Copy 2", content);
+    FLEX_LOG1s("Message Copy", content);
   }
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)
@@ -251,7 +248,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
 //  if (err)
 //    goto done;
 
-  fhdr = (struct uflexhdr *)(skb->head + skb->network_header);
+  fhdr = (uflexhdr_t *)(skb->head + skb->network_header);
   FLEX_LOG1x("Hash Type", fhdr->common.hash_type);
   FLEX_LOG1d("Hop Limit", fhdr->common.hop_limit);
   FLEX_LOG1d("Header Length", ntohs(fhdr->common.header_len));
@@ -263,6 +260,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
   ptype = fhdr->common.packet_type;       // Packet Type
   hlen = ntohs(fhdr->common.header_len);  // Header Length
   plen = ntohs(fhdr->packet_len);         // Packet Length (Header Length + Data)
+  size = plen;
   bytes = 0;
 
   switch(ptype)
@@ -272,7 +270,7 @@ int flex_unreliable_recvmsg(struct socket *sock, struct msghdr *msg, size_t size
       FLEX_LOG1d("Bytes to application", bytes);
       break;
     case FLEX_DATA:
-      bytes = copy_to_iter(fhdr + hlen, plen - hlen, &msg->msg_iter);
+      bytes = copy_to_iter(&(fhdr->packet_len) + 2, plen - hlen, &msg->msg_iter);
       FLEX_LOG1d("Bytes to application", bytes);
       break;
     case FLEX_DATA_ACK:
@@ -359,12 +357,12 @@ no_slot:
 	sock_set_flag(sk, SOCK_DEAD);
 	sock_set_flag(sk, SOCK_DESTROY);
 
-//	FLEX_LOG("Invoke sock_orphan()");
-//	sock_orphan(sk);
-//	FLEX_LOG("Invoke release_sock()");
-//	release_sock(sk);
-//	FLEX_LOG("Invoke sock_put()");
-//	sock_put(sk);
+	FLEX_LOG("Invoke sock_orphan()");
+	sock_orphan(sk);
+	FLEX_LOG("Invoke release_sock()");
+	release_sock(sk);
+	FLEX_LOG("Invoke sock_put()");
+	sock_put(sk);
 
   sock->sk = NULL;
 

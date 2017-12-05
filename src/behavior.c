@@ -103,6 +103,7 @@ int get(flexid_t *id, char *buf, int *len)
 {
   int sock, i, err, rcvd;
   struct sockaddr_flex target_id;
+  unsigned long start, end;
   flexid_t *sid;    // TODO: Need to change this to be automated.
   response_t *resp;
 
@@ -132,13 +133,21 @@ int get(flexid_t *id, char *buf, int *len)
   for (i=0; i<resp->addr_len; i++)
     target_id.next_hop[i] = resp->next_hop[i];
 
+  start = get_current_microseconds();
   if ((err = connect(sock, (struct sockaddr *)&target_id, sizeof(target_id))) < 0) goto out;
+  end = get_current_microseconds();
+
+  APP_LOG1lu("connect", (end - start));
 
   APP_LOG("Connect the Socket with the Target ID");
 
   APP_LOG("Send the INTEREST Message");
 
+  start = get_current_microseconds();
   if ((err = write(sock, NULL, 0)) < 0) goto out;
+  end = get_current_microseconds();
+
+  APP_LOG1lu("write", (end - start));
 
   APP_LOG("Send the INTEREST Success");
 
@@ -147,7 +156,7 @@ int get(flexid_t *id, char *buf, int *len)
     if ((rcvd = read(sock, buf, BUF_SIZE)) >= 0)
     {
       APP_LOG1d("Read bytes", rcvd);
-      APP_LOG2s("Result", buf, rcvd);
+      APP_LOG1s("Result", buf);
       break;
     }
   }

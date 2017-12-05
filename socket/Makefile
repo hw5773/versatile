@@ -1,5 +1,5 @@
 obj-m 	+= flex.o
-EXTRA_CFLAGS=-I/usr/local/include -DDEBUG
+EXTRA_CFLAGS=-I/usr/local/include -DKDEBUG
 
 # Add every objects below
 flex-y	:= af_flex.o flex_input.o flex_output.o flex_common.o flex_reliable.o flex_unreliable.o flex_idtable.o

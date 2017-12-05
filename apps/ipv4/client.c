@@ -69,13 +69,23 @@ int main(int argc, char *argv[])
 
   start = get_current_microseconds();
   len = write(sock, buf, id->length);
-	len = read(sock, buf, sizeof(buf));
+
+  while (1)
+  {
+	  if ((len = read(sock, buf, sizeof(buf))) > 0)
+    {
+      APP_LOG1d("Read bytes", len);
+      APP_LOG2s("Result", buf, len);
+      break;
+    }
+  }
   end = get_current_microseconds();
 
 	if (len == -1)
 		error_handling("read() error");
 	
   APP_LOG1s("Received", buf);
+  APP_LOG1lu("Elapsed Time", (end - start));
 
 	close(sock);
 	return 0;

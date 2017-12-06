@@ -146,15 +146,23 @@ struct sock *get_sock_by_id(flexid_t *id, struct id_table *table)
 
   slot = hash_fn(*id, table->mask);
   hslot = &table->hash[slot];
-
+  num = hslot->count;
   result = NULL;
-  rcu_read_lock();
-  hlist_for_each_entry_rcu(flex, &hslot->head, flex_node)
+
+  if (num > 0)
   {
-    if (strncmp(flex->id->identity, id->identity, sizeof(IDENTITY_LENGTH)) == 0)
-      result = flex->sk;
+    rcu_read_lock();
+    hlist_for_each_entry_rcu(flex, &hslot->head, flex_node)
+    {
+      num--;
+      if (strncmp(flex->id->identity, id->identity, sizeof(IDENTITY_LENGTH)) == 0)
+        result = flex->sk;
+
+      if (num <= 0)
+        break;
+    }
+    rcu_read_unlock();
   }
-  rcu_read_unlock();
   
   return result;
 }

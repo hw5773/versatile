@@ -98,7 +98,7 @@ unsigned char *get_filename_by_id(flexid_t *id)
 
   APP_LOG("Get the filename by Flex ID");
 
-  APP_LOG2s("identity", id->identity, id->length - 1);
+  APP_LOGid("Content ID", id, id->length);
 
   err = -NO_ENTRY;
   if (!(hentry = hash_table_lookup_key(&urepo_table, id->identity, id->length - 1))) goto out;

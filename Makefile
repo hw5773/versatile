@@ -84,7 +84,7 @@ install_socket:
 
 install_apps:
 	@echo "Make Flex Test Application"
-	(cd $(SRCDIR)/$(APPDIR); make; cp publisher /usr/local/bin/flex_publisher; cp subscriber /usr/local/bin/flex_subscriber; cp subscriber10 /usr/local/bin/flex_subscriber10; cp subscriber15 /usr/local/bin/flex_subscriber15; cd $(SRCDIR))
+	(cd $(SRCDIR)/$(APPDIR); make; cp publisher /usr/local/bin/flex_publisher; cp subscriber /usr/local/bin/subscriber; cp subscriber10 /usr/local/bin/flex_subscriber10; cp subscriber15 /usr/local/bin/flex_subscriber15; cp subscriber.sh /usr/local/bin/flex_subscriber; cd $(SRCDIR))
 	(cd $(SRCDIR)/$(TCPAPPDIR); make; cp server /usr/local/bin/tcpip_publisher; cp client /usr/local/bin/tcpip_subscriber; cd $(SRCDIR))
 
 uninstall: uninstall_lib uninstall_socket uninstall_apps
@@ -114,7 +114,7 @@ uninstall_socket:
 
 uninstall_apps:
 	@echo "Remove Flex Test Applications"
-	@rm /usr/local/bin/flex_publisher /usr/local/bin/flex_subscriber /usr/local/bin/flex_subscriber10 /usr/local/bin/flex_subscriber15 /usr/local/bin/tcpip_publisher /usr/local/bin/tcpip_subscriber
+	@rm /usr/local/bin/flex_publisher /usr/local/bin/subscriber /usr/local/bin/flex_subscriber10 /usr/local/bin/flex_subscriber15 /usr/local/bin/flex_subscriber /usr/local/bin/tcpip_publisher /usr/local/bin/tcpip_subscriber
 
 libclean:
 	@set -e; for s in $(SHLIB_INFO); do\

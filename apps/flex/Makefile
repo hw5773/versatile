@@ -1,6 +1,6 @@
 CFLAGS=-DDEBUG -I/usr/local/include
 LDFLAGS=-L/usr/local/lib -lflex -lssl -lcrypto -ldl
-BIN=publisher subscriber
+BIN=publisher subscriber subscriber10 subscriber15 publisher9
 
 all:
 	gcc -o publisher publisher.c $(CFLAGS) $(LDFLAGS)

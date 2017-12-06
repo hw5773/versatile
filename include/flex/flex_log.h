@@ -25,7 +25,7 @@ int idx;
 #define APP_LOG2c(msg, arg1, arg2) \
   printf("[Flex] %s: %s: ", __func__, msg); for(idx=0;idx<arg2;idx++) printf("%c", arg1[idx]);printf("\n");
 #define APP_LOGid(msg, arg1, arg2) \
-  printf("[Flex] %s: %s: ", __func__, msg); printf("%02X ", arg1->flag); for(idx=0;idx<arg2;idx++) printf("%02X ", arg1->identity[idx]);printf("\n");
+  printf("[Flex] %s: %s: ", __func__, msg); printf("%02X ", arg1->flag); for(idx=0;idx<arg2-1;idx++) printf("%02X ", arg1->identity[idx]);printf("\n");
 #else
 #define APP_LOG(msg)
 #define APP_LOG1d(msg, arg1)

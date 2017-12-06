@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
   int err;
 
   unsigned char *fn, *content;
+  unsigned char a = 0x80;
 
 	struct sockaddr_in serv_addr;
 	struct sockaddr_in clnt_addr;
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
 
   err = -ERROR_MALLOC;
   if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
-
+/*
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
   set_collision_avoidance_bit(tid, FALSE);
@@ -65,6 +66,28 @@ int main(int argc, char *argv[])
 
   for (i=10; i<20; i++)
     tid->identity[i] = 0x42;
+*/
+  memcpy(tid, &a, 1);
+  tid->identity[0] = 0x40;
+  tid->identity[1] = 0xf0;
+  tid->identity[2] = 0x67;
+  tid->identity[3] = 0xc1;
+  tid->identity[4] = 0xcd;
+  tid->identity[5] = 0x83;
+  tid->identity[6] = 0x96;
+  tid->identity[7] = 0x2a;
+  tid->identity[8] = 0xbf;
+  tid->identity[9] = 0x35;
+  tid->identity[10] = 0x99;
+  tid->identity[11] = 0xde;
+  tid->identity[12] = 0x79;
+  tid->identity[13] = 0xc1;
+  tid->identity[14] = 0xab;
+  tid->identity[15] = 0xb7;
+  tid->identity[16] = 0x7b;
+  tid->identity[17] = 0x2f;
+  tid->identity[18] = 0x02;
+  tid->identity[19] = 0x6d;
 
   tid->length = FLEX_ID_LENGTH;
 

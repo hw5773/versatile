@@ -143,6 +143,7 @@ struct sock *get_sock_by_id(flexid_t *id, struct id_table *table)
   struct flexid_entity *flex;
   struct id_hslot *hslot;
   unsigned int slot;
+  int num;
 
   slot = hash_fn(*id, table->mask);
   hslot = &table->hash[slot];

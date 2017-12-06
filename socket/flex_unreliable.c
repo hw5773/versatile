@@ -362,7 +362,6 @@ no_slot:
 
 	FLEX_LOG("Invoke sock_orphan()");
 	sock_orphan(sk);
-  xfrm_sk_free_policy(sk);
   sk_refcnt_debug_release(sk);
 	sock_put(sk);
 

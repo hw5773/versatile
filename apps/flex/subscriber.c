@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   end = get_current_microseconds();
 
   APP_LOG("Invoke get() success");
-  APP_LOG1lu("Estimated Time", end - start);
+  APP_LOG1lu("Elapsed Time", end - start);
 
   free_flex();
 

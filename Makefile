@@ -16,6 +16,8 @@ LIBDIR=lib
 
 APPDIR=apps/flex
 PROGRAMS=apps/flex/publisher apps/flex/subscriber
+TCPAPPDIR=apps/ipv4
+TCPPROGRAMS=apps/ipv4/server apps/ipv4/client
 LIBRPATH=$(INSTALLTOP)/$(LIBDIR)
 
 CC= cc
@@ -82,7 +84,8 @@ install_socket:
 
 install_apps:
 	@echo "Make Flex Test Application"
-	(cd $(SRCDIR)/$(APPDIR); make; cp publisher /usr/local/bin/publisher; cp subscriber /usr/local/bin/subscriber; cd $(SRCDIR))
+	(cd $(SRCDIR)/$(APPDIR); make; cp publisher /usr/local/bin/flex_publisher; cp subscriber /usr/local/bin/flex_subscriber; cd $(SRCDIR))
+	(cd $(SRCDIR)/$(TCPAPPDIR); make; cp server /usr/local/bin/tcpip_publisher; cp client /usr/local/bin/tcpip_subscriber
 
 uninstall: uninstall_lib uninstall_socket uninstall_apps
 

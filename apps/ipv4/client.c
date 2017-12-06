@@ -29,25 +29,25 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	APP_LOG("Start Flex ID Test Client Application");
+	APP_LOG("Start TCP/IP with Flex ID Test Client Application");
 
 	sock = socket(PF_INET, SOCK_STREAM, 0);
 	if (sock == -1)
 		error_handling("socket() error");
 
-	APP_LOG("Socket Generation Succeed");
+i//	APP_LOG("Socket Generation Succeed");
 
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
 	serv_addr.sin_port = htons(atoi(argv[2]));
 
-	APP_LOG("Set the Socket Address");
+//	APP_LOG("Set the Socket Address");
 
 	if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) == -1)
 		error_handling("connect() error");
 	
-	APP_LOG("Connect to the Server");
+//	APP_LOG("Connect to the Server");
   
   err = -ERROR_MALLOC;
   if (!(id = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
@@ -56,15 +56,17 @@ int main(int argc, char *argv[])
   set_segment_bit(id, FALSE);
   set_collision_avoidance_bit(id, FALSE);
 
+  memcpy(id, TEST_ID, FLEX_ID_LENGTH);
+/*
   for (i=0; i<10; i++)
     id->identity[i] = 0x41;
 
   for (i=10; i<20; i++)
     id->identity[i] = 0x42;
-
+*/
   id->length = FLEX_ID_LENGTH;
 
-  APP_LOG("Set the Test Flex ID");
+  APP_LOG("Set the Content ID for Retreiving the value of the fine dust Complete");
   memcpy(buf, id, id->length);
 
   start = get_current_microseconds();
@@ -74,7 +76,7 @@ int main(int argc, char *argv[])
   {
 	  if ((len = read(sock, buf, sizeof(buf))) > 0)
     {
-      APP_LOG1d("Read bytes", len);
+//      APP_LOG1d("Read bytes", len);
       APP_LOG2s("Result", buf, len);
       break;
     }
@@ -84,8 +86,7 @@ int main(int argc, char *argv[])
 	if (len == -1)
 		error_handling("read() error");
 	
-  APP_LOG1s("Received", buf);
-  APP_LOG1lu("Elapsed Time", (end - start));
+  APP_LOG1lu("Elapsed Time for get()", (end - start));
 
 	close(sock);
 	return 0;

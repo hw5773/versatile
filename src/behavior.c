@@ -131,7 +131,7 @@ int get(flexid_t *id, char *buf, int *len, int num)
   flexid_t *sid;    // TODO: Need to change this to be automated.
   response_t *resp;
 
-  APP_LOG("Unreliable Get message");
+  //APP_LOG("Unreliable Get message");
 
   switch(num)
   {
@@ -148,12 +148,12 @@ int get(flexid_t *id, char *buf, int *len, int num)
     goto out;
   }
 
-  APP_LOG("Get Test Request");
+  //APP_LOG("Get Test Request");
 
   err = -NO_SOCK;
   if ((sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;
 
-  APP_LOG("Socket Generation Succeed");
+//  APP_LOG("Socket Generation Succeed");
   
   target_id.sin_family = AF_FLEX;
   test_sid(&sid);
@@ -161,9 +161,10 @@ int get(flexid_t *id, char *buf, int *len, int num)
   target_id.tid = *id;
   target_id.message = FLEX_INTEREST;
 
-  APP_LOG("Set the Message Info to Target ID");
-  APP_LOG2s("sid identity", sid->identity, sid->length - 1);
-  APP_LOG2s("tid identity", id->identity, id->length - 1);
+//  APP_LOG("Set the Message Info to Target ID");
+//  APP_LOG2s("sid identity", sid->identity, sid->length - 1);
+//  APP_LOG2s("tid identity", id->identity, id->length - 1);
+  APP_LOG2c("Content ID", (unsigned char *)id, id->length);
 
   target_id.addr_type = resp->addr_type;
   target_id.addr_len = resp->addr_len;
@@ -174,9 +175,7 @@ int get(flexid_t *id, char *buf, int *len, int num)
   if ((err = connect(sock, (struct sockaddr *)&target_id, sizeof(target_id))) < 0) goto out;
   end = get_current_microseconds();
 
-  APP_LOG1lu("connect", (end - start));
-
-  APP_LOG("Connect the Socket with the Target ID");
+//  APP_LOG("Connect the Socket with the Target ID");
 
   APP_LOG("Send the INTEREST Message");
 
@@ -184,16 +183,16 @@ int get(flexid_t *id, char *buf, int *len, int num)
   if ((err = write(sock, NULL, 0)) < 0) goto out;
   end = get_current_microseconds();
 
-  APP_LOG1lu("write", (end - start));
+//  APP_LOG1lu("write", (end - start));
 
-  APP_LOG("Send the INTEREST Success");
+//  APP_LOG("Send the INTEREST Success");
 
   while (1)
   {
     if ((rcvd = read(sock, buf, BUF_SIZE)) >= 0)
     {
-      APP_LOG1d("Read bytes", rcvd);
-      APP_LOG1s("Result", buf);
+//      APP_LOG1d("Read bytes", rcvd);
+      APP_LOG1s("Data", buf);
       break;
     }
   }

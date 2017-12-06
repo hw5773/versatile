@@ -20,12 +20,15 @@ int idx;
   printf("[Flex] %s: %s: %p\n", __func__, msg, arg1)
 #define APP_LOG2s(msg, arg1, arg2) \
   printf("[Flex] %s: %s: ", __func__, msg); for(idx=0;idx<arg2;idx++) printf("%02X ", arg1[idx]);printf("\n");
+#define APP_LOG2c(msg, arg1, arg2) \
+  printf("[Flex] %s: %s: ", __func__, msg); for(idx=0;idx<arg2;idx++) printf("%c", arg1[idx]);printf("\n");
 #else
 #define APP_LOG(msg)
 #define APP_LOG1d(msg, arg1)
 #define APP_LOG1lu(msg, arg1)
 #define APP_LOG1p(msg, arg1)
 #define APP_LOG2s(msg, arg1, arg2)
+#define APP_LOG2c(msg, arg1, arg2)
 #endif /* DEBUG */
 
 unsigned long get_current_microseconds();

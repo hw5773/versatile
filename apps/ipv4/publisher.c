@@ -23,15 +23,15 @@ int main(int argc, char *argv[])
 
   fn = argv[1];
 
-  if ((err = init_flex(PROTO_TCP_IP)) < 0) goto out;
+  if ((err = init_flex()) < 0) goto out;
 
   APP_LOG1d("urepo_sock", urepo_sock);
 
-  if ((err = test_pub(PROTO_TCP_IP)) < 0) goto out;
+  if ((err = test_pub()) < 0) goto out;
 
 //  if ((err = pub(fn)) < 0) goto out;
 
-  if ((err = start_repo(PROTO_TCP_IP)) < 0) goto out;
+  if ((err = start_repo(9)) < 0) goto out;
 
   free_flex();
 

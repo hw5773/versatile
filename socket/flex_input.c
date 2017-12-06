@@ -46,6 +46,7 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
     }
 
     FLEX_LOG("Find the appropriate socket");
+    skb_orphan(skb);
     ret = sock_queue_rcv_skb(sk, skb);
     FLEX_LOG1d("Invoke sock_queue_rcv_skb complete", ret);
   }
@@ -54,5 +55,7 @@ int flex_rcv(struct sk_buff *skb, struct net_device *dev,
 	return SUCCESS;
 
 out:
+  kfree(fid);
+  kfree_skb(skb);
   return FAILURE;
 }

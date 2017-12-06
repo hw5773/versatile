@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   APP_LOG("Invoke get()");
 
   start = get_current_microseconds();
-  if ((err = get(tid, buf, &len)) < 0)
+  if ((err = get(tid, buf, &len, 1)) < 0)
     goto out;
   end = get_current_microseconds();
 

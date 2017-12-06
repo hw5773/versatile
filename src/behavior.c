@@ -52,7 +52,7 @@ void free_flex()
   free_repo();
 }
 
-int start_repo()
+int start_repo(int num)
 {
   int rcvd, len;
   unsigned long fsize, start, end;
@@ -106,7 +106,7 @@ int start_repo()
       len = fsize;
 
       start = get_current_microseconds();
-      put(&id1, &id2, content, &len);
+      put(&id1, &id2, content, &len, num);
       end = get_current_microseconds();
 
       APP_LOG1lu("Put time", (end - start));
@@ -123,7 +123,7 @@ int start_repo()
  * @param len Length of the buffer
  * @return Error code
  */
-int get(flexid_t *id, char *buf, int *len)
+int get(flexid_t *id, char *buf, int *len, int num)
 {
   int sock, i, err, rcvd;
   struct sockaddr_flex target_id;
@@ -133,7 +133,20 @@ int get(flexid_t *id, char *buf, int *len)
 
   APP_LOG("Unreliable Get message");
 
-  if ((err = test_request1(id, &resp)) < 0) goto out;
+  switch(num)
+  {
+  case 1:
+    if ((err = test_request1(id, &resp)) < 0) goto out;
+    break;
+  case 10:
+    if ((err = test_request10(id, &resp)) < 0) goto out;
+    break;
+  case 15:
+    if ((err = test_request1(id, &resp)) < 0) goto out;
+    break;
+  default:
+    goto out;
+  }
 
   APP_LOG("Get Test Request");
 
@@ -203,7 +216,7 @@ out:
  * @param len Length of message sent
  * @return Error code
  */
-int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
+int put(flexid_t *tid, flexid_t *sid, char *buf, int *len, int num)
 {
   int sock, i, err;
   struct sockaddr_flex target_id;
@@ -213,7 +226,17 @@ int put(flexid_t *tid, flexid_t *sid, char *buf, int *len)
 
   APP_LOG1s("Check the content", buf);
 
-  if ((err = test_request2(tid, &resp)) < 0) goto out;
+  switch(num)
+  {
+  case 2:
+    if ((err = test_request2(tid, &resp)) < 0) goto out;
+    break;
+  case 9:
+    if ((err = test_request9(tid, &resp)) < 0) goto out;
+    break;
+  default:
+    goto out;
+  }
 
   err = -NO_SOCK;
   if ((sock = socket(PF_FLEX, SOCK_DGRAM, 0)) < 0) goto out;

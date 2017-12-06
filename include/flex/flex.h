@@ -16,9 +16,12 @@
 /* Behaviors for the Applications */
 int init_flex(void);
 void free_flex(void);
-int start_repo(void);
-int get(flexid_t *id, char *resp, int *len);
-int put(flexid_t *tid, flexid_t *sid, char *buf, int *len);
+//int start_repo(void);
+int start_repo(int num);
+//int get(flexid_t *id, char *resp, int *len);
+int get(flexid_t *id, char *resp, int *len, int num);
+//int put(flexid_t *tid, flexid_t *sid, char *buf, int *len);
+int put(flexid_t *tid, flexid_t *sid, char *buf, int *len, int num);
 int pub(unsigned char *fn);
 int serv(unsigned char *crt, unsigned char *key);
 void error_handling(char *buf);
@@ -74,5 +77,8 @@ int test_sid(flexid_t **id);
 int test_query(flexid_t **id);
 int test_request1(flexid_t *id, response_t **resp);
 int test_request2(flexid_t *id, response_t **resp);
+int test_request9(flexid_t *id, response_t **resp);
+int test_request10(flexid_t *id, response_t **resp);
+int test_request15(flexid_t *id, response_t **resp);
 
 #endif /* __FLEX__ */

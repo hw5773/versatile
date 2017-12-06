@@ -27,7 +27,6 @@ int flex_release_sock(struct sock *sk, int embrion)
 {
 	FLEX_LOG("Release the socket internally");
 
-  lock_sock(sk);
 	sk_del_node_init(sk);
 	
 	sock_set_flag(sk, SOCK_DEAD);
@@ -35,10 +34,9 @@ int flex_release_sock(struct sock *sk, int embrion)
 
 	FLEX_LOG("Invoke sock_orphan()");
 	sock_orphan(sk);
-	FLEX_LOG("Invoke release_sock()");
-	release_sock(sk);
 	FLEX_LOG("Invoke sock_put()");
 	sock_put(sk);
+
 
 	return 0;
 }

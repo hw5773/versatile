@@ -27,7 +27,7 @@ extern int urepo_sock;
 extern struct hash_table urepo_table;
 
 /* For the test definitions and functions */
-/* subscriber -> publisher */
+/* publisher MAC */
 #define FIRST1   0x00
 #define SECOND1  0x0c
 #define THIRD1   0x29
@@ -35,13 +35,13 @@ extern struct hash_table urepo_table;
 #define FIFTH1   0x8d
 #define SIXTH1   0x25
 
-/* publisher -> subscriber */
+/* subscriber MAC */
 #define FIRST2   0x00
 #define SECOND2  0x0c
 #define THIRD2   0x29
-#define FOURTH2  0x32
-#define FIFTH2   0x2a
-#define SIXTH2   0xfc
+#define FOURTH2  0x23
+#define FIFTH2   0xaa
+#define SIXTH2   0x2a
 
 #define TEST_FILE_PATH "/home/ubuntu/versatile/apps/flex/test.txt"
 #define MAX_FILE_PATH_SIZE 256

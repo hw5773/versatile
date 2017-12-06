@@ -357,15 +357,13 @@ int flex_unreliable_release(struct socket *sock)
 
 no_slot:
   FLEX_LOG("Come to no slot");
-  lock_sock(sk);
 	sock_set_flag(sk, SOCK_DEAD);
 	sock_set_flag(sk, SOCK_DESTROY);
 
 	FLEX_LOG("Invoke sock_orphan()");
 	sock_orphan(sk);
-	FLEX_LOG("Invoke release_sock()");
-	release_sock(sk);
-	FLEX_LOG("Invoke sock_put()");
+  xfrm_sk_free_policy(sk);
+  sk_refcnt_debug_release(sk);
 	sock_put(sk);
 
   sock->sk = NULL;

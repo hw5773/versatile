@@ -70,15 +70,16 @@ int add_id_name_map(flexid_t *id, unsigned char *name)
   if (!(tmp->id = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
   memcpy(tmp->id, id, id->length);
-  APP_LOG("Copy id into tmp");
+  //APP_LOG("Copy id into tmp");
   memcpy(tmp->fn, name, strlen(name));
-  APP_LOG("Copy file name into the hash entry");
-  APP_LOG1s("File name", tmp->fn);
+  //APP_LOG("Copy file name into the hash entry");
+  //APP_LOG1s("File name", tmp->fn);
 
   hash_table_insert(&urepo_table, &tmp->entry, id->identity, id->length-1);
-  APP_LOG2s("identity", id->identity, id->length - 1);
+  APP_LOGid("Content ID", id, id->length);
+  //APP_LOG2s("identity", id->identity, id->length - 1);
 
-  APP_LOG("Add the Flex ID into the ID Table complete");
+  APP_LOG("Add the Flex ID into the ID Table Complete");
 
   return SUCCESS;
 

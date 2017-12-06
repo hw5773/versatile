@@ -62,46 +62,50 @@ int start_repo(int num)
   flexid_t id1, id2;
   FILE *fp;
 
+  APP_LOG("Start Repository");
+
   while (1)
   {
     if ((rcvd = read(urepo_sock, buf, BUF_SIZE)) >= 0)
     {
-      APP_LOG1d("Read bytes", rcvd);
+//      APP_LOG1d("Read bytes", rcvd);
       memcpy(&id1, buf, rcvd / 2);
       memcpy(&id2, buf + rcvd / 2, rcvd / 2);
-      APP_LOG2s("identity received", buf, rcvd);
+//      APP_LOG2s("identity received", buf, rcvd);
       id1.length = rcvd / 2;
       id2.length = rcvd / 2;
       start = get_current_microseconds();
       fn = get_filename_by_id(&id2);
       end = get_current_microseconds();
-      APP_LOG1lu("get_filename_by_id", (end - start));
+//      APP_LOG1lu("get_filename_by_id", (end - start));
+      APP_LOGid("Content ID", (&id2), id2.length);
       APP_LOG1s("File name", fn);
+
       start = get_current_microseconds();
       fp = fopen(fn, "rb");
       end = get_current_microseconds();
-      APP_LOG1lu("fopen", (end - start));
+//      APP_LOG1lu("fopen", (end - start));
       start = get_current_microseconds();
       fseek(fp, 0L, SEEK_END);
       end = get_current_microseconds();
-      APP_LOG1lu("fseek", (end - start));
+//      APP_LOG1lu("fseek", (end - start));
       start = get_current_microseconds();
       fsize = ftell(fp);
       end = get_current_microseconds();
-      APP_LOG1lu("ftell", (end - start));
+//      APP_LOG1lu("ftell", (end - start));
       start = get_current_microseconds();
       fseek(fp, 0L, SEEK_SET);
       end = get_current_microseconds();
-      APP_LOG1lu("fseek", (end - start));
+//      APP_LOG1lu("fseek", (end - start));
 
-      APP_LOG1d("File length", fsize);
+//      APP_LOG1d("File length", fsize);
 
       content = (unsigned char *)malloc(fsize + 1);
 
       start = get_current_microseconds();
       fread(content, fsize, 1, fp);
       end = get_current_microseconds();
-      APP_LOG1lu("fread time", (end - start));
+//      APP_LOG1lu("fread time", (end - start));
 
       len = fsize;
 
@@ -109,7 +113,7 @@ int start_repo(int num)
       put(&id1, &id2, content, &len, num);
       end = get_current_microseconds();
 
-      APP_LOG1lu("Put time", (end - start));
+      APP_LOG1lu("Elapsed Time for put()", (end - start));
     }
   }
 
@@ -294,7 +298,6 @@ int pub(unsigned char *name)
 
   insert_id.sid = *id;
   insert_id.message = FLEX_DATA;
-  APP_LOG1p("id", id);
 
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;

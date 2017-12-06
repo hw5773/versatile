@@ -56,18 +56,17 @@ int main(int argc, char *argv[])
 
   err = -ERROR_MALLOC;
   if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
-/*
+
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
   set_collision_avoidance_bit(tid, FALSE);
-
+/*
   for (i=0; i<10; i++)
     tid->identity[i] = 0x41;
 
   for (i=10; i<20; i++)
     tid->identity[i] = 0x42;
 */
-  memcpy(tid, &a, 1);
   tid->identity[0] = 0x40;
   tid->identity[1] = 0xf0;
   tid->identity[2] = 0x67;

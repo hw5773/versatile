@@ -121,10 +121,11 @@ int service_identity(unsigned char **identity, unsigned char *name)
 
 int set_cache_bit(flexid_t *id, int set)
 {
+
   if (set == TRUE)
-    id->cache_bit = 1;
+    id->flag = id->flag | CACHE_BIT;
   else if (set == FALSE)
-    id->cache_bit = 0;
+    id->flag = id->flag & ~CACHE_BIT;
 
   return SUCCESS;
 }
@@ -132,9 +133,9 @@ int set_cache_bit(flexid_t *id, int set)
 int set_segment_bit(flexid_t *id, int set)
 {
   if (set == TRUE)
-    id->segment_bit = 1;
+    id->flag = id->flag | SEGMENT_BIT;
   else if (set == FALSE)
-    id->segment_bit = 0;
+    id->flag = id->flag & ~SEGMENT_BIT;
   else
     return FAILURE;
 
@@ -144,9 +145,9 @@ int set_segment_bit(flexid_t *id, int set)
 int set_collision_avoidance_bit(flexid_t *id, int set)
 {
   if (set == TRUE)
-    id->collision_avoidance_bit = 0xF;
+    id->flag = id->flag | COLLISION_AVOIDANCE;
   else if (set == FALSE)
-    id->collision_avoidance_bit = 0x0;
+    id->flag = id->flag & ~COLLISION_AVOIDANCE;
   else
     return FAILURE;
 

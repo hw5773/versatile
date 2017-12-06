@@ -33,19 +33,18 @@ int test_pub()
   err = -ERROR_MALLOC;
   if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
-  APP_LOG("Initialize the data structures");
-/*
+  APP_LOG("Initialize the Data Repository");
+
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
   set_collision_avoidance_bit(tid, FALSE);
-
+/*
   for (i=0; i<10; i++)
     tid->identity[i] = 0x41;
 
   for (i=10; i<20; i++)
     tid->identity[i] = 0x42;
 */
-  memcpy(tid, &a, 1);
   tid->identity[0] = 0x40;
   tid->identity[1] = 0xf0;
   tid->identity[2] = 0x67;
@@ -70,16 +69,15 @@ int test_pub()
   tid->length = FLEX_ID_LENGTH;
 
   APP_LOG("Set the Test Flex ID");
+  APP_LOGid("Content ID", tid, tid->length);
 
   insert_id.sid = *tid;
   insert_id.message = FLEX_DATA;
 
-  APP_LOG("Set the ID and Message Type");
+  //APP_LOG("Set the ID and Message Type");
 
   err = -ERROR_BIND;
   if ((bind(urepo_sock, (struct sockaddr *)&insert_id, sizeof(insert_id))) < 0) goto out;
-
-  APP_LOG1d("ID Length", tid->length);
 
   if ((err = add_id_name_map(tid, TEST_FILE_PATH)) < 0) goto out;
 

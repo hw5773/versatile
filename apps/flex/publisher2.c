@@ -25,8 +25,6 @@ int main(int argc, char *argv[])
 
   if ((err = init_flex()) < 0) goto out;
 
-  APP_LOG1d("urepo_sock", urepo_sock);
-
   if ((err = test_pub()) < 0) goto out;
 
 //  if ((err = pub(fn)) < 0) goto out;

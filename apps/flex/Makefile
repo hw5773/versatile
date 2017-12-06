@@ -4,7 +4,10 @@ BIN=publisher subscriber
 
 all:
 	gcc -o publisher publisher.c $(CFLAGS) $(LDFLAGS)
+	gcc -o publisher9 publisher9.c $(CFLAGS) $(LDFLAGS)
 	gcc -o subscriber subscriber.c $(CFLAGS) $(LDFLAGS)
+	gcc -o subscriber10 subscriber10.c $(CFLAGS) $(LDFLAGS)
+	gcc -o subscriber15 subscriber15.c $(CFLAGS) $(LDFLAGS)
 
 pub:
 	gcc -o publisher publisher.c $(CFLAGS) $(LDFLAGS)

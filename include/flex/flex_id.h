@@ -7,22 +7,17 @@
 /* Flex ID */
 struct flexid
 {
-#if defined(__LITTLE_ENDIAN_BITFIELD)
-  __u8    cache_bit:1,
-          segment_bit:1,
-          collision_avoidance_bit:4,
-          reserved:2;
-#elif defined(__BIG_ENDIAN_BITFIELD)
-  __u8    reserved:2,
-          collision_avoidance_bit:4,
-          segment_bit:1,
-          cache_bit:1;
-#endif
+  __u8    flag;
   __u8    identity[20];
   __be32  total_segments; // used only when segment_bit is 1
   __be32  segment_num;    // used only when segment_bit is 1
   __be16  length;
 };
+
+/* Flex ID constant */
+#define CACHE_BIT 0x80
+#define SEGMENT_BIT 0x40
+#define COLLISION_AVOIDANCE 0x3c
 
 /* Flex ID init and free */
 int init_flexid(struct flexid **id, unsigned char *name, int type);

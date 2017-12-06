@@ -116,6 +116,27 @@ out:
 	return sk;
 }
 
+static void flex_destruct_sock(struct sock *sk)
+{
+  unsigned int total;
+  struct sk_buff *skb;
+
+  total = 0;
+
+  while ((skb = __skb_dequeue(&sk->sk_receive_queue)) != NULL)
+  {
+    total += skb->truesize;
+    kfree_skb(skb);
+  }
+
+  atomic_sub(total, &sk->sk_rmem_alloc);
+
+  __skb_queue_purge(&sk->sk_receive_queue);
+  __skb_queue_purge(&sk->sk_error_queue);
+
+  sk_mem_reclaim(sk);
+}
+
 static int flex_create(struct net *net, struct socket *sock, int protocol, int kern)
 {
 	struct sock *sk;
@@ -142,6 +163,8 @@ static int flex_create(struct net *net, struct socket *sock, int protocol, int k
 	flex = flex_sk(sk);
 
 	sock_init_data(sock, sk);
+
+  sk->sk_destruct = flex_destruct_sock;
 
 	FLEX_LOG("Initialize the socket data");
 

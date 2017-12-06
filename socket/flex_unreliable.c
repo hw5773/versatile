@@ -196,7 +196,6 @@ int flex_unreliable_sendmsg(struct socket *sock, struct msghdr *msg, size_t size
   {
     content = (unsigned char *) (&(flexh->packet_len) + 2);
     memcpy_from_msg(content, msg, size);
-    FLEX_LOG1s("Message Copy", content);
   }
 
   if (dev_hard_header(skb, dev, ETH_P_FLEX, flex->next_hop, dev->dev_addr, skb->len) < 0)

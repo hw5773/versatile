@@ -73,7 +73,7 @@ extern struct hash_table urepo_table;
 #define BUF_SIZE 1024
 
 int test_pub(void);
-int test_sid(flexid_t **id);
+int test_sid(flexid_t **id, int num);
 int test_query(flexid_t **id);
 int test_request1(flexid_t *id, response_t **resp);
 int test_request2(flexid_t *id, response_t **resp);

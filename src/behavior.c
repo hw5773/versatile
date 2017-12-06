@@ -160,7 +160,7 @@ int get(flexid_t *id, char *buf, int *len, int num)
 //  APP_LOG("Socket Generation Succeed");
   
   target_id.sin_family = AF_FLEX;
-  test_sid(&sid);
+  test_sid(&sid, num);
   target_id.sid = *sid;
   target_id.tid = *id;
   target_id.message = FLEX_INTEREST;

@@ -87,10 +87,10 @@ out:
   return err;
 }
 
-int test_sid(flexid_t **id)
+int test_sid(flexid_t **id, int num)
 {
   int i, err;
-  unsigned char a = 0x80;
+  unsigned char a = 0x36;
   (*id) = (flexid_t *)malloc(sizeof(flexid_t));
 /*
   set_cache_bit((*id), FALSE);
@@ -98,25 +98,26 @@ int test_sid(flexid_t **id)
   set_collision_avoidance_bit((*id), TRUE);
 */
   memcpy((*id), &a, 1);
-  (*id)->identity[0] = 0x40;
-  (*id)->identity[1] = 0xf0;
-  (*id)->identity[2] = 0x67;
-  (*id)->identity[3] = 0xc1;
-  (*id)->identity[4] = 0xcd;
-  (*id)->identity[5] = 0x83;
-  (*id)->identity[6] = 0x96;
+  err = -1;
+  (*id)->identity[0] = rand() % 256;
+  (*id)->identity[1] = rand() % 256;
+  (*id)->identity[2] = 0x55;
+  (*id)->identity[3] = rand() % 256;
+  (*id)->identity[4] = 0xcc;
+  (*id)->identity[5] = 0x33;
+  (*id)->identity[6] = rand() % 256;
   (*id)->identity[7] = 0x2a;
   (*id)->identity[8] = 0xbf;
-  (*id)->identity[9] = 0x35;
-  (*id)->identity[10] = 0x99;
-  (*id)->identity[11] = 0xde;
-  (*id)->identity[12] = 0x79;
-  (*id)->identity[13] = 0xc1;
-  (*id)->identity[14] = 0xab;
+  (*id)->identity[9] = rand() % 256;
+  (*id)->identity[10] = rand() % 256;
+  (*id)->identity[11] = rand() % 256;
+  (*id)->identity[12] = rand() % 256;
+  (*id)->identity[13] = rand() % 256;
+  (*id)->identity[14] = 0xa;
   (*id)->identity[15] = 0xb7;
-  (*id)->identity[16] = 0x7b;
-  (*id)->identity[17] = 0x2f;
-  (*id)->identity[18] = 0x02;
+  (*id)->identity[16] = 0xb;
+  (*id)->identity[17] = rand() % 256;
+  (*id)->identity[18] = rand() % 256;
   (*id)->identity[19] = 0x6d;
 
 /*

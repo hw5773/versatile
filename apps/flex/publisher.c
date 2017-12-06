@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
 //  if ((err = pub(fn)) < 0) goto out;
 
-  if ((err = start_repo(9)) < 0) goto out;
+  if ((err = start_repo(2)) < 0) goto out;
 
   free_flex();
 

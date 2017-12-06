@@ -27,13 +27,14 @@ int test_pub()
 {
   int i, err;
   struct sockaddr_flex insert_id;
+  unsigned char a = 0x80;
   flexid_t *tid;
 
   err = -ERROR_MALLOC;
   if (!(tid = (flexid_t *)malloc(sizeof(flexid_t)))) goto out;
 
   APP_LOG("Initialize the data structures");
-
+/*
   set_cache_bit(tid, TRUE);
   set_segment_bit(tid, FALSE);
   set_collision_avoidance_bit(tid, FALSE);
@@ -43,6 +44,28 @@ int test_pub()
 
   for (i=10; i<20; i++)
     tid->identity[i] = 0x42;
+*/
+  memcpy(tid, &a, 1);
+  tid->identity[0] = 0x40;
+  tid->identity[1] = 0xf0;
+  tid->identity[2] = 0x67;
+  tid->identity[3] = 0xc1;
+  tid->identity[4] = 0xcd;
+  tid->identity[5] = 0x83;
+  tid->identity[6] = 0x96;
+  tid->identity[7] = 0x2a;
+  tid->identity[8] = 0xbf;
+  tid->identity[9] = 0x35;
+  tid->identity[10] = 0x99;
+  tid->identity[11] = 0xde;
+  tid->identity[12] = 0x79;
+  tid->identity[13] = 0xc1;
+  tid->identity[14] = 0xab;
+  tid->identity[15] = 0xb7;
+  tid->identity[16] = 0x7b;
+  tid->identity[17] = 0x2f;
+  tid->identity[18] = 0x02;
+  tid->identity[19] = 0x6d;
 
   tid->length = FLEX_ID_LENGTH;
 
@@ -69,17 +92,42 @@ out:
 int test_sid(flexid_t **id)
 {
   int i, err;
+  unsigned char a = 0x80;
   (*id) = (flexid_t *)malloc(sizeof(flexid_t));
-
+/*
   set_cache_bit((*id), FALSE);
   set_segment_bit((*id), FALSE);
   set_collision_avoidance_bit((*id), TRUE);
-  
+*/
+  memcpy((*id), &a, 1);
+  (*id)->identity[0] = 0x40;
+  (*id)->identity[1] = 0xf0;
+  (*id)->identity[2] = 0x67;
+  (*id)->identity[3] = 0xc1;
+  (*id)->identity[4] = 0xcd;
+  (*id)->identity[5] = 0x83;
+  (*id)->identity[6] = 0x96;
+  (*id)->identity[7] = 0x2a;
+  (*id)->identity[8] = 0xbf;
+  (*id)->identity[9] = 0x35;
+  (*id)->identity[10] = 0x99;
+  (*id)->identity[11] = 0xde;
+  (*id)->identity[12] = 0x79;
+  (*id)->identity[13] = 0xc1;
+  (*id)->identity[14] = 0xab;
+  (*id)->identity[15] = 0xb7;
+  (*id)->identity[16] = 0x7b;
+  (*id)->identity[17] = 0x2f;
+  (*id)->identity[18] = 0x02;
+  (*id)->identity[19] = 0x6d;
+
+/*
   for (i=0; i<10; i++)
     (*id)->identity[i] = 0x46;
 
   for (i=10; i<20; i++)
     (*id)->identity[i] = 0x47;
+*/
 
   (*id)->length = FLEX_ID_LENGTH;
 
@@ -92,8 +140,9 @@ out:
 int test_query(flexid_t **id)
 {
   int i, err;
+  unsigned char a = 0x80;
   (*id) = (flexid_t *)malloc(sizeof(flexid_t));
-
+/*
   set_cache_bit((*id), TRUE);
   set_segment_bit((*id), FALSE);
   set_collision_avoidance_bit((*id), FALSE);
@@ -103,6 +152,28 @@ int test_query(flexid_t **id)
 
   for (i=10; i<20; i++)
     (*id)->identity[i] = 0x42;
+*/
+  memcpy((*id), &a, 1);
+  (*id)->identity[0] = 0x40;
+  (*id)->identity[1] = 0xf0;
+  (*id)->identity[2] = 0x67;
+  (*id)->identity[3] = 0xc1;
+  (*id)->identity[4] = 0xcd;
+  (*id)->identity[5] = 0x83;
+  (*id)->identity[6] = 0x96;
+  (*id)->identity[7] = 0x2a;
+  (*id)->identity[8] = 0xbf;
+  (*id)->identity[9] = 0x35;
+  (*id)->identity[10] = 0x99;
+  (*id)->identity[11] = 0xde;
+  (*id)->identity[12] = 0x79;
+  (*id)->identity[13] = 0xc1;
+  (*id)->identity[14] = 0xab;
+  (*id)->identity[15] = 0xb7;
+  (*id)->identity[16] = 0x7b;
+  (*id)->identity[17] = 0x2f;
+  (*id)->identity[18] = 0x02;
+  (*id)->identity[19] = 0x6d;
 
   (*id)->length = FLEX_ID_LENGTH;
 

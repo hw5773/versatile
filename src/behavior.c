@@ -164,7 +164,7 @@ int get(flexid_t *id, char *buf, int *len, int num)
 //  APP_LOG("Set the Message Info to Target ID");
 //  APP_LOG2s("sid identity", sid->identity, sid->length - 1);
 //  APP_LOG2s("tid identity", id->identity, id->length - 1);
-  APP_LOG2c("Content ID", (unsigned char *)id, id->length);
+  APP_LOG2c("Content ID", id, id->length);
 
   target_id.addr_type = resp->addr_type;
   target_id.addr_len = resp->addr_len;

@@ -15,7 +15,7 @@ INSTALL_LIBS=libflex.a
 LIBDIR=lib
 
 APPDIR=apps/flex
-PROGRAMS=apps/flex/publisher apps/flex/subscriber
+PROGRAMS=apps/flex/publisher apps/flex/subscriber apps/flex/publisher9 apps/flex/subscriber10 apps/flex/subscriber15
 TCPAPPDIR=apps/ipv4
 TCPPROGRAMS=apps/ipv4/server apps/ipv4/client
 LIBRPATH=$(INSTALLTOP)/$(LIBDIR)

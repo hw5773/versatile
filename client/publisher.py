@@ -1,10 +1,10 @@
 import paho.mqtt.client as mqtt
 import time
 
-broker = "iot.eclipse.org"
+broker = "202.30.19.96"
 
 client = mqtt.Client("python_pub")
-client.connect(broker, 1883)
+client.connect(broker, 1333)
 #client.publish("hello/snu/test", '{"id": "snu", "message": "Mbox, Hello World!"}')
 #client.publish("hello/snu/aaa", '{"id": "snu", "message": "22 Mbox, Hello World!"}')
 
@@ -14,36 +14,60 @@ client.publish('/configuration/join/a32adf12345678', '{"uniqueCodes":[{"ifaceTyp
 
 #time.sleep(5)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "deviceID":"d3hsv5a350", "exist":true}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":"[test]"}')
+
+#time.sleep(1)
+
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":""}')
+
+#time.sleep(1)
+
+#client.publish('/dbquery/iack/flexMnger/0x001', '{"error":0}')
+
+#time.sleep(1)
+
+#client.publish('/dbquery/iack/flexMnger/0x001', '{"error":0}')
+
+#time.sleep(5)
+
+
+
+### Leave
+#client.publish('/configuration/leave/asdfgwef', '{"relay":["d3hsv5a350"]}')
 
 #time.sleep(3)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "deviceID":"d3hsv5a354", "exist":false}')
+#client.publish('/dbquery/dack/flexMnger/0x001', '{"error":0, "data":""}')
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "deviceID":"tmpDevID", "exist":false}')
+#time.sleep(3)
+
+#client.publish('/dbquery/dack/flexMnger/0x001', '{"error":0, "data":""}')
+
+#time.sleep(3)
+
+#client.publish('/dbquery/dack/flexMnger/0x001', '{"error":0, "data":""}')
 
 
 
 ### Register
 
-#client.publish('/configuration/register/afgw123gf', '{"registerID":"asdf1230", "registerList":[{"index":"0", "hash":"a84ljkfh", "registerType":"Content", "category":"Video", "attributes":["resloution=720p", "size=50123B"], "cache":true, "segment":true}, {"index":"1", "hash":"d3nbh5", "registerType":"Service", "category":"Web", "attributes":["bandwidth=10Mbps"], "cache":false, "segment":false}], "relay":["fh2gj1g", "d3hsv5a35"]}')
+#client.publish('/configuration/register/afgw123gf', '{"registerID":"asdf1230", "registerList":[{"index":"0", "hash":"a84ljkfh", "registerType":"Content", "category":"Video", "attributes":["resloution=720p", "size=50123B"], "cache":true, "segment":true}, {"index":"1", "hash":"d3nbh5", "registerType":"Service", "category":"Web", "attributes":["bandwidth=10Mbps"], "cache":false, "segment":false, "collisionAvoid":true}], "relay":["fh2gj1g", "d3hsv5a350"]}')
 
-#time.sleep(4)
+#time.sleep(3)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":true}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":"asdf"}')
 
-#time.sleep(4)
+#time.sleep(3)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":true}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":"aa"}')
 
-#time.sleep(4)
+#time.sleep(3)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":false}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":""}')
 
-#time.sleep(4)
+#time.sleep(5)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":false}')
-
+#client.publish('/dbquery/iack/flexMnger/0x001', '{"error":0}')
 
 
 ### Update
@@ -52,16 +76,28 @@ client.publish('/configuration/join/a32adf12345678', '{"uniqueCodes":[{"ifaceTyp
 
 #time.sleep(4)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":true}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":"test"}')
+
+#time.sleep(4)
+
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"error":0, "data":"test"}')
+
+#time.sleep(4)
+
+#client.publish('/dbquery/iack/flexMnger/0x001', '{"error":0}')
+
+
 
 ### Query
 
 #client.publish('/utilization/query/fk3gfb77', '{"deviceID":"fk3gfb77", "queryType":"Content", "category":"Any", "relay":["fh2gj1g", "d3hsv5a35"], "order":"resolution", "desc":true, "limit":3, "qosRequirements":[{"metricName":"bandwidth", "metricUnit":"mbps", "metricValue":"5", "metricOperator":"gt"}, {"metricName":"delay", "metricUnit":"ms", "metricValue":"100", "metricOperator":"lt"}], "additionalFields":[]}')
 
-#time.sleep(4)
+#time.sleep(3)
 
-#client.publish('/DBQuery/flexMnger/', '{"id":"0x001", "exist":true}')
+#client.publish('/dbquery/sack/flexMnger/0x001', '{"data":["gwef"]}')
 
+#time.sleep(3)
 
+#client.publish('/dbquery/sacl/flexMnger/0x001', )
 
 client.loop(2)

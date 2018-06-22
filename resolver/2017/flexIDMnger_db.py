@@ -18,7 +18,7 @@ SQL_TABLE = None
 #broker = "iot.eclipse.org"
 broker = "147.46.114.149"
 #db_broker = "202.30.19.96"
-db_broker = "147.46.114.149"
+#db_broker = "147.46.114.113"
 
 # global variable for manage number in service ID
 deviceID_cache = {}
@@ -40,7 +40,6 @@ def db_proc(topic, data):
     #cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
     if topic == db_insert:
-        print(time.time(), "db i")
         #data = json.loads(payload.decode("utf-8"))
         SQL_TABLE = data['table']
         length = len(data['data'])
@@ -58,24 +57,25 @@ def db_proc(topic, data):
             cursor.execute(query)
         db.commit()
         result = {"error" : 0}
-        print(time.time(), "db i_e")
         return result
 
     elif topic == db_select:
-        print(time.time(), "db s")
         #data = json.loads(payload.decode("utf-8"))
-        SQL_TABLE = data['table']
-        query = "SELECT * FROM {0} WHERE ".format(SQL_TABLE)
-        for index, (col, value) in enumerate(data['data'][0].items()):
-            if index == 0:
-                query = query + "{0} = '{1}'".format(col, value)
-            else:
-                query = query + " and "
-                query = query + "{0} = '{1}'".format(col, value)
-        cursor.execute(query)
-        result = {"error":0, "data":cursor.fetchall()}
-        print (time.time(), "db s_e")
-        return result 
+        if data['data'][0].get('category') == 'Sensor':
+            result = {"error":0, "data":["8040f067c1cd83962abf3599de79c1abb77b2f026d", "80ce209e43e85f0089649a0be19d16ea2da0c84e82"]}
+            return result
+        else:
+            SQL_TABLE = data['table']
+            query = "SELECT * FROM {0} WHERE ".format(SQL_TABLE)
+            for index, (col, value) in enumerate(data['data'][0].items()):
+                if index == 0:
+                    query = query + "{0} = '{1}'".format(col, value)
+                else:
+                    query = query + " and "
+                    query = query + "{0} = '{1}'".format(col, value)
+            cursor.execute(query)
+            result = {"error":0, "data":cursor.fetchall()}
+            return result 
 
 
 def send_DBquery(query, topic, wait):
@@ -89,7 +89,6 @@ def send_DBquery(query, topic, wait):
     #topic = topic + '/' + queryID
 
     #print (topic, query)
-    print(time.time(), "db s")
     #db_client.publish(topic, query)
     
     # call db processing
@@ -99,7 +98,6 @@ def send_DBquery(query, topic, wait):
     #if wait:
     #    while dbQuery_cache[queryID] == "None":
     #        continue
-    print(time.time(), "db e")
     return result
 
 
@@ -124,11 +122,11 @@ def gen_flag(cache_bit, segment_bit, collision_mngt):
 def join_genID(deviceID, flag):
 
     # deviceID's cache bit and segment flag are 0, thus only use 4 bit management number
-    newID = deviceID + str(flag)
+    newID = str(flag) + deviceID
    
     while newID in deviceID_cache:
         flag = flag + collision_inc
-        newID = deviceID + str(flag)
+        newID = str(flag) + deviceID
     deviceID_cache[newID] = "None"
    
     #print ("\nCheck DeviceID collision...")
@@ -309,7 +307,7 @@ def leave(tempID, payload):
 
 def register_genID(hash_val, flag):
 
-    newID = hash_val + str(flag)
+    newID = str(flag) + hash_val
    
     print ("\nCheck ID collision...\n")
     db_query = {'table':'RegisterList', 'data':[{'providingId':newID}]}
@@ -359,9 +357,9 @@ def register(tempID, payload):
         registerList = payload.get('registerList')
 
         idList = []
-        attrList = []
         regList = []
         for item in registerList:
+            attrList = []
             index = item.get('index')
             registerType = item.get('registerType')
             category = item.get('category')
@@ -381,7 +379,7 @@ def register(tempID, payload):
             if collisionAvoid:
                 newID = register_genID(hash_val, flag)
             else:
-                newID = hash_val + str(flag)
+                newID = str(flag) + hash_val
             
             temp = {index:newID}
 
@@ -518,8 +516,8 @@ def update(tempID, payload):
 
 
 def query(tempID, payload):
-    #print ("\n ##Process - Query\n")     
-    print (time.time(), "start") 
+    print ("\n ##Process - Query\n")
+    time.sleep(1)
     queryID = payload.get('queryID')
     relay = payload.get('relay')
 
@@ -531,8 +529,12 @@ def query(tempID, payload):
         else:
             deviceID = relay[-1]
    
-        #print ("DeviceID: " + deviceID)
-   
+        print (" Query from: " + deviceID)
+        time.sleep(1)
+
+        print ("\n Check if this device exists..")
+        time.sleep(1)
+        
         # Check whether the device exists 
         if deviceID in deviceID_cache:
             exist = True
@@ -546,36 +548,42 @@ def query(tempID, payload):
                 raise Exception ('No Device Error')
             else:
                 deviceID_cache[deviceID] = True
+        print ("\n > " + deviceID + ": exists in the network\n")
 
         queryType = payload.get('queryType')
-        category = payload.get('type')
+        category = payload.get('category')
         order = payload.get('order')
         desc = payload.get('desc')
         limit = payload.get('limit')
-        qosRequirements = payload.get('qosRequirements')
+        requirements = payload.get('requirements')
         additionalFields = payload.get('additionalFields')
 
-        for req in qosRequirements:
-            metricType = req.get('metricType')
-            metricUnit = req.get('metricUnit')
-            metricValue = req.get('metricValue')
-            metricOperator = req.get('metricOperator')
+        for req in requirements:
+            attributeType = req.get('attributeType')
+            unit = req.get('unit')
+            value = req.get('value')
+            operator = req.get('operator')
 
-        #print ("\nSearching " + queryType + "..")
+        time.sleep(1)
+        print ("\n Searching " + queryType + "s..")
+        time.sleep(1)
         #TODO: Search content/service from DB
-        db_query = {'table':'Device', 'data':[{'deviceId':deviceID}]}
+        db_query = {'table':'RegisterList', 'data':[{'queryType':queryType, 'category':category, 'requirements':requirements}]}
         db_payload = db_proc(db_select, db_query)
         #db_payload = dbQuery_cache[queryID]
-        exist = db_payload.get('data')
+        data = db_payload.get('data')
         #del dbQuery_cache[queryID]
          
-        ids = ['TempId1', 'TempId2']
+        ids = data
+        print ("\n > Searched IDs:", ids, "\n")
         reply = {"error:": error, "queryID": queryID, "desc": desc, "ids": ids, "relay": relay}
+        time.sleep(1)
         reply = json.dumps(reply)
-        #print (reply)
-        print(time.time(), "end")
+        print ("\n <<< Publish")
+        print (" -Topic: /utilization/reply/" + tempID)
+        print (" -Payload:", reply)
         client.publish("/utilization/reply/" + tempID, reply)
-        
+
         print ("\n ##Process Completed - Query\n")
 
 
@@ -590,7 +598,7 @@ def query(tempID, payload):
 
 
 def on_connect(client, userdata, flags, rc):
-    print ("Connected with the Message Bus ")
+    print ("Connected with the Message Bus\n")
     # communication with end-user
     client.subscribe("/configuration/join/#")
     client.subscribe("/configuration/leave/#")
@@ -599,7 +607,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("/utilization/query/#")
 
 def on_db_connect(client, userdata, flags, rc):
-    print ("Connected with the Message Bus ")
+    print ("Connected with the Message Bus (DB)")
     # communication with DB
     client.subscribe("/dbquery/iack/flexMnger/#")
     client.subscribe("/dbquery/sack/flexMnger/#")
@@ -609,10 +617,11 @@ def on_db_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    print ("Subscribe - Topic: " + msg.topic)
+    print (" >>> Subscribe")
+    print (" -Topic:", msg.topic)
     topic = msg.topic.split('/')
     payload = json.loads(msg.payload.decode('utf-8'))
-    print(payload)
+    print(" -Payload:", payload)
     if "configuration" == topic[1]:
         if "join" == topic[2]:
             deviceID = topic[3]
@@ -642,8 +651,8 @@ def on_message(client, userdata, msg):
 def on_db_message(client, userdata, msg):
     topic = msg.topic.split('/')
     payload = json.loads(msg.payload.decode('utf-8'))
-    print ("DB Subscribe - Topic: " + msg.topic)
-    print ("             - Payload:", msg.payload)
+    print (" >> Subscribe (from DB)...")
+    print (" - Topic:", msg.topic)
     queryID = topic[-1]
     dbQuery_cache[queryID] = payload
             
@@ -655,25 +664,22 @@ def on_publish(client, userdata, mid):
 def on_subscribe(client, userdata, mid, granted_qos):
     print ("\n<< Subscribe a message\n")
 
-def on_db_publish(client, userdata, mid):
-    print ("\n>> Publish a message to DB\n")
- 
 def on_db_subscribe(client, userdata, mid, granted_qos):
     print ("\n<< Subscribe a message from DB\n")
 
 
 client = mqtt.Client()
-db_client = mqtt.Client()
+#db_client = mqtt.Client()
 
 
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect(db_broker, 1883, 60)
+client.connect(broker, 1883, 60)
 
-db_client.on_connect = on_db_connect
-db_client.on_message = on_db_message
-db_client.on_publish = on_db_publish
-db_client.connect(db_broker, 1883, 60)
+#db_client.on_connect = on_db_connect
+#db_client.on_message = on_db_message
+#db_client.on_publish = on_db_publish
+#db_client.connect(db_broker, 1883, 60)
 #db_client.connect(broker, 1883, 60)
 
 if __name__ == "__main__":
@@ -682,4 +688,4 @@ if __name__ == "__main__":
     #db_client.loop_forever()
     while True:
         client.loop_start()
-        db_client.loop_start()
+        #db_client.loop_start()

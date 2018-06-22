@@ -7,4 +7,6 @@ resolver: resolver code
 
 	-     /resolver.py: non socketIO version
 
-	- 2017/resolver.py: pub/sub version
+	- 2017/flexIDMnger.py: use broker, remote db
+	-     /flexIDMnger_db.py: use broker, local db
+	-     /database_schema_versatile.sql: db schema
